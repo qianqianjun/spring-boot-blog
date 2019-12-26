@@ -1,6 +1,5 @@
 package com.buct.blog.dao;
 import com.buct.blog.domain.Article;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

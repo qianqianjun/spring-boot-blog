@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * @author 高谦
- * 首页登controller
+ * 首页文章显示 controller
  */
 @Controller
 public class IndexController {
@@ -23,9 +23,8 @@ public class IndexController {
         // 查找图片轮播文章
         ArrayList<Article> carouses=(ArrayList<Article>) articleService.getAllCarouselArticles();
         map.put("carouses",carouses);
-        for(int i=0;i<carouses.size();i++){
-            System.out.println(carouses.get(i).getContent());
-        }
+
+
         // 全部专栏
         // 查找最新文章
         // 查找访问量最大的文章
