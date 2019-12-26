@@ -70,7 +70,7 @@ a:hover{
 /*menu_wrap*/
 #menu_wrap{
 	background:url(../images/menu_bg.png) no-repeat;
-	width:575px;
+	width: 410px;
 	height:68px;
 	padding-right:40px;
 	margin-top:30px;
@@ -81,7 +81,7 @@ a:hover{
 
 /*menu*/
 #menu_wrap #menu{
-	padding:30px 0 0 40px;
+	padding: 30px 0px 0px 35px;
 	margin:0;
 }
 #menu_wrap #menu li{

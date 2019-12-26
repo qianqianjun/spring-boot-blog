@@ -1,19 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>The Freelancer - A premium grunge portfolio template for freelancers out there</title>
-<!--This theme was created by Joefrey Mahusay for themeforest.net -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="compoment/static::static">
+<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+<!--<title>The Freelancer - A premium grunge portfolio template for freelancers out there</title>-->
+<!--&lt;!&ndash;This theme was created by Joefrey Mahusay for themeforest.net &ndash;&gt;-->
 
-<!--reset.css - reset the default value to 0 -->
-<link href="css/reset.css" type="text/css" rel="stylesheet" />
+<!--&lt;!&ndash;reset.css - reset the default value to 0 &ndash;&gt;-->
+<!--<link href="css/reset.css" type="text/css" rel="stylesheet" />-->
 
-<!--style.css - this is the style of the over all look and feel of the template.-->
-<link href="css/style.css" type="text/css" rel="stylesheet" />
+<!--&lt;!&ndash;style.css - this is the style of the over all look and feel of the template.&ndash;&gt;-->
+<!--<link href="css/style.css" type="text/css" rel="stylesheet" />-->
 
-<!--Fixing IE6PNG -->
-<script src="js/unitpngfix.js" type="text/javascript"></script>
-
+<!--&lt;!&ndash;Fixing IE6PNG &ndash;&gt;-->
+<!--<script src="js/unitpngfix.js" type="text/javascript"></script>-->
 
 <!-- Shared on MafiaShare.net  --><!-- Shared on MafiaShare.net  --></head>
 
@@ -36,18 +35,7 @@
                 <!--END of availability-->
                 
                  <!--BEGIN menu_wrap-->
-                <div id="menu_wrap">
-
-					<!--BEGIN menu-->
-                    <ul id="menu">
-                        <li><a href="index.html" title="Homepage">Home</a></li>
-                        <li><a href="about.html" title="About Me">About</a></li>
-                        <li><a href="work.html" title="My Work">Work</a></li>
-                        <li><a href="services.html" title="My Services" class="current">Services</a></li>
-                        <li><a href="contact.php" title="Get in Touch">Contact</a></li>
-                    </ul>
-                    <!--END of menu-->
-                </div>
+                <div th:replace="compoment/navigatior::commonMenu(2)"></div>
                 <!--END of menu_wrap-->
                 
              	<!--BEGIN feature_project-->

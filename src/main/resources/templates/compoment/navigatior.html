@@ -1,0 +1,12 @@
+<!--高谦  导航组建-->
+
+<div id="menu_wrap" th:fragment="commonMenu(index)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <!--BEGIN menu-->
+    <ul id="menu">
+        <li><a href="/" title="Homepage" th:class="${index}==0?'current'">主页</a></li>
+        <li><a href="about" title="About Me" th:class="${index}==1?'current'">关于作者</a></li>
+        <li><a href="recommend" title="My Work" th:class="${index}==2?'current'">推荐文章</a></li>
+        <li><a href="category" title="My Services" th:class="${index}==3?'current'">文章专栏</a></li>
+    </ul>
+    <!--END of menu-->
+</div>
