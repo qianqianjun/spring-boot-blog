@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--author 刘权达 用户登录-->
+<mapper namespace="com.buct.blog.dao.UserDao">
+    <resultMap id="loginMap" type="com.buct.blog.domain.user">
+        <result column="account" javaType="String" jdbcType="VARCHAR" property="account"></result>
+        <result column="password" javaType="String" jdbcType="VARCHAR" property="password"></result>
+        <result column="email" javaType="String" jdbcType="VARCHAR" property="email"></result>
+        <result column="phone" javaType="String" jdbcType="VARCHAR" property="phone"></result>
+        <result column="company" javaType="String" jdbcType="VARCHAR" property="company"></result>
+        <result column="position" javaType="String" jdbcType="VARCHAR" property="position"></result>
+    </resultMap>
+    <select id="login" resultMap="loginMap">
+        select * from user where account = #{username} and password = #{password}
+    </select>
+</mapper>
