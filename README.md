@@ -103,4 +103,8 @@ CREATE TABLE `user`  (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
+insert into `user` values('qianqianjun','qianqianjun','qianqianjun@Gmail.com','110','Google','Mars');
+
+insert into `category` values(1,'111','111','111','2019-12-25 09:57:55');
+insert into `category` values(2,'222','222','222','2019-12-25 10:57:55');
 ```
