@@ -68,7 +68,7 @@
                     <div class="services">
                     	<h2>分类专栏</h2>
                         <span class="intro_text">博客分类专栏，方便浏览</span>
-                        <ul th:each="category:${categories}}">
+                        <ul th:each="category:${categories}">
                         	<li><a href="">[[${category.name}]]</a></li>
                         </ul>
                         <div class="readmore" style="text-indent: 0"><a href="#" title="Read More">更多专栏</a></div>
@@ -79,7 +79,7 @@
                     	<h2>推荐文章</h2>
                         <span class="intro_text">访问次数最多的文章</span>
                         <ul th:each="recommend:${popular}">
-                            <li><a href="#">[[${recommend}]]</a></li>
+                            <li><a href="#">[[${recommend.title}]]</a></li>
                         </ul>
                         <div class="readmore" style="text-indent: 0"><a href="#" title="Read More">更多推荐文章</a></div>
                     </div>
