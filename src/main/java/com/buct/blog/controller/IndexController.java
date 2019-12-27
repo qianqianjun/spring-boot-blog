@@ -29,8 +29,12 @@ public class IndexController {
         // 查找图片轮播文章
         ArrayList<Article> carouses=(ArrayList<Article>) articleService.getAllCarouselArticles();
         map.put("carouses",carouses);
-
-
+        int k=2;
+        ArrayList<Article> articlesByDate=(ArrayList<Article>) articleService.getArticlesByDate(k);
+        map.put("articlesByDate",articlesByDate);
+        k=2;
+        ArrayList<Article> articlesByVisitor=(ArrayList<Article>) articleService.getArticleByVisitor(k);
+        map.put("articleByVisitor",articlesByVisitor);
         // 全部专栏
         // 查找最新文章
         // 查找访问量最大的文章
