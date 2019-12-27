@@ -46,4 +46,10 @@ public class IndexController {
         map.put("user",user);
         return "index";
     }
+
+    @GetMapping("/articles/detail")
+    public String articles(@RequestParam("id") Integer id){
+        Article article=articleService.getArticleById(id);
+        return article.getContent();
+    }
 }
