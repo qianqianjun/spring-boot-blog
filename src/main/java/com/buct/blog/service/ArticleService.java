@@ -26,10 +26,6 @@ public class ArticleService {
      */
     public List<Article> getAllCarouselArticles(){
         ArrayList<Article> articles=(ArrayList<Article>) carouselDao.getAllCarousel();
-        for(int i=0;i<articles.size();i++){
-            Article article=articles.get(i);
-            articles.get(i).setAbstruct(article.getContent().substring(Math.min(article.getContent().length(),200)));
-        }
         return articles;
     }
     public List<Article> getArticlesByDate(int k){return articleDao.getArticlesByDate(k);}

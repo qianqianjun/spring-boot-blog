@@ -33,18 +33,16 @@ public class IndexController {
         ArrayList<Article> carouses=(ArrayList<Article>) articleService.getAllCarouselArticles();
         map.put("carouses",carouses);
 
-        int k=2;
-        ArrayList<Article> articlesByDate=(ArrayList<Article>) articleService.getArticlesByDate(k);
-        map.put("articlesByDate",articlesByDate);
-        k=2;
-        ArrayList<Article> articlesByVisitor=(ArrayList<Article>) articleService.getArticleByVisitor(k);
-        map.put("articleByVisitor",articlesByVisitor);
-
-        ArrayList<Category> categoriesLimits=(ArrayList<Category>) categoryService.getCategoriesLimits(k);
-        map.put("categoriesLimits",categoriesLimits);
-        // 全部专栏
         // 查找最新文章
+        ArrayList<Article> articlesByDate=(ArrayList<Article>) articleService.getArticlesByDate(6);
+        map.put("newest",articlesByDate);
+
         // 查找访问量最大的文章
+        ArrayList<Article> articlesByVisitor=(ArrayList<Article>) articleService.getArticleByVisitor(6);
+        map.put("popular",articlesByVisitor);
+        // 全部专栏
+        ArrayList<Category> categoriesLimits=(ArrayList<Category>) categoryService.getCategoriesLimits(6);
+        map.put("categories",categoriesLimits);
 
         return "index";
     }

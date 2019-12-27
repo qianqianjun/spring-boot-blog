@@ -27,15 +27,16 @@
                 <div id="feature_project">
                     <div id="slider">
                         <ul th:each="item:${carouses}">
-                            <-- 读取图片轮播。 -->
                             <li>
                                 <div class="featured_image">
-                                    <a href="#"><img th:src="item.imgurl" alt="Sample Image"/></a>
+                                    <a href="#"><img th:src="${item.imgurl}" alt="Sample Image"/></a>
                                 </div>
                                 <div class="featured_desc">
                                     <h2>[[${item.title}]]</h2>
-                                    <p>[[${item.abstruct}]]</p>
-                                    <div class="view_project"><a th:href="@{/articles/detail?aid=${item.id}}">查看详情</a></div>
+                                    <p> [[${item.abstruct}]] </p>
+                                    <div class="view_project">
+                                        <a th:href="@{'/articles/detail?aid='+${item.id}}">查看详情</a>
+                                    </div>
                                 </div>
                             </li>
 
@@ -53,18 +54,12 @@
             
             	<!--BEGIN column_3-->
                 <div class="column_3">
-                	
                     <!--BEGIN 1st column-->
                 	<div class="first services">
                     	<h2>最新文章</h2>
                         <span class="intro_text">博主最新发布的文章</span>
-                        <ul>
-                            <li><a href="#">Web Design</a></li>
-                            <li><a href="#">Flash Animation &amp; Development</a></li>
-                            <li><a href="#">Identity Design</a></li>
-                            <li><a href="#">Search Engine Optimization</a></li>
-                            <li><a href="#">Web Marketing</a></li>
-                            <li><a href="#">Copy Writing</a></li>
+                        <ul th:each="article:${newest}">
+                            <li><a href="">[[${article.title}]]</a></li>
                         </ul>
                         <div class="readmore" style="text-indent: 0"><a href="#" title="Read More">更多最新文章</a></div>
                     </div>
@@ -73,13 +68,8 @@
                     <div class="services">
                     	<h2>分类专栏</h2>
                         <span class="intro_text">博客分类专栏，方便浏览</span>
-                        <ul>
-                        	<li><a href="#">Web Design</a></li>
-                            <li><a href="#">Flash Animation &amp; Development</a></li>
-                            <li><a href="#">Identity Design</a></li>
-                            <li><a href="#">Search Engine Optimization</a></li>
-                            <li><a href="#">Web Marketing</a></li>
-                            <li><a href="#">Copy Writing</a></li>
+                        <ul th:each="category:${categories}}">
+                        	<li><a href="">[[${category.name}]]</a></li>
                         </ul>
                         <div class="readmore" style="text-indent: 0"><a href="#" title="Read More">更多专栏</a></div>
                     </div>
@@ -88,13 +78,8 @@
                     <div class="services">
                     	<h2>推荐文章</h2>
                         <span class="intro_text">访问次数最多的文章</span>
-                        <ul>
-                            <li><a href="#">Web Design</a></li>
-                            <li><a href="#">Flash Animation &amp; Development</a></li>
-                            <li><a href="#">Identity Design</a></li>
-                            <li><a href="#">Search Engine Optimization</a></li>
-                            <li><a href="#">Web Marketing</a></li>
-                            <li><a href="#">Copy Writing</a></li>
+                        <ul th:each="recommend:${popular}">
+                            <li><a href="#">[[${recommend}]]</a></li>
                         </ul>
                         <div class="readmore" style="text-indent: 0"><a href="#" title="Read More">更多推荐文章</a></div>
                     </div>
