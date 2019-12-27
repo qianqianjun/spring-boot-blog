@@ -1,8 +1,10 @@
 package com.buct.blog.controller;
 
 import com.buct.blog.domain.Article;
+import com.buct.blog.domain.category;
 import com.buct.blog.domain.user;
 import com.buct.blog.service.ArticleService;
+import com.buct.blog.service.CategoryService;
 import com.buct.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ public class IndexController {
     ArticleService articleService;
     @Autowired
     UserService userService;
+    @Autowired
+    CategoryService categoryService;
 
     @GetMapping("/")
     public String index(Map<String,Object> map){
@@ -35,6 +39,9 @@ public class IndexController {
         k=2;
         ArrayList<Article> articlesByVisitor=(ArrayList<Article>) articleService.getArticleByVisitor(k);
         map.put("articleByVisitor",articlesByVisitor);
+        k=2;
+        ArrayList<category> categoriesLimits=(ArrayList<category>) categoryService.getCategoriesLimits(k);
+        map.put("categoriesLimits",categoriesLimits);
         // 全部专栏
         // 查找最新文章
         // 查找访问量最大的文章
