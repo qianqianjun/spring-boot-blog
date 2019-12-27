@@ -1,5 +1,6 @@
 package com.buct.blog.service;
 
+import com.buct.blog.dao.ArticleDao;
 import com.buct.blog.dao.CarouselDao;
 import com.buct.blog.domain.Article;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,12 @@ public class ArticleService {
         ArrayList<Article> articles=(ArrayList<Article>) carouselDao.getAllCarousel();
         for(int i=0;i<articles.size();i++){
             Article article=articles.get(i);
-            articles.get(i).setAbstruct(article.getContent().substring(200));
+            articles.get(i).setAbstruct(article.getContent().substring(Math.min(article.getContent().length(),200)));
         }
         return articles;
     }
+    public List<Article> getArticlesByDate(int k){return articleDao.getArticlesByDate(k);}
+    public List<Article> getArticleByVisitor(int k){return articleDao.getArticlesByVisitor(k);}
 
     /**
      * 根据文章的id 返回对应文章对象
@@ -38,7 +41,6 @@ public class ArticleService {
      * @return 返回文章
      */
     public Article getArticleById(Integer aid){
-        return null;
+        return articleDao.getArticleById(aid);
     }
 }
-

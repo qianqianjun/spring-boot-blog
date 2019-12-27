@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--author 高谦 文章相关数据库操作-->
-<mapper namespace="com.buct.blog.dao.CarouselDao">
-    <resultMap id="allCarouselArticles" type="com.buct.blog.domain.Article">
+<!--author 刘权达 文章相关数据库操作-->
+<mapper namespace="com.buct.blog.dao.ArticleDao">
+    <resultMap id="ArticlesInOrderMapper" type="com.buct.blog.domain.Article">
         <id column="id" javaType="Integer" jdbcType="INTEGER" property="id"></id>
         <result column="title" javaType="String" jdbcType="VARCHAR" property="title"></result>
         <result column="content" javaType="String" jdbcType="VARCHAR" property="content"></result>
@@ -15,8 +15,15 @@
         <result column="imgurl" javaType="String" jdbcType="VARCHAR" property="imgurl"></result>
         <result column="status" javaType="Integer" jdbcType="INTEGER" property="status"></result>
     </resultMap>
-    <select id="getAllCarousel" resultMap="allCarouselArticles">
-        select * from article where article.outstanding=1 and article.status=1
+    <select id="getArticlesByDate" resultMap="ArticlesInOrderMapper">
+        select * from Article order by publishDate desc limit #{k};
+    </select>
+    <select id="getArticlesByVisitor" resultMap="ArticlesInOrderMapper">
+        select * from Article order by vistornum desc limit #{k};
+    </select>
+
+    <select id="getArticleById" resultType="com.buct.blog.domain.Article">
+        select * from Article where id=#{aid}
     </select>
 
 </mapper>

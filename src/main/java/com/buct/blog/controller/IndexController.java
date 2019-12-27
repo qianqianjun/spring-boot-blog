@@ -30,6 +30,12 @@ public class IndexController {
         ArrayList<Article> carouses=(ArrayList<Article>) articleService.getAllCarouselArticles();
         map.put("carouses",carouses);
 
+        int k=2;
+        ArrayList<Article> articlesByDate=(ArrayList<Article>) articleService.getArticlesByDate(k);
+        map.put("articlesByDate",articlesByDate);
+        k=2;
+        ArrayList<Article> articlesByVisitor=(ArrayList<Article>) articleService.getArticleByVisitor(k);
+        map.put("articleByVisitor",articlesByVisitor);
 
         // 全部专栏
         // 查找最新文章
@@ -48,8 +54,10 @@ public class IndexController {
     }
 
     @GetMapping("/articles/detail")
-    public String articles(@RequestParam("id") Integer id){
-        Article article=articleService.getArticleById(id);
+    public String articles(@RequestParam("aid") Integer aid){
+        Article article=articleService.getArticleById(aid);
+        System.out.println(article.getContent());
         return article.getContent();
     }
+
 }

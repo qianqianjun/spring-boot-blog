@@ -33,10 +33,9 @@
                                     <a href="#"><img th:src="item.imgurl" alt="Sample Image"/></a>
                                 </div>
                                 <div class="featured_desc">
-<!--                                    <span class="section_title">[[$item.title]]</span>-->
-                                    <h2>[[$item.title]]</h2>
-                                    <p>{{$item.abstruct}}</p>
-                                    <div class="view_project"><a th:href="$item.">查看详情</a></div>
+                                    <h2>[[${item.title}]]</h2>
+                                    <p>[[${item.abstruct}]]</p>
+                                    <div class="view_project"><a th:href="@{/articles/detail?aid=${item.id}}">查看详情</a></div>
                                 </div>
                             </li>
 
