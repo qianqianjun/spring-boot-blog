@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--author 刘权达 栏目相关数据库操作-->
+<mapper namespace="com.buct.blog.dao.CategoryDao">
+    <resultMap id="getCategoriesLimitsMap" type="com.buct.blog.domain.Category">
+        <id column="id" javaType="Integer" jdbcType="INTEGER" property="id"></id>
+        <result column="name" javaType="String" jdbcType="VARCHAR" property="name"></result>
+        <result column="description" javaType="String" jdbcType="VARCHAR" property="description"></result>
+        <result column="imgurl" javaType="String" jdbcType="VARCHAR" property="imgurl"></result>
+        <result column="publicdate" javaType="String" jdbcType="VARCHAR" property="publishDate"></result>
+        </resultMap>
+    <select id="getCategoriesLimits" resultMap="getCategoriesLimitsMap">
+        select * from category limit #{k};
+    </select>
+
+</mapper>

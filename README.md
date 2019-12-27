@@ -76,7 +76,7 @@ INSERT INTO `article` VALUES (1, 'Java', 'content', 1, '2019-12-25 09:46:38', '2
 INSERT INTO `article` VALUES (2, 'C++', 'content', 1, '2019-12-25 09:57:55', '200', 1, 1, NULL);
 
 -- ----------------------------
--- Table structure for category
+Category
 -- ----------------------------
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category`  (
@@ -89,7 +89,7 @@ CREATE TABLE `category`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for user
+User
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (

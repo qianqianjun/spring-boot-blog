@@ -7,7 +7,7 @@ import lombok.Data;
  * 博客主人信息表格
  */
 @Data
-public class user {
+public class User {
     private String account;
     private String password;
     private String email;

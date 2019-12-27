@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--author 刘权达 用户登录-->
 <mapper namespace="com.buct.blog.dao.UserDao">
-    <resultMap id="loginMap" type="com.buct.blog.domain.user">
+    <resultMap id="loginMap" type="com.buct.blog.domain.User">
         <result column="account" javaType="String" jdbcType="VARCHAR" property="account"></result>
         <result column="password" javaType="String" jdbcType="VARCHAR" property="password"></result>
         <result column="email" javaType="String" jdbcType="VARCHAR" property="email"></result>
