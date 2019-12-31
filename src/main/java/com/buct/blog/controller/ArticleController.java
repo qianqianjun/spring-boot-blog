@@ -1,11 +1,18 @@
 package com.buct.blog.controller;
 
 import com.buct.blog.domain.Article;
+import com.buct.blog.domain.Category;
 import com.buct.blog.service.ArticleService;
+import com.buct.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 /***
  * @author  高谦
@@ -15,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ArticleController {
     @Autowired
     ArticleService articleService;
+    @Autowired
+    CategoryService categoryService;
 
     /**
      * 根据文章的id 获取文章的所有信息。
@@ -26,5 +35,13 @@ public class ArticleController {
         Article article=articleService.getArticleById(aid);
         System.out.println(article.getContent());
         return "article";
+    }
+    @GetMapping("/articles/list")
+    public String articlesByCategory(@RequestParam("type") Integer type,Map<String,Object> map){
+        ArrayList<Article> articlesByCategory=(ArrayList<Article>)
+                categoryService.getArticlesByCategory(type);
+        map.put("acticleList",articlesByCategory);
+        //System.out.println(articlesByCategory);
+        return "recommend";
     }
 }
