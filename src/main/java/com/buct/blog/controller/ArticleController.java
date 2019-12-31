@@ -34,7 +34,7 @@ public class ArticleController {
     public String articles(@RequestParam("aid") Integer aid){
         Article article=articleService.getArticleById(aid);
         System.out.println(article.getContent());
-        return article.getContent();
+        return "article";
     }
     @GetMapping("/articles/list")
     public String articlesByCategory(@RequestParam("type") Integer type,Map<String,Object> map){

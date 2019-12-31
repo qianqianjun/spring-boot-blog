@@ -1,10 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="compoment/static::static"></head>
+
 <body>
+<!--高谦 文章展示页面-->
+<!--BEGIN page-->
+<div id="page">
+    <!--BEGIN wrap-->
+    <div id="wrap">
+        <!--BEGIN header-->
+        <div id="header">
+
+            <!--BEGIN logo-->
+            <h1 id="logo"><a href="index.html">The Freelancer</a></h1>
+            <!--END of logo-->
+
+            <!--BEGIN availabilty-->
+            <div class="availability">
+                <a href="#" class="available">I'm available for freelance work</a>
+            </div>
+            <!--END of availability-->
+
+            <!--BEGIN menu_wrap-->
+            <div th:replace="compoment/navigatior::commonMenu(1)"></div>
+            <!--END of menu_wrap-->
+
+        </div>
+        <!--END of header-->
+
+        <!--BEGIN main_conten-->
+        <div id="main_content" style="padding-top: 250px;">
+
+            <!--BEGIN content-->
+            <div id="content">
+                <h2>A little bit about me</h2>
+
+                <h3>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</h3>
+                <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+
+                <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p>
+                    <p><cite><strong>John Doe</strong>, President, <a href="#">XYZ Company</a></cite></p>
+                </blockquote>
+
+            </div>
+            <!--END of content-->
+
+            <!--BEGIN sidebar-->
+            <div id="sidebar">
+                <div class="block">
+                    <ul class="side_links">
+                        <li><a href="#">Web Design</a></li>
+                        <li><a href="#">Flash Animation &amp; Development</a></li>
+                        <li><a href="#">Identity Design</a></li>
+                        <li><a href="#">Search Engine Optimization</a></li>
+                        <li><a href="#">Web Marketing</a></li>
+                        <li><a href="#">Copy Writing</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--END of sidebar-->
+
+            <!--BEGIN push - makes our footer stick at the bottom of the page. -->
+            <div class="push"></div>
+            <!--END of push -->
+
+        </div>
+        <!--END of main_conten-->
+
+
+        <!--BEGIN of footer-->
+        <div id="footer">
+            <div class="copyright">
+                <small>&copy; 2009 More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>. All rights reserved</small>
+            </div>
+        </div>
+        <!--END of wrap-->
+
+    </div>
+    <!--END of wrap-->
+</div>
+<!--END of page-->
 
 </body>
 </html>
