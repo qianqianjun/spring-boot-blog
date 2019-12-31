@@ -31,11 +31,14 @@ public class ArticleController {
      * @return 文章的所有信息。
      */
     @GetMapping("/articles/detail")
-    public String articles(@RequestParam("aid") Integer aid){
+    public String articles(@RequestParam("aid") Integer aid,Map<String,Object> map){
         Article article=articleService.getArticleById(aid);
-        System.out.println(article.getContent());
+        map.put("article",article);
+        ArrayList<Category> categories= (ArrayList<Category>)categoryService.getCategoriesLimits(8);
+        map.put("categories",categories);
         return "article";
     }
+
     @GetMapping("/articles/list")
     public String articlesByCategory(@RequestParam("type") Integer type,Map<String,Object> map){
         ArrayList<Article> articlesByCategory=(ArrayList<Article>)

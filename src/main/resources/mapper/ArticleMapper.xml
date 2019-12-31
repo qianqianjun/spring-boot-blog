@@ -16,14 +16,14 @@
         <result column="status" javaType="Integer" jdbcType="INTEGER" property="status"></result>
     </resultMap>
     <select id="getArticlesByDate" resultMap="ArticlesInOrderMapper">
-        select * from Article order by publishDate desc limit #{k};
+        select * from article order by publishDate desc limit #{k};
     </select>
     <select id="getArticlesByVisitor" resultMap="ArticlesInOrderMapper">
-        select * from Article order by vistornum desc limit #{k};
+        select * from article order by vistornum desc limit #{k};
     </select>
 
     <select id="getArticleById" resultType="com.buct.blog.domain.Article">
-        select * from Article where id=#{aid}
+        select * from article where id=#{aid}
     </select>
 
 </mapper>

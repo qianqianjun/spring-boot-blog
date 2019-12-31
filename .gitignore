@@ -1,37 +1,3 @@
-<<<<<<< HEAD
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
-
-.mvn
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-
-### VS Code ###
-.vscode/
-=======
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -63,4 +29,8 @@ build/
 
 ### VS Code ###
 .vscode/
->>>>>>> 91ab4ac580f7411cd42521c82e697b3cedf1dbb7
+
+### config ###
+
+.
+

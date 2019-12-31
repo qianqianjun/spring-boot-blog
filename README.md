@@ -56,7 +56,7 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 31/12/2019 08:51:40
+ Date: 31/12/2019 11:02:17
 */
 
 SET NAMES utf8mb4;
@@ -72,7 +72,7 @@ CREATE TABLE `article`  (
   `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '文章内容',
   `type` int(11) NULL DEFAULT NULL COMMENT '专栏标号',
   `publishdate` datetime(0) NOT NULL,
-  `vistornum` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `visitornum` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `outstanding` int(11) NULL DEFAULT NULL COMMENT '是否首页轮播推荐',
   `status` int(11) NOT NULL COMMENT '当前文章的状态 1正常 0正在编辑',
   `imgurl` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,

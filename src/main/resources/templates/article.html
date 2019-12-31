@@ -5,6 +5,9 @@
 <body>
 <!--高谦 文章展示页面-->
 <!--BEGIN page-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 <div id="page">
     <!--BEGIN wrap-->
     <div id="wrap">
@@ -22,7 +25,7 @@
             <!--END of availability-->
 
             <!--BEGIN menu_wrap-->
-            <div th:replace="compoment/navigatior::commonMenu(1)"></div>
+            <div th:replace="compoment/navigatior::commonMenu(0)"></div>
             <!--END of menu_wrap-->
 
         </div>
@@ -33,28 +36,21 @@
 
             <!--BEGIN content-->
             <div id="content">
-                <h2>A little bit about me</h2>
-
-                <h3>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</h3>
-                <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
-
-                <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p>
-                    <p><cite><strong>John Doe</strong>, President, <a href="#">XYZ Company</a></cite></p>
-                </blockquote>
-
+                <h2>[[${article.title}]]</h2>
+                <h5>[[${article.publishDate}]]</h5>
+                <h5>[[${article.visitorNum}]]</h5>
+                <div id="content_text"></div>
             </div>
+            <script type="text/javascript" th:inline="javascript">
+                $('#content_text').html(marked([[${article.content}]]));
+            </script>
             <!--END of content-->
 
             <!--BEGIN sidebar-->
             <div id="sidebar">
                 <div class="block">
-                    <ul class="side_links" th:each="category:categorys">
-                        <li><a href="#">Web Design</a></li>
-                        <li><a href="#">Flash Animation &amp; Development</a></li>
-                        <li><a href="#">Identity Design</a></li>
-                        <li><a href="#">Search Engine Optimization</a></li>
-                        <li><a href="#">Web Marketing</a></li>
-                        <li><a href="#">Copy Writing</a></li>
+                    <ul class="side_links" th:each="category:${categories}">
+                        <li><a href="">[[${category.name}]]</a></li>
                     </ul>
                 </div>
             </div>
