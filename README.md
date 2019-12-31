@@ -31,6 +31,9 @@
     - 删除专栏：注意，删除之后，文章不能一起删除，删除对应的文章专栏信息即可。
     
 
+
+### 12 月 31 号
+- 
 ### 数据库设计
 ```sql
 /*
@@ -38,15 +41,15 @@
 
  Source Server         : mysql8
  Source Server Type    : MySQL
- Source Server Version : 80018
+ Source Server Version : 80017
  Source Host           : localhost:3306
  Source Schema         : blog
 
  Target Server Type    : MySQL
- Target Server Version : 80018
+ Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 26/12/2019 10:08:04
+ Date: 31/12/2019 08:51:40
 */
 
 SET NAMES utf8mb4;
@@ -66,17 +69,18 @@ CREATE TABLE `article`  (
   `outstanding` int(11) NULL DEFAULT NULL COMMENT '是否首页轮播推荐',
   `status` int(11) NOT NULL COMMENT '当前文章的状态 1正常 0正在编辑',
   `imgurl` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `abstruct` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of article
 -- ----------------------------
-INSERT INTO `article` VALUES (1, 'Java', 'content', 1, '2019-12-25 09:46:38', '200', NULL, 1, NULL);
-INSERT INTO `article` VALUES (2, 'C++', 'content', 1, '2019-12-25 09:57:55', '200', 1, 1, NULL);
+INSERT INTO `article` VALUES (1, 'Java', '这里是内容，这里是内容，冰语大佬很牛逼！', 1, '2019-12-25 09:46:38', '200', 1, 1, 'images/featured_1.jpg', '冰语大佬牛逼！');
+INSERT INTO `article` VALUES (2, 'C++', '我又来了，冰语大佬很牛逼！', 1, '2019-12-25 09:57:55', '200', 1, 1, 'images/featured_2.jpg', '冰语大佬最牛逼，没有人比他牛逼！');
 
 -- ----------------------------
-Category
+-- Table structure for category
 -- ----------------------------
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category`  (
@@ -89,7 +93,13 @@ CREATE TABLE `category`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
-User
+-- Records of category
+-- ----------------------------
+INSERT INTO `category` VALUES (1, '111', '111', '111', '2019-12-25 09:57:55');
+INSERT INTO `category` VALUES (2, '222', '222', '222', '2019-12-25 10:57:55');
+
+-- ----------------------------
+-- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
@@ -101,10 +111,11 @@ CREATE TABLE `user`  (
   `position` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('qianqianjun', 'qianqianjun', 'qianqianjun@Gmail.com', '110', 'Google', 'Mars');
+
 SET FOREIGN_KEY_CHECKS = 1;
 
-insert into `user` values('qianqianjun','qianqianjun','qianqianjun@Gmail.com','110','Google','Mars');
-
-insert into `category` values(1,'111','111','111','2019-12-25 09:57:55');
-insert into `category` values(2,'222','222','222','2019-12-25 10:57:55');
 ```
