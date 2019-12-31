@@ -56,11 +56,6 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/articles/detail")
-    public String articles(@RequestParam("aid") Integer aid){
-        Article article=articleService.getArticleById(aid);
-        System.out.println(article.getContent());
-        return article.getContent();
-    }
+
 
 }
