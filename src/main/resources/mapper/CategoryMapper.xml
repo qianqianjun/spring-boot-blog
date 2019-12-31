@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--author 刘权达 栏目相关数据库操作-->
+
 <mapper namespace="com.buct.blog.dao.CategoryDao">
     <resultMap id="getCategoriesLimitsMap" type="com.buct.blog.domain.Category">
         <id column="id" javaType="Integer" jdbcType="INTEGER" property="id"></id>
@@ -10,9 +11,25 @@
         <result column="description" javaType="String" jdbcType="VARCHAR" property="description"></result>
         <result column="imgurl" javaType="String" jdbcType="VARCHAR" property="imgurl"></result>
         <result column="publicdate" javaType="String" jdbcType="VARCHAR" property="publishDate"></result>
-        </resultMap>
+    </resultMap>
+    <resultMap id="ArticlesMapper" type="com.buct.blog.domain.Article">
+        <id column="id" javaType="Integer" jdbcType="INTEGER" property="id"></id>
+        <result column="title" javaType="String" jdbcType="VARCHAR" property="title"></result>
+        <result column="content" javaType="String" jdbcType="VARCHAR" property="content"></result>
+        <result column="type" javaType="Integer" jdbcType="INTEGER" property="type"></result>
+        <result column="publicdate" javaType="String" jdbcType="VARCHAR" property="publishDate"></result>
+        <result column="visitornum" javaType="Integer" jdbcType="INTEGER" property="visitorNum"></result>
+        <result column="outstanding" javaType="Integer" jdbcType="INTEGER" property="outstanding"></result>
+        <result column="imgurl" javaType="String" jdbcType="VARCHAR" property="imgurl"></result>
+        <result column="status" javaType="Integer" jdbcType="INTEGER" property="status"></result>
+    </resultMap>
+    <!--选取前k个专栏-->
     <select id="getCategoriesLimits" resultMap="getCategoriesLimitsMap">
         select * from category limit #{k};
+    </select>
+    <!--选取某一专栏所有已发布文章-->
+    <select id="getArticlesByCategory" resultMap="ArticlesMapper">
+        select * from article where type = #{type} and status = 1
     </select>
 
 </mapper>

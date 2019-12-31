@@ -42,47 +42,21 @@
                     
                     <div class="work_categ_wrap last">
                     <h2>Web Design</h2>
+                    <ul th:each="item:${categories}">
                 	<!--BEGIN row-->
                 	<div class="row">
                       <div class="work_image">
-                    	<a href="images/featured_1_big.jpg"><img src="images/featured_1.jpg" alt="Sample Image"/></a>                   	 </div>  
+                    	<a href="#"><img th:src="${item.imgurl}" alt="Sample Image"/></a>                   	 </div>
                    	  <div class="work_desc">
-                    	<h3>Simplicity</h3>
-                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aeneaan ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
-                        <p class="role"><span>Responsible: </span>Design, XHTML/CSS, Logo, CMS</p>
+                    	<h3>[[${item.name}]]</h3>
+                        <p>[[${item.description}]]</p>
+                        <p class="role"><span>Date: </span>[[${item.publishdate}]]</p>
                         <div class="view_livesite"><a href="#" title="View Livesite">View Livesite</a></div>
                     	</div>
                  	</div>
                     <!--END of row-->
-                    
-                    <!--BEGIN row-->
-                	<div class="row">
-                      <div class="work_image">
-                    	<a href="images/featured_2_big.jpg"><img src="images/featured_2.jpg" alt="Sample Image"/></a>                   	 </div>  
-                   	  <div class="work_desc">
-                    	<h3>Clear Corporate</h3>
-                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aeneaan ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
-                        <p class="role"><span>Responsible: </span>Design, XHTML/CSS, Logo, CMS</p>
-                        <div class="view_livesite"><a href="#" title="View Livesite">View Livesite</a></div>
-                    	</div>
-                 	</div>
-                    <!--END of row-->
-                    
-                    
-                    <!--BEGIN lastrow -> This is the last row of the list of work-->
-                	<div class="row last_row">
-                      <div class="work_image">
-                    	<a href="images/featured_3_big.jpg"><img src="images/featured_3.jpg" alt="Sample Image"/></a>                    </div>  
-                    <div class="work_desc">
-                    	<h3>Impressive</h3>
-                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aeneaan ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
-                        <p class="role"><span>Responsible: </span>Design, XHTML/CSS, Logo, CMS</p>
-                        <div class="view_livesite"><a href="#" title="View Livesite">View Livesite</a></div>
-                    </div>
-                 	</div>
-                    
-                    <!--END of row-->
-                    
+                    </ul>
+
                     </div>
                     <!--END of work_categ_wrap -->
                     

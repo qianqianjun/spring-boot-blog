@@ -1,7 +1,7 @@
 package com.buct.blog.domain;
 
 import lombok.Data;
-import org.aspectj.lang.annotation.DeclareAnnotation;
+
 
 /**
  * @author 高谦
