@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="compoment/static::static"></head>
-
+<!--高谦 最新文章页面-->
 <body>
 	<!--BEGIN page-->
 	<div id="page">
@@ -73,26 +73,7 @@
                  <!--END of content-->
                 
                  <!--BEGIN sidebar-->	
-                <div id="sidebar">
-                
-                	<div class="block">
-                        <ul class="side_links">
-                            <li><a href="#">Web Design</a></li>
-                            <li><a href="#">Flash Animation &amp; Development</a></li>
-                            <li><a href="#">Identity Design</a></li>
-                            <li><a href="#">Search Engine Optimization</a></li>
-                            <li><a href="#">Web Marketing</a></li>
-                            <li><a href="#">Copy Writing</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="block">
-                     <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p>
-                    <p><cite><strong>John Doe</strong>, President, <a href="#">XYZ Company</a></cite></p>
-                    </blockquote>
-                    </div>
-                    
-                </div>
+                <div id="sidebar" th:replace="compoment/right::right"></div>
                  <!--END of sidebar-->
             
             <!--BEGIN push - makes our footer stick at the bottom of the page. -->

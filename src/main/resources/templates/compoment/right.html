@@ -1,0 +1,17 @@
+<!--高谦  右边公共内容模板-->
+
+<div id="sidebar" th:fragment="right" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="block">
+        <h3>文章专栏</h3>
+        <ul class="side_links" th:each="category:${categories}">
+            <li><a href="">[[${category.name}]]</a></li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p>
+            <p><cite><strong>John Doe</strong>, President, <a href="#">XYZ Company</a></cite></p>
+        </blockquote>
+    </div>
+
+</div>
