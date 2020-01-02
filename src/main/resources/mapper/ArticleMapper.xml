@@ -16,14 +16,51 @@
         <result column="status" javaType="Integer" jdbcType="INTEGER" property="status"></result>
     </resultMap>
     <select id="getArticlesByDate" resultMap="ArticlesInOrderMapper">
-        select * from article order by publishDate desc limit #{k};
+        select * from article where status = 1 order by publishDate desc limit #{k};
     </select>
     <select id="getArticlesByVisitor" resultMap="ArticlesInOrderMapper">
-        select * from article order by visitornum desc limit #{k};
+        select * from article where status = 1 order by visitornum desc limit #{k};
     </select>
 
     <select id="getArticleById" resultType="com.buct.blog.domain.Article">
         select * from article where id=#{aid}
     </select>
 
+    <select id="addArticle">
+        insert into article
+        values (null,#{title},#{content},#{type},now(),0,0,0,#{imgurl},#{abstruct})
+    </select>
+    <select id="setArticleTitle">
+        update article set title=#{title} where id = #{id}
+    </select>
+    <select id="setArticleContent">
+        update article set content=#{content} where id=#{id}
+    </select>
+    <select id="setArticleAbstruct">
+        update article set abstruct=#{abstruct} where id=#{id}
+    </select>
+    <select id="setArticleImgurl">
+        update article set imgurl=#{imgurl} where id=#{id}
+    </select>
+    <select id="setArticleOutstanding">
+        update article set outstanding=#{outstanding} where id=#{id}
+    </select>
+    <select id="deleteArticle">
+        delete from article where id=#{id}
+    </select>
+    <select id="getArticleByTitle" resultType="com.buct.blog.domain.Article">
+        select * from article where title like concat('%',#{title},'%')
+    </select>
+    <select id="getAllArticles" resultType="com.buct.blog.domain.Article">
+        select * from article
+    </select>
+    <select id="getVisitorNum" resultType="Integer">
+        select visitornum from article where id = #{id}
+    </select>
+    <select id="setVisitorNum">
+        update article set visitornum=#{visitorNum} where id=#{id}
+    </select>
+    <select id="setArticleStatus">
+        update article set status=#{status} where id=#{id}
+    </select>
 </mapper>

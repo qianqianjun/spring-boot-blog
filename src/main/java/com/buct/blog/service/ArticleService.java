@@ -39,4 +39,55 @@ public class ArticleService {
     public Article getArticleById(Integer aid){
         return articleDao.getArticleById(aid);
     }
+
+    //添加文章
+    public void addArticle(String title,String content,Integer type,
+                           String imgurl,String abstruct){
+        articleDao.addArticle(title,content,type,imgurl,abstruct);
+    }
+    //修改文章标题
+    public void setArticleTitle(Integer id,String title){
+        articleDao.setArticleTitle(id,title);
+    }
+    //修改文章内容
+    public void setArticleContent(Integer id,String content){
+        articleDao.setArticleContent(id,content);
+    }
+    //修改文章摘要
+    public void setArticleAbstruct(Integer id,String abstruct){
+        articleDao.setArticleAbstruct(id,abstruct);
+    }
+    //修改文章图片
+    public void setArticleImgurl(Integer id,String imgurl){
+        articleDao.setArticleImgurl(id,imgurl);
+    }
+    //修改文章轮播
+    public void setArticleOutstanding(Integer id,Integer outstanding){
+        articleDao.setArticleOutstanding(id,outstanding);
+    }
+    //删除文章
+    public void deleteArticle(Integer id){
+        articleDao.deleteArticle(id);
+    }
+    //按文章名模糊搜索文章
+    public List<Article> getArticleByTitle(String title){
+        return articleDao.getArticleByTitle(title);
+    }
+    //获取所有文章，包括未发布
+    public List<Article> getAllArticles(){
+        return articleDao.getAllArticles();
+    }
+    //获取某一文章访问量
+    public Integer getVisitorNum(Integer id){
+        return articleDao.getVisitorNum(id);
+    }
+    //修改某一文章访问量
+    public void setVisitorNum(Integer id,Integer visitorNum){
+        articleDao.setVisitorNum(id,visitorNum);
+    }
+    //修改文章状态
+    public void setArticleStatus(Integer id,Integer status){
+        articleDao.setArticleStatus(id,status);
+    }
+
 }
