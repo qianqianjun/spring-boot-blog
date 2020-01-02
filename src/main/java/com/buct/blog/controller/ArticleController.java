@@ -44,7 +44,7 @@ public class ArticleController {
         ArrayList<Article> articlesByCategory=(ArrayList<Article>)
                 categoryService.getArticlesByCategory(type);
         map.put("acticleList",articlesByCategory);
-        //System.out.println(articlesByCategory);
+
         return "recommend";
     }
 }

@@ -56,7 +56,7 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 31/12/2019 11:02:17
+ Date: 02/01/2020 09:11:17
 */
 
 SET NAMES utf8mb4;
@@ -91,7 +91,7 @@ INSERT INTO `article` VALUES (2, 'C++', '我又来了，冰语大佬很牛逼！
 -- ----------------------------
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category`  (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `description` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `imgurl` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
@@ -104,6 +104,21 @@ CREATE TABLE `category`  (
 -- ----------------------------
 INSERT INTO `category` VALUES (1, '111', '111', '111', '2019-12-25 09:57:55');
 INSERT INTO `category` VALUES (2, '222', '222', '222', '2019-12-25 10:57:55');
+
+-- ----------------------------
+-- Table structure for message
+-- ----------------------------
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '留言的id',
+  `aid` int(11) NOT NULL COMMENT '留言对应的文章的id',
+  `publishdate` datetime(0) NULL DEFAULT NULL COMMENT '留言发布的日期',
+  `content` varchar(1500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '留言的内容',
+  `reply` varchar(1500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '博主给留言回复',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '留言人的email',
+  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '留言人的昵称',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user
