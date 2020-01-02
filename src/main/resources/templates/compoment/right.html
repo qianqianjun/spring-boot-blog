@@ -2,13 +2,9 @@
 
 <div id="sidebar" th:fragment="right" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="block">
-        <ul class="side_links">
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Flash Animation &amp; Development</a></li>
-            <li><a href="#">Identity Design</a></li>
-            <li><a href="#">Search Engine Optimization</a></li>
-            <li><a href="#">Web Marketing</a></li>
-            <li><a href="#">Copy Writing</a></li>
+        <h3>文章专栏</h3>
+        <ul class="side_links" th:each="category:${categories}">
+            <li><a href="">[[${category.name}]]</a></li>
         </ul>
     </div>
 
