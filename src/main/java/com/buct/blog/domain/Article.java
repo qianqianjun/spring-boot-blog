@@ -13,7 +13,7 @@ public class Article {
     private String title; // 标题
     private String content; // 内容
     private Integer type; // 专栏标号
-    private Date publishDate; // 发布日期
+    private String publishDate; // 发布日期
     private Integer visitorNum; // 访问人数
     private Integer outstanding; // 是否在首页轮播显示。
     private String imgurl; // 文章图片地址。
@@ -34,10 +34,6 @@ public class Article {
 
     public String getTitle() {
         return title;
-    }
-
-    public Date getPublishDate() {
-        return publishDate;
     }
 
     public Integer getOutstanding() {
@@ -70,10 +66,6 @@ public class Article {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
     }
 
     public void setTitle(String title) {
