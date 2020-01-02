@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--author 刘权达 用户评论-->
+<mapper namespace="com.buct.blog.dao.CommentDao">
+    <resultMap id="commentMap" type="com.buct.blog.domain.Comment">
+        <result column="id" javaType="Integer" jdbcType="INTEGER" property="id"></result>
+        <result column="aid" javaType="Integer" jdbcType="INTEGER" property="aid"></result>
+        <result column="publishdate" javaType="String" jdbcType="VARCHAR" property="publishDate"></result>
+        <result column="content" javaType="String" jdbcType="VARCHAR" property="content"></result>
+        <result column="reply" javaType="String" jdbcType="VARCHAR" property="reply"></result>
+        <result column="email" javaType="String" jdbcType="VARCHAR" property="email"></result>
+        <result column="nickname" javaType="String" jdbcType="VARCHAR" property="nickName"></result>
+    </resultMap>
+    <select id="addComment" resultType="Integer">
+        insert into message
+        values (null,#{aid},now(),#{content},null,#{email},#{nickName});
+        select last_insert_id();
+    </select>
+    <select id="replyComment" >
+        update message set reply = #{reply} where id = #{id}
+    </select>
+    <select id="commentsByArticle" resultMap="commentMap">
+        select * from message where aid = #{aid}
+    </select>
+</mapper>
+
