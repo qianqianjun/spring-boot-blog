@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface UserDao {
     //登录验证
-    List<User> login(String username, String password);
+    User login(String username, String password);
 }

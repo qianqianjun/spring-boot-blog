@@ -17,8 +17,8 @@ body { font-family: "Helvetica Neue",\5FAE\8F6F\96C5\9ED1,Tohoma;background: #f1
 *{box-sizing:border-box;-webkit-box-sizing:border-box;}
 /*reset - end*/
 /*side*/
-.side{position: fixed;left: 0;top:0;bottom: 0;background: #4d5b69;width: 200px;}
-.logo{background: #14b9d6;color: #fff;font-size: 28px;text-align: center;line-height: 60px;}
+.side{position: fixed;left: 0;top:0;bottom: 0;background: #4d5b69;width: 80px;}
+.logo{background: #14b9d6;color: #fff;font-size: 17px;text-align: center;line-height: 60px;}
 .ico{background: url(../images/ico.png);display: inline-block;vertical-align: top;}
 .sidemenu .ico{width: 26px;height: 26px;}
 .sidemenu li a{display: block;text-align: center;color: #fff;padding: 12px 0;line-height: 22px; font-size: 12px;}
@@ -33,7 +33,7 @@ body { font-family: "Helvetica Neue",\5FAE\8F6F\96C5\9ED1,Tohoma;background: #f1
 .i-nav8{background-position: 0 -182px;}
 
 /*.header*/
-.header{position: fixed;left: 200px;top:0;background: #fff;z-index: 2;right: 0;padding: 0 20px;box-shadow: 0 1px 6px 2px rgba(0,0,0,.2)}
+.header{position: fixed;left: 80px;top:0;background: #fff;z-index: 2;right: 0;padding: 0 20px;box-shadow: 0 1px 6px 2px rgba(0,0,0,.2);}
 .date-cont1 {height: 60px;padding-top: 10px;}
 .date-cont1 .time{font-size: 26px;color: #595959;line-height: 26px;}
 .date-cont1 .date{color: #666;padding-top: 6px;}
@@ -52,7 +52,7 @@ body { font-family: "Helvetica Neue",\5FAE\8F6F\96C5\9ED1,Tohoma;background: #f1
 .head-ico .badge{position: absolute;margin-top: -10px;width: 20px;height: 20px;text-align: center;line-height: 20px;padding: 0;background: #00a0e9;}
 
 /*main*/
-.main{padding-left: 200px;padding-top: 60px;padding-bottom: 40px;}
+.main{padding-left: 80px;padding-top: 60px;padding-bottom: 40px;}
 .pos-txt{line-height: 40px;}
 .pos-link{background: #fff;padding:10px 20px; line-height: 20px;color: #808080;}
 /*stats*/
@@ -162,7 +162,7 @@ body { font-family: "Helvetica Neue",\5FAE\8F6F\96C5\9ED1,Tohoma;background: #f1
 .bg-brown{ background: #a5937b;}
 
 /*copy*/
-.copy{position: fixed;left: 200px;bottom: 0;background: #000;color: #b2b2b2;padding: 10px 20px;line-height: 20px;right: 0;}
+.copy{position: fixed;left: 80px;bottom: 0;background: #000;color: #b2b2b2;padding: 10px 20px;line-height: 20px;right: 0;}
 
 /*lib*/
 .txt-red{color: #c55252;}
@@ -448,9 +448,23 @@ a.color9:hover{color:#717171}
 .col4{width:25%}
 .col5{width:20%}
 
-
-
-
-
-
-
+.friend-link{
+    float: left;
+    line-height: 60px;
+}
+.csdn{
+    height: 60px;
+    margin-left: 20px;
+}
+.github{
+    height: 35px;
+    position: relative;
+    top: 10px;
+    margin-left:20px;
+}
+.mail163{
+    height: 36px;
+    margin-left: 20px;
+    position: relative;
+    top: 12px;
+}

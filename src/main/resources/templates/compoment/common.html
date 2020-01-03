@@ -1,0 +1,96 @@
+<!--模板引擎后台管理公共部分  高谦-->
+<head th:fragment="backstatic" xmlns:th="http://www.w3.org/1999/xhtml" >
+    <title>谦谦君的博客后台管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link href="/css/backmanage/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/css/backmanage/font-awesome.min.css" rel="stylesheet" media="screen">
+    <link href="/css/backmanage/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<div class="side" th:fragment="left" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="logo"><a href="/manage">博客后台</a></div>
+    <div class="sidemenu">
+        <ul>
+            <li>
+                <a href="/manage/profile">
+                    <i class="ico i-nav1"></i>
+                    <p>个人资料</p>
+                </a>
+            </li>
+            <li>
+                <a href="/manage/write">
+                    <i class="ico i-nav8"></i>
+                    <p>创作文章</p>
+                </a>
+            </li>
+            <li>
+                <a href="/manage/article">
+                    <i class="ico i-nav4"></i>
+                    <p>文章管理</p>
+                </a>
+            </li>
+            <li>
+                <a href="/manage/category">
+                    <i class="ico i-nav2"></i>
+                    <p>专栏管理</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="header clear" th:fragment="top" xmlns:th="http://www.w3.org/1999/xhtml">
+    <!--钟表效果  高谦-->
+    <div class="date-cont1 left">
+        <span class="time" id="time"></span>
+        <p class="date" id="date"></p>
+    </div>
+    <script type="text/javascript">
+        setTime();
+        setInterval(function () {setTime()},1000);
+        function setTime() {
+            var now=new Date();
+            var year=now.getFullYear();
+            var month=now.getMonth()+1;
+            var day=now.getDay()-2;
+            var hour=now.getHours();
+            var minute=now.getMinutes();
+            var second=now.getSeconds();
+            if(month<10){month="0"+month}
+            if(day<10){day="0"+day}
+            if(minute<10){minute="0"+minute}
+            if(second<10){second="0"+second}
+            if(hour<10){hour="0"+hour}
+            document.getElementById("date").innerHTML=year+"-"+month+"-"+day;
+            document.getElementById("time").innerHTML=hour+":"+minute+":"+second;
+        }
+    </script>
+
+    <!--常用链接 高谦-->
+    <ul class="friend-link">
+        <a href="https://blog.csdn.net/qq_38863413" target="_blank">
+            <img src="/images/backmanage/csdn.png" class="csdn">
+        </a>
+        <a href="https://github.com/qianqianjun" target="_blank">
+            <img src="/images/backmanage/github.png" class="github">
+        </a>
+        <a href="https://mail.163.com" target="_blank">
+            <img src="/images/backmanage/163logo.gif" class="mail163">
+        </a>
+    </ul>
+    <!--用户头像和信息显示  高谦-->
+    <div class="dropdown right head-dropdown">
+        <a href="javascript:;" class="under-n head-droplink" id="dropdownMenu1" data-toggle="dropdown" >
+			<span class="avtar">
+				<img src="/images/backlogin/avtar.png" >
+			</span>
+            [[${user.account}]]
+            <i class="fa fa-chevron-down"></i>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <span class="fa fa-angle-up"></span>
+            <li><a href="/manage/logout">退出系统</a></li>
+        </ul>
+    </div>
+</div>

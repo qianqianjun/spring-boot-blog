@@ -11,5 +11,7 @@ import java.util.List;
 public class UserService {
     @Autowired
     UserDao userDao;
-    public List<User> login(String username, String password){return userDao.login(username,password);}
+    public User login(String username, String password){
+        return userDao.login(username,password);
+    }
 }

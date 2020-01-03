@@ -25,12 +25,7 @@ img{max-width:100%;}
 /****-----start-body----****/
 body{
 	background: url(../../images/backlogin/bg1.jpg) no-repeat 0px 0px;
-	font-family: 'Open Sans', sans-serif;
-	background-size:cover;
-	-webkit-background-size:cover;
-	-moz-background-size:cover;
-	-o-background-size:cover;
-	min-height:1050px;
+	background-position: center center;
 }
 .wrap{
 	margin: 0 auto;
@@ -345,5 +340,13 @@ label.lbl-3 {
 		font-size: 28px;
 		padding: 10px 0;
 	}
+}
+
+.error_msg{
+	color: red;
+	text-align: left;
+	padding-left: 45px;
+	position: relative;
+	top: -30px;
 }
 /*--end-responsive-design--*/

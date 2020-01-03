@@ -12,7 +12,7 @@
         <result column="company" javaType="String" jdbcType="VARCHAR" property="company"></result>
         <result column="position" javaType="String" jdbcType="VARCHAR" property="position"></result>
     </resultMap>
-    <select id="login" resultMap="loginMap">
+    <select id="login" resultType="com.buct.blog.domain.User">
         select * from user where account = #{username} and password = #{password}
     </select>
 </mapper>

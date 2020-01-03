@@ -46,16 +46,4 @@ public class IndexController {
 
         return "index";
     }
-
-    @GetMapping("/login")
-    public String login(@RequestParam("username") String username,
-                            @RequestParam("password") String password,
-                            Map<String,Object> map){
-        ArrayList<User> user = (ArrayList<User>) userService.login(username,password);
-        map.put("user",user);
-        return "index";
-    }
-
-
-
 }
