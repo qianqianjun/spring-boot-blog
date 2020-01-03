@@ -63,4 +63,7 @@
     <select id="setArticleStatus">
         update article set status=#{status} where id=#{id}
     </select>
+    <select id="setArticleType">
+        update article set type=#{type} where id=#{id}
+    </select>
 </mapper>

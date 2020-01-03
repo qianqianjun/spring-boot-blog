@@ -44,5 +44,6 @@ public interface ArticleDao {
     public void setVisitorNum(Integer id,Integer visitorNum);
     //修改文章状态
     public void setArticleStatus(Integer id,Integer status);
-
+    //修改文章专栏
+    public void setArticleType(Integer id,Integer type);
 }
