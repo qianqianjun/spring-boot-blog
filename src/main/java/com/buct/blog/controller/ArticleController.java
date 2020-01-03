@@ -78,4 +78,88 @@ public class ArticleController {
         System.out.println(list);
         return null;
     }
+
+    //添加文章
+    @GetMapping("/addArticle")
+    public String addArticle(@RequestParam("title") String title,
+                             @RequestParam("content") String content,
+                             @RequestParam("type") Integer type,
+                             @RequestParam("imgurl") String imgurl,
+                             @RequestParam("abstruct") String abstruct){
+        articleService.addArticle(title,content,type,imgurl,abstruct);
+        return null;
+    }
+    //修改文章标题
+    @GetMapping("/setArticleTitle")
+    public String setArticleTitle(@RequestParam("id") Integer id,
+                                  @RequestParam("title") String title){
+        articleService.setArticleTitle(id,title);
+        return null;
+    }
+    //修改文章内容
+    @GetMapping("/setArticleContent")
+    public String setArticleContent(@RequestParam("id") Integer id,
+                                    @RequestParam("content") String content){
+        articleService.setArticleContent(id,content);
+        return  null;
+    }
+    //修改文章摘要
+    @GetMapping("/setArticleAbstruct")
+    public String setArticleAbstruct(@RequestParam("id") Integer id,
+                                     @RequestParam("abstruct") String abstruct){
+        articleService.setArticleAbstruct(id,abstruct);
+        return null;
+    }
+    //修改文章图片
+    @GetMapping("/setArticleImgurl")
+    public String setArticleImgurl(@RequestParam("id") Integer id,
+                                     @RequestParam("imgurl") String imgurl){
+        articleService.setArticleImgurl(id,imgurl);
+        return null;
+    }
+    //修改文章轮播
+    @GetMapping("/setArticleOutstanding")
+    public String setArticleOutstanding(@RequestParam("id") Integer id,
+                                   @RequestParam("outstanding") Integer outstanding){
+        articleService.setArticleOutstanding(id,outstanding);
+        return null;
+    }
+    //删除文章
+    @GetMapping("/deleteArticle")
+    public String deleteArticle(@RequestParam("id") Integer id){
+        articleService.deleteArticle(id);
+        return null;
+    }
+    //按文章名模糊搜索文章
+    @GetMapping("/getArticleByTitle")
+    public String getArticleByTitle(@RequestParam("title") String title){
+        articleService.getArticleByTitle(title);
+        return null;
+    }
+    //获取所有文章，包括未发布
+    @GetMapping("/getAllArticles")
+    public String getAllArticles(){
+        articleService.getAllArticles();
+        return null;
+    }
+    //获取某一文章访问量
+    @GetMapping("/getVisitorNum")
+    public String getVisitorNum(@RequestParam("id") Integer id){
+        articleService.getVisitorNum(id);
+        return null;
+    }
+    //修改某一文章访问量
+    @GetMapping("/setVisitorNum")
+    public String setVisitorNum(@RequestParam("id") Integer id,
+                                @RequestParam("visitorNum") Integer visitorNum){
+        articleService.setVisitorNum(id,visitorNum);
+        return null;
+    }
+    //修改文章状态
+    @GetMapping("/setArticleStatus")
+    public String setArticleStatus(@RequestParam("id") Integer id,
+                                @RequestParam("status") Integer status){
+        articleService.setArticleStatus(id,status);
+        return null;
+    }
 }
