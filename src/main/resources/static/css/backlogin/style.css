@@ -25,7 +25,7 @@ img{max-width:100%;}
 /****-----start-body----****/
 body{
 	background: url(../../images/backlogin/bg1.jpg) no-repeat 0px 0px;
-	background-position: center center;
+	background-position: center top;
 }
 .wrap{
 	margin: 0 auto;
@@ -63,7 +63,7 @@ h1 {
 .login-form {
 	background: #2b2b36;
 	position: relative;
-	width: 40%;
+	width: 31%;
 	margin: 3% auto 0 auto;
 	text-align: center;
 	border-radius: 15px;

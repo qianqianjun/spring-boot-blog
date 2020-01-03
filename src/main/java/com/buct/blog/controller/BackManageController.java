@@ -96,9 +96,9 @@ public class BackManageController {
 
     /**
      * 后台文章管理界面
-     * @param request
-     * @param map
-     * @return
+     * @param request 获取用户的信息
+     * @param map 前台数据传递
+     * @return 返回文章管理页面
      */
     @GetMapping("/manage/article")
     public String manageArticle(HttpServletRequest request,Map<String,Object> map){
@@ -107,4 +107,16 @@ public class BackManageController {
         return "backmanage/articleManage";
     }
 
+    /**
+     * 写文章索引页面
+     * @param request 获取session
+     * @param map 用于前台参数传递
+     * @return 返回写文章的页面
+     */
+    @GetMapping("/manage/write")
+    public String write(HttpServletRequest request,Map<String,Object>map){
+        User user=(User) request.getSession().getAttribute("user");
+        map.put("user",user);
+        return "backmanage/write";
+    }
 }

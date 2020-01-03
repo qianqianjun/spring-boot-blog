@@ -11,6 +11,7 @@
         <result column="phone" javaType="String" jdbcType="VARCHAR" property="phone"></result>
         <result column="company" javaType="String" jdbcType="VARCHAR" property="company"></result>
         <result column="position" javaType="String" jdbcType="VARCHAR" property="position"></result>
+        <result column="img" javaType="String" jdbcType="VARCHAR" property="img"></result>
     </resultMap>
     <select id="login" resultType="com.buct.blog.domain.User">
         select * from user where account = #{username} and password = #{password}
