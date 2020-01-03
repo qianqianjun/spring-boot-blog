@@ -1,5 +1,7 @@
 package com.buct.blog.controller;
+import com.buct.blog.domain.Category;
 import com.buct.blog.domain.User;
+import com.buct.blog.service.CategoryService;
 import com.buct.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Map;
 
 
@@ -20,6 +23,8 @@ import java.util.Map;
 public class BackManageController {
     @Autowired
     UserService userService;
+    @Autowired
+    CategoryService categoryService;
 
     /**
      * 后台管理页面数据准备接口
@@ -117,6 +122,8 @@ public class BackManageController {
     public String write(HttpServletRequest request,Map<String,Object>map){
         User user=(User) request.getSession().getAttribute("user");
         map.put("user",user);
+        ArrayList<Category> categories=(ArrayList<Category>) categoryService.getCategoriesLimits(1000);
+        map.put("categories",categories);
         return "backmanage/write";
     }
 }

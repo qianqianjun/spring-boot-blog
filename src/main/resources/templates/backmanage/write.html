@@ -15,9 +15,9 @@
 <body>
 
 <div class="top">
-    <input type="text" class="title" placeholder="输入文章的标题">
+    <input type="text" class="title" placeholder="输入文章的标题" id="title">
     <input type="button" value="保存草稿" class="save">
-    <input type="button" value="发布文章" class="publish">
+    <a href="#publish-window" data-toggle="modal"><input type="button" value="发布文章" class="publish"></a>
     <img src="/images/backlogin/avtar.png" class="avar">
 </div>
 <ul class="menu">
@@ -155,11 +155,56 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">确认</button>
                         </div>
                     </div>
-
                 </div>
-
             </div>
+        </div>
 
+        <!--发布文章部分-->
+        <div class="col-md-12 column">
+            <div class="modal fade" id="publish-window" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">
+                                发布文章选项
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="publish-form">
+                                <label for="cate">选择所属专栏</label>
+                                <select  name="categoryId" class="form-control" id="cate" style="margin-top: 10px">
+                                    <option th:each="category:${categories}" th:value="${category.id}">[[${category.name}]]</option>
+                                </select>
+                                <input type="submit" value="确认发布" class="btn btn-default" style="margin-top: 10px">
+                            </form>
+
+                            <script type="text/javascript">
+                                var publish_form=document.getElementById("publish-form");
+                                var abstruct_input=document.getElementById("abstruct");
+                                var md_source_input=document.getElementById("editor");
+                                var title_input=document.getElementById("title");
+
+                                publish_form.addEventListener("submit",function (event) {
+                                    if(abstruct_input.value.length===0){
+                                        alert("请您输入摘要信息！");
+                                    }else if(md_source_input.value.length===0){
+                                        alert("请您输入文章内容");
+                                    }else if(title_input.value.length===0){
+                                        alert("请您输入文章标题");
+                                    }
+                                    var fromData=new FormData();
+                                    var xhr=new XMLHttpRequest();
+                                    event.preventDefault();
+                                })
+                            </script>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
