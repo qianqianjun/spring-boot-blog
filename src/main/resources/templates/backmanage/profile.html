@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="/compoment/common::backstatic"></head>
+<body>
+<!-- HTML start-->
+<!--side start-->
+<div class="side" th:replace="/compoment/common::left"></div>
+<!--side end -->
+<!--header start-->
+<div class="header clear" th:replace="/compoment/common::top"></div>
+<!--header end -->
+
+<!--main start-->
+<div class="main">
+	<div class="pad20">
+		<!--title start-->
+		<div class="postion ">
+			<div class="pos-txt"><span class="fz24 padr5">博主信息维护</span></div>
+		</div>
+		<!--title end-->
+		<div class="sales-list row mart20">
+			<div class="col-sm-9">
+				<div class="pad20 bgf">
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="picture">
+							<div class="table-responsive mart20 sale-table">
+								<div class="second-title">
+									头像信息维护
+								</div>
+
+								<div class="picture-preview">
+									<img th:src="${user.img}" class="img-circle"
+										 width="200" height="200" id="preview-upload">
+								</div>
+								<form role="form" id="picture-form">
+									<input type="file" id="picture-file" class="form-control"
+									style="width: 300px;margin-bottom: 20px;margin-top: 10px;">
+									<input type="submit" value="上传图像" class="btn btn-info">
+								</form>
+								<script type="text/javascript">
+									var picture_form=document.querySelector("#picture-form");
+									var file_inputs=document.querySelector("#picture-file");
+									picture_form.addEventListener("submit",function (evt) {
+										var files=file_inputs.files;
+										if(files.length===0){
+											alert("请您添加图像文件！");
+										}else{
+											var formData=new FormData();
+											formData.append("file",files[0]);
+											var xhr=new XMLHttpRequest();
+											xhr.open("POST","/manage/chanagePic");
+											xhr.onload=function (ev) {
+												if(xhr.responseText!=null){
+													alert("修改成功");
+													document.querySelector("#preview-upload").setAttribute("src",xhr.responseText);
+												}else{
+													alert("修改失败！请查看服务器日志！");
+												}
+											};
+											xhr.send(formData);
+										}
+										evt.preventDefault();
+									},true);
+								</script>
+							</div>
+						</div>
+						<!--tab2-->
+						<div role="tabpanel" class="tab-pane" id="basic">
+							<div class="table-responsive mart20 sale-table">
+								<div class="second-title">
+									基本信息维护
+								</div>
+								<form role="form" id="basic-form">
+									<div class="form-group">
+										<label for="mail">邮箱地址</label>
+										<input type="email" class="form-control" id="mail" th:value="${user.email}" required="required"/>
+									</div>
+									<div class="form-group">
+										<label for="phone">联系电话</label>
+										<input type="text" class="form-control" id="phone" th:value="${user.phone}" required="required"/>
+									</div>
+									<div class="form-group">
+										<label for="company">公司名称</label>
+										<input type="text" class="form-control" id="company" th:value="${user.company}" required="required">
+									</div>
+									<div class="form-group">
+										<label for="position">所在地区</label>
+										<input type="text" class="form-control" id="position" th:value="${user.position}" required="required">
+									</div>
+									<input type="submit" class="btn btn-info" value="提交修改">
+								</form>
+
+								<script type="text/javascript">
+									var mail_input=document.querySelector("#mail");
+									var phone_input=document.querySelector("#phone");
+									var company_input=document.querySelector("#company");
+									var position_input=document.querySelector("#position");
+									var basic_form=document.querySelector("#basic-form");
+									basic_form.addEventListener("submit",function (evt) {
+										var fromData=new FormData();
+										fromData.append("mail",mail_input.value);
+										fromData.append("phone",phone_input.value);
+										fromData.append("company",company_input.value);
+										fromData.append("position",position_input.value);
+
+										var xhr=new XMLHttpRequest();
+										xhr.open("POST","/manage/updateBasic");
+										xhr.onload=function (ev) {
+											if(xhr.status===200) {
+												var obj = JSON.parse(xhr.responseText);
+												position_input.value = obj.position;
+												company_input.value = obj.company;
+												mail_input.value = obj.email;
+												phone_input.value = obj.phone;
+												alert("修改成功！");
+											}else{
+												alert("修改失败！请查看后台日志");
+											}
+										};
+										xhr.send(fromData);
+										evt.preventDefault();
+									},true);
+								</script>
+							</div>
+						</div>
+						<!--tab3-->
+						<div role="tabpanel" class="tab-pane" id="others">
+							<div class="table-responsive mart20 sale-table">
+								<div class="second-title">
+									第三方账号信息维护
+								</div>
+								<form role="form" id="other-form">
+									<div class="form-group">
+										<label for="csdn">CSDN 博客主页</label>
+										<input type="text" class="form-control" id="csdn" required="required"
+										th:value="${user.csdn}"/>
+									</div>
+									<div class="form-group">
+										<label for="github">GitHub 个人主页</label>
+										<input type="text" class="form-control" id="github" required="required"
+										th:value="${user.github}"/>
+									</div>
+									<input type="submit" class="btn btn-info" value="提交修改">
+								</form>
+								<script type="text/javascript">
+									var csdn_input=document.querySelector("#csdn");
+									var github_input=document.querySelector("#github");
+									var other_form=document.querySelector("#other-form");
+									other_form.addEventListener("submit",function (evt) {
+										var fromData=new FormData();
+										fromData.append("csdn",csdn_input.value);
+										fromData.append("github",github_input.value);
+
+										var xhr=new XMLHttpRequest();
+										xhr.open("POST","/manage/updateOther");
+										xhr.onload=function (ev) {
+											if(xhr.status===200) {
+												var obj = JSON.parse(xhr.responseText);
+												csdn_input.value = obj.csdn;
+												github_input.value = obj.github;
+												alert("修改成功！");
+											}else{
+												alert("修改失败！请查看后台日志");
+											}
+										};
+										xhr.send(fromData);
+										evt.preventDefault();
+									},true);
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--右侧导航栏目-->
+			<div class="col-sm-3">
+				<div class="pad20 bgf">
+					<div class="tit1 clear">
+						<span class="left txt-left txt-blue">
+							<i class="ico i-rank"></i>个人资料信息导航
+						</span>
+					</div>
+					<div class="report-list ">
+						<ul>
+							<li class="bg-green">
+								<a onclick="change('#picture')">
+									<p class="report-txt1">用户头像</p>
+									<p class="report-txt2"><span class="fz22fix">上传头像，修改头像信息</span>共1项</p>
+								</a>
+							</li>
+							<li class="bg-red">
+								<a onclick="change('#basic')">
+									<p class="report-txt1">基本信息</p>
+									<p class="report-txt2"><span class="fz22fix">基本信息维护</span>共4项</p>
+								</a>
+							</li>
+							<li class="bg-blue">
+								<a onclick="change('#others')">
+									<p class="report-txt1">第三方账号</p>
+									<p class="report-txt2"><span class="fz22fix">第三方账号信息</span>共3项</p>
+								</a>
+							</li>
+						</ul>
+						<script type="text/javascript">
+							function change(id) {
+								document.querySelector("#picture").setAttribute("class","tab-pane");
+								document.querySelector("#basic").setAttribute("class","tab-pane");
+								document.querySelector("#others").setAttribute("class","tab-pane");
+								document.querySelector(id).setAttribute("class","tab-pane active")
+							}
+						</script>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="copy">2016-2020 © qianqianjun 版权所有 .</div>
+</div>
+<!--main end-->
+
+<!--end js load-->
+<script src="/js/backmanage/jquery-1.9.1.min.js"></script>
+<script src="/js/backmanage/bootstrap.min.js"></script>
+</body>
+</html>

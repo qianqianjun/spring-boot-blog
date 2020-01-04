@@ -7,7 +7,7 @@
     <resultMap id="ArticlesInOrderMapper" type="com.buct.blog.domain.Article">
         <result column="id" javaType="Integer" jdbcType="INTEGER" property="id"></result>
         <result column="title" javaType="String" jdbcType="VARCHAR" property="title"></result>
-        <result column="content" javaType="String" jdbcType="VARCHAR" property="content"></result>
+        <result column="content" javaType="String" jdbcType="BLOB" property="content"></result>
         <result column="type" javaType="Integer" jdbcType="INTEGER" property="type"></result>
         <result column="publishdate" javaType="String" jdbcType="VARCHAR" property="publishDate"></result>
         <result column="visitornum" javaType="Integer" jdbcType="INTEGER" property="visitorNum"></result>
@@ -44,7 +44,7 @@
 
     <select id="addArticle">
         insert into article
-        values (null,#{title},#{content},#{type},now(),0,0,0,#{imgurl},#{abstruct})
+        values (null,#{title},#{content},#{type},now(),0,0,#{status},#{imgurl},#{abstruct})
     </select>
     <select id="setArticleTitle">
         update article set title=#{title} where id = #{id}

@@ -43,8 +43,8 @@ public class ArticleService {
 
     //添加文章
     public void addArticle(String title,String content,Integer type,
-                           String imgurl,String abstruct){
-        articleDao.addArticle(title,content,type,imgurl,abstruct);
+                           Integer status,String imgurl,String abstruct){
+        articleDao.addArticle(title,content,type,status,imgurl,abstruct);
     }
     //修改文章标题
     public void setArticleTitle(Integer id,String title){

@@ -20,8 +20,8 @@ public interface ArticleDao {
      */
     Article getArticleById(Integer aid);
 
-    //添加文章
-    public void addArticle(String title,String content,Integer type,
+    //添加文章 fix by qianqianjun 增加 status 字段
+    public void addArticle(String title,String content,Integer type,Integer status,
                            String imgurl,String abstruct);
     //修改文章标题
     public void setArticleTitle(Integer id,String title);

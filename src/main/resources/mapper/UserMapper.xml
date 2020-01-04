@@ -11,8 +11,26 @@
         <result column="phone" javaType="String" jdbcType="VARCHAR" property="phone"></result>
         <result column="company" javaType="String" jdbcType="VARCHAR" property="company"></result>
         <result column="position" javaType="String" jdbcType="VARCHAR" property="position"></result>
+        <result column="img" javaType="String" jdbcType="VARCHAR" property="img"></result>
     </resultMap>
     <select id="login" resultType="com.buct.blog.domain.User">
         select * from user where account = #{username} and password = #{password}
     </select>
+
+
+    <update id="changePic">
+        update user set user.img=#{url}
+    </update>
+
+    <select id="getDefaultUser" resultType="com.buct.blog.domain.User">
+        select * from user limit 1
+    </select>
+
+    <update id="updateBasic" parameterType="com.buct.blog.domain.User">
+        update user set user.position=#{position },user.email=#{email},user.phone=#{phone},user.company=#{company}
+    </update>
+
+    <update id="updateOther" parameterType="com.buct.blog.domain.User">
+        update user set user.csdn=#{csdn},user.github=#{github}
+    </update>
 </mapper>
