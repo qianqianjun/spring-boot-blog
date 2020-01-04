@@ -2,12 +2,15 @@ package com.buct.blog.controller;
 import com.buct.blog.domain.Category;
 import com.buct.blog.domain.User;
 import com.buct.blog.service.CategoryService;
+import com.buct.blog.service.FileService;
 import com.buct.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,6 +28,8 @@ public class BackManageController {
     UserService userService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    FileService fileService;
 
     /**
      * 后台管理页面数据准备接口
@@ -37,54 +42,9 @@ public class BackManageController {
         if(session.getAttribute("user")==null){
             return "redirect:/manage/login";
         }
-        User user=(User) session.getAttribute("user");
+        User user=userService.getDefaultUser();
         map.put("user",user);
         return "backmanage/index";
-    }
-
-    /**
-     * 用于返回登录页面
-     * @param request 判断是否已经登录，已经登录的话直接跳转到管理界面即可
-     * @return 返回登录界面模板引擎
-     */
-    @GetMapping("/manage/login")
-    public String login(HttpServletRequest request,Map<String,Object> map){
-        HttpSession session=request.getSession();
-        // 如果已经登录了，跳转到管理界面
-        if(session.getAttribute("user")!=null){
-            return "redict:/manage";
-        }
-        // 如果没有登录信息，则直接返回登录页面
-        return "backmanage/login";
-    }
-
-    /**
-     * 用于验证账号和密码是否正确
-     * @param account 账号信息
-     * @param password 密码信息
-     * @param map 前台数据接受器
-     * @param request 用于获取Session
-     * @return 登录成功跳转到管理界面，失败的话返回错误信息到登录界面
-     */
-    @PostMapping("/manage/verification")
-    public String verification(@RequestParam("account") String account,
-                               @RequestParam("password") String password,
-                               Map<String,Object> map,
-                               HttpServletRequest request){
-        if(account.equals("") || password.equals("")){
-            map.put("error","请您完整输入账号和密码");
-            return "backmanage/login";
-        }else{
-            User user=userService.login(account,password);
-            if(user==null){
-                map.put("error","账号或者密码错误！");
-                return "backmanage/login";
-            }
-            // 创建session 跳转到后台管理界面
-            HttpSession session=request.getSession();
-            session.setAttribute("user",user);
-        }
-        return "redirect:/manage";
     }
 
     /**
@@ -107,7 +67,7 @@ public class BackManageController {
      */
     @GetMapping("/manage/article")
     public String manageArticle(HttpServletRequest request,Map<String,Object> map){
-        User user=(User) request.getSession().getAttribute("user");
+        User user=userService.getDefaultUser();
         map.put("user",user);
         return "backmanage/articleManage";
     }
@@ -120,10 +80,81 @@ public class BackManageController {
      */
     @GetMapping("/manage/write")
     public String write(HttpServletRequest request,Map<String,Object>map){
-        User user=(User) request.getSession().getAttribute("user");
+        User user=userService.getDefaultUser();
         map.put("user",user);
         ArrayList<Category> categories=(ArrayList<Category>) categoryService.getCategoriesLimits(1000);
         map.put("categories",categories);
         return "backmanage/write";
+    }
+
+    /**
+     * 返回用户资料修改界面
+     * @param request 用户获取用户信息
+     * @param map 用于前台参数传递
+     * @return 返回用户修改信息的界面
+     */
+    @GetMapping("/manage/profile")
+    public String profile(HttpServletRequest request,Map<String,Object>map){
+        User user=userService.getDefaultUser();
+        map.put("user",user);
+        return "backmanage/profile";
+    }
+
+    /**
+     * 修改用户的头像
+     * @param file 上传的文件
+     * @return 返回文件存储在服务器目录的名称
+     */
+    @PostMapping("/manage/chanagePic")
+    @ResponseBody
+    public String changePic(@RequestParam("file") MultipartFile file){
+        try{
+            String url="/upload/"+fileService.storeFile(file);
+            userService.changePic(url);
+            return  url;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 修改用户基本信息
+     * @param mail 邮箱
+     * @param phone 电话
+     * @param company 公司
+     * @param position 位置
+     * @return 返回修改后的信息
+     */
+    @PostMapping("/manage/updateBasic")
+    @ResponseBody
+    public User updateBasic(@RequestParam("mail") String mail,
+                              @RequestParam("phone") String phone,
+                              @RequestParam("company") String company,
+                              @RequestParam("position") String position){
+        User user=new User();
+        user.setCompany(company);
+        user.setEmail(mail);
+        user.setPhone(phone);
+        user.setPosition(position);
+        userService.updateBasic(user);
+        return user;
+    }
+
+    /**
+     * 修改用户的其它信息
+     * @param csdn csdn 博客地址
+     * @param github github 地址
+     * @return 返回修改之后的信息
+     */
+    @PostMapping("/manage/updateOther")
+    @ResponseBody
+    public User updateOther(@RequestParam("csdn") String csdn,
+                            @RequestParam("github") String github){
+        User user=new User();
+        user.setGithub(github);
+        user.setCsdn(csdn);
+        userService.updateOther(user);
+        return user;
     }
 }

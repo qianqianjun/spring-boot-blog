@@ -5,6 +5,7 @@
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/css/backlogin/style.css" rel='stylesheet' type='text/css' />
+    <link href="/css/backmanage/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <h1>谦谦君的技术博客</h1>
@@ -17,12 +18,12 @@
     </div>
     <div class="clear"> </div>
     <div class="avtar">
-        <img src="/images/backlogin/avtar.png" />
+        <img th:src="${user.img}" width="72" height="72" class="img-circle"/>
     </div>
     <form action="/manage/verification" method="post">
         <input type="text" class="text" name="account" required="required">
         <div class="key">
-            <input type="password" name="password" required="required">
+            <input type="password" name="password" required="required" >
         </div>
         <p class="error_msg" th:if="${error} != null">[[ ${error} ]]</p>
         <div class="signin">

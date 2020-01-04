@@ -468,3 +468,28 @@ a.color9:hover{color:#717171}
     position: relative;
     top: 12px;
 }
+
+.fz22fix{
+    font-size: 18px;
+    display: block;
+    padding-top: 10px;
+    text-align: left;
+}
+
+.second-title{
+    font-size: 22px;
+    font-weight:bold;
+}
+
+.picture-preview{
+    margin-top: 35px;
+    margin-left: 50px;
+}
+
+#basic-form{
+    margin-top: 30px;
+}
+
+#other-form{
+    margin-top: 30px;
+}

@@ -19,7 +19,7 @@
                 </a>
             </li>
             <li>
-                <a href="/manage/write">
+                <a href="/manage/write" target="_blank">
                     <i class="ico i-nav8"></i>
                     <p>创作文章</p>
                 </a>
@@ -69,10 +69,10 @@
 
     <!--常用链接 高谦-->
     <ul class="friend-link">
-        <a href="https://blog.csdn.net/qq_38863413" target="_blank">
+        <a th:href="${user.csdn}" target="_blank">
             <img src="/images/backmanage/csdn.png" class="csdn">
         </a>
-        <a href="https://github.com/qianqianjun" target="_blank">
+        <a th:href="${user.github}" target="_blank">
             <img src="/images/backmanage/github.png" class="github">
         </a>
         <a href="https://mail.163.com" target="_blank">
@@ -83,7 +83,7 @@
     <div class="dropdown right head-dropdown">
         <a href="javascript:;" class="under-n head-droplink" id="dropdownMenu1" data-toggle="dropdown" >
 			<span class="avtar">
-				<img src="/images/backlogin/avtar.png" >
+				<img th:src="${user.img}" >
 			</span>
             [[${user.account}]]
             <i class="fa fa-chevron-down"></i>

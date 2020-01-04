@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!--写文章页面  高谦-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,7 @@
     <input type="text" class="title" placeholder="输入文章的标题" id="title">
     <a href="#save-window" data-toggle="modal"><input type="button" value="保存草稿" class="save"></a>
     <a href="#publish-window" data-toggle="modal"><input type="button" value="发布文章" class="publish"></a>
-    <img src="/images/backlogin/avtar.png" class="avar">
+    <img th:src="${user.img}" class="avar img-circle">
 </div>
 <ul class="menu">
     <li style="margin-left: -8px;"><a href="#add-img-window" data-toggle="modal">上传图片</a></li>
@@ -74,8 +75,8 @@
                                     alert("请您添加文件");
                                 }else{
                                     uploadFile(files[0]);
-                                    event.preventDefault();
                                 }
+                                event.preventDefault();
                             },true);
                             function uploadFile(file) {
                                 var formDate=new FormData();
@@ -194,8 +195,8 @@
                                         alert("请您输入文章标题");
                                     }else{
                                         addArticle();
-                                        event.preventDefault();
                                     }
+                                    event.preventDefault();
 
                                 },true);
                                 function addArticle() {
@@ -264,8 +265,8 @@
                                         alert("请您输入文章标题");
                                     }else{
                                         saveArticle();
-                                        event.preventDefault();
                                     }
+                                    event.preventDefault();
 
                                 },true);
                                 function saveArticle() {
