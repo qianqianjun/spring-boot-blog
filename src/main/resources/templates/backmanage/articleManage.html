@@ -29,7 +29,7 @@
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs sale-tabs" role="tablist">
 							<li class="active"><a href="#tab1"  role="tab" data-toggle="tab">已发布文章</a></li>
-							<li><a href="#tab2"  role="tab" data-toggle="tab">草稿文章</a></li>
+							<li><a href="#tab2"  role="tab" data-toggle="tab">未发布文章</a></li>
 							<li><a href="#tab3"  role="tab" data-toggle="tab">已删除文章</a></li>
 						</ul>
 
@@ -39,28 +39,20 @@
 								<div class="table-responsive mart20 sale-table">
 									<table class="table table-bordered table-striped">
 										<tr>
-											<td width="10%">排名</td>
-											<td width="30%">商品名称</td>
-											<td width="15%">单价</td>
-											<td width="15%">数量</td>
-											<td width="20%">销售额</td>
+											<td width="10%">标题</td>
+											<td width="30%">专栏</td>
+											<td width="15%">发布日期</td>
+											<td width="15%">访问量</td>
+											<td width="20%">轮播</td>
 											<td>操作</td>
 										</tr>
-										<tr>
-											<td><span class="txt-red">Top1</span></td>
-											<td><a href="#">2015新款男装</a></td>
-											<td>150.00</td>
-											<td>3000</td>
-											<td>45000，000</td>
-											<td><a href="#">查看详情</a></td>
-										</tr>
-										<tr>
-											<td><span class="txt-red">Top2</span></td>
-											<td><a href="#">2015新款男装</a></td>
-											<td>150.00</td>
-											<td>3000</td>
-											<td>45000，000</td>
-											<td><a href="#">查看详情</a></td>
+										<tr class="side_links" th:each="article:${publishArticles}">
+											<td><a><span class="txt-red" href="#">[[${article.title}]]</span></a></td>
+											<td>[[${article.name}]]</td>
+											<td>[[${article.articlePublishDate}]]</td>
+											<td>[[${article.visitorNum}]]</td>
+											<td>[[${article.outstanding}]]</td>
+											<td><a href="#">修改</a></td>
 										</tr>
 									</table>
 								</div>
@@ -69,27 +61,23 @@
 							<div role="tabpanel" class="tab-pane" id="tab2">
 								<div class="table-responsive mart20 sale-table">
 									<table class="table table-bordered table-striped">
-										<tr>
-											<td width="10%">排名</td>
-											<td width="30%">客户名称</td>
-											<td width="25%">订单数量</td>
-											<td width="25%">销售额</td>
-											<td>操作</td>
-										</tr>
-										<tr>
-											<td><span class="txt-red">Top1</span></td>
-											<td><a href="#">2015新款男装</a></td>
-											<td>150.00</td>
-											<td>3000</td>
-											<td><a href="#">查看详情</a></td>
-										</tr>
-										<tr>
-											<td><span class="txt-red">Top2</span></td>
-											<td><a href="#">2015新款男装</a></td>
-											<td>150.00</td>
-											<td>3000</td>
-											<td><a href="#">查看详情</a></td>
-										</tr>
+                                        <tr>
+                                            <td width="10%">标题</td>
+                                            <td width="30%">专栏</td>
+                                            <td width="15%">发布日期</td>
+                                            <td width="15%">访问量</td>
+                                            <td width="20%">轮播</td>
+                                            <td>操作</td>
+                                        </tr>
+                                        <tr class="side_links" th:each="article:${unpublishArticles}">
+                                            <td><a><span class="txt-red" href="#">[[${article.title}]]</span></a></td>
+                                            <td>[[${article.name}]]</td>
+                                            <td>[[${article.articlePublishDate}]]</td>
+                                            <td>[[${article.visitorNum}]]</td>
+                                            <td>[[${article.outstanding}]]</td>
+                                            <td><a href="#">修改</a></td>
+                                        </tr>
+
 									</table>
 								</div>
 							</div>
@@ -97,27 +85,22 @@
 							<div role="tabpanel" class="tab-pane" id="tab3">
 								<div class="table-responsive mart20 sale-table">
 									<table class="table table-bordered table-striped">
-										<tr>
-											<td width="10%">排名</td>
-											<td width="30%">地区名称</td>
-											<td width="25%">订单数量</td>
-											<td width="25%">销售额</td>
-											<td>操作</td>
-										</tr>
-										<tr>
-											<td><span class="txt-red">Top1</span></td>
-											<td><a href="#">2015新款男装</a></td>
-											<td>3000</td>
-											<td>45000，000</td>
-											<td><a href="#">查看详情</a></td>
-										</tr>
-										<tr>
-											<td><span class="txt-red">Top2</span></td>
-											<td><a href="#">2015新款男装</a></td>
-											<td>3000</td>
-											<td>45000，000</td>
-											<td><a href="#">查看详情</a></td>
-										</tr>
+                                        <tr>
+                                            <td width="10%">标题</td>
+                                            <td width="30%">专栏</td>
+                                            <td width="15%">发布日期</td>
+                                            <td width="15%">访问量</td>
+                                            <td width="20%">轮播</td>
+                                            <td>操作</td>
+                                        </tr>
+                                        <tr class="side_links" th:each="article:${deleteArticles}">
+                                            <td><a><span class="txt-red" href="#">[[${article.title}]]</span></a></td>
+                                            <td>[[${article.name}]]</td>
+                                            <td>[[${article.articlePublishDate}]]</td>
+                                            <td>[[${article.visitorNum}]]</td>
+                                            <td>[[${article.outstanding}]]</td>
+                                            <td><a href="#">修改</a></td>
+                                        </tr>
 									</table>
 								</div>
 							</div>

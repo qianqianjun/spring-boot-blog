@@ -16,4 +16,6 @@ public class CategoryService {
     public List<Category> getCategoriesLimits(int k){return categoryDao.getCategoriesLimits(k);}
     //获取某一栏目所有已发布文章
     public List<Article> getArticlesByCategory(int type){return categoryDao.getArticlesByCategory(type);}
+    //获取所有专栏
+    public List<Category> getAllCategories(){return  categoryDao.getAllCategories();}
 }

@@ -50,4 +50,7 @@
     <select id="setCategoryImgurl">
         update category set imgurl=#{imgurl} where id=#{id}
     </select>
+    <select id="getCategoryName">
+        select category.name from category where id=#{id};
+    </select>
 </mapper>

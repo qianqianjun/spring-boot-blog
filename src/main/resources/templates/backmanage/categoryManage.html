@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="/compoment/common::backstatic"></head>
+<body>
+<!-- HTML start-->
+<!--side start-->
+<div class="side" th:replace="/compoment/common::left"></div>
+<!--side end -->
+<!--header start-->
+<div class="header clear" th:replace="/compoment/common::top"></div>
+<!--header end -->
+
+<!--main start-->
+<div class="main">
+    <div class="pad20">
+        <!--title start-->
+        <div class="postion ">
+            <div class="pos-txt"><span class="fz24 padr5">栏目管理</span></div>
+        </div>
+        <!--title end-->
+        <!--栏目管理 start-->
+        <div class="sales-list row mart20">
+            <div class="col-sm-9">
+                <div class="pad20 bgf">
+                    <div class="tit1 clear">
+                        <span class="left txt-left txt-blue"><i class="ico i-rank"></i>栏目列表</span>
+                    </div>
+                    <div class="tab">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs sale-tabs" role="tablist">
+                            <li class="active"><a href="#tab1"  role="tab" data-toggle="tab">所有栏目</a></li>
+                            <li><a href="#"  role="tab" data-toggle="tab">添加栏目</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="tab1">
+                                <div class="table-responsive mart20 sale-table">
+                                    <table class="table table-bordered table-striped">
+                                        <tr>
+                                            <td width="10%">id</td>
+                                            <td width="30%">名字</td>
+                                            <td width="15%">描述</td>
+                                            <td width="15%">图片</td>
+                                            <td width="20%">发布日期</td>
+                                            <td>操作</td>
+                                        </tr>
+                                        <tr class="side_links" th:each="category:${categories}">
+                                            <td><a><span class="txt-red" href="#">[[${category.id}]]</span></a></td>
+                                            <td>[[${category.name}]]</td>
+                                            <td>[[${category.description}]]</td>
+                                            <td>[[${category.imgurl}]]</td>
+                                            <td>[[${category.publishdate}]]</td>
+                                            <td><a href="#">修改</a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="pad20 bgf">
+                    <div class="tit1 clear">
+                        <span class="left txt-left txt-blue"><i class="ico i-rank"></i>今日简报</span>
+                    </div>
+                    <div class="report-list ">
+                        <ul>
+                            <li class="bg-green">
+                                <a href="#">
+                                    <p class="report-txt1">今日</p>
+                                    <p class="report-txt2"><span class="fz22">￥18770.00</span> <br>20笔</p>
+                                    <p class="report-txt3">2015-9-02</p>
+                                </a>
+                            </li>
+                            <li class="bg-red">
+                                <a href="#">
+                                    <p class="report-txt1">本月</p>
+                                    <p class="report-txt2"><span class="fz22">￥18770.00</span> <br>20笔</p>
+                                    <p class="report-txt3">2015-9-02</p>
+                                </a>
+                            </li>
+                            <li class="bg-blue">
+                                <a href="#">
+                                    <p class="report-txt1">今年</p>
+                                    <p class="report-txt2"><span class="fz22">￥18770.00</span> <br>20笔</p>
+                                    <p class="report-txt3">2015-9-02</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--栏目管理 end-->
+    </div>
+    <div class="copy">2016-2020 © qianqianjun 版权所有 .</div>
+</div>
+<!--main end-->
+<script src="/js/backmanage/jquery-1.9.1.min.js"></script>
+<script src="/js/backmanage/bootstrap.min.js"></script>
+</body>
+</html>

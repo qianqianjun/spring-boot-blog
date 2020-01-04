@@ -1,6 +1,7 @@
 package com.buct.blog.dao;
 
 import com.buct.blog.domain.Article;
+import com.buct.blog.domain.ArticleAndCategory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -46,4 +47,14 @@ public interface ArticleDao {
     public void setArticleStatus(Integer id,Integer status);
     //修改文章专栏
     public void setArticleType(Integer id,Integer type);
+    //获取所有已发布文章
+    public List<ArticleAndCategory> getAllPublishArticles();
+    //获取所有未发布文章
+    public List<ArticleAndCategory> getAllUnpublishArticles();
+    //获取所有已删除文章
+    public List<ArticleAndCategory> getAllDeleteArticles();
+    //软删除文章
+    public void softDeleteArticle(Integer id);
+    //修改文章发布日期
+    public void setArticlePublishDate(Integer id);
 }

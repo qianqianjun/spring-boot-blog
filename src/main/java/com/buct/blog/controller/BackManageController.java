@@ -1,5 +1,10 @@
 package com.buct.blog.controller;
+import com.buct.blog.domain.Article;
+import com.buct.blog.domain.ArticleAndCategory;
+import com.buct.blog.domain.Category;
 import com.buct.blog.domain.User;
+import com.buct.blog.service.ArticleService;
+import com.buct.blog.service.CategoryService;
 import com.buct.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Map;
 
 
@@ -20,6 +26,10 @@ import java.util.Map;
 public class BackManageController {
     @Autowired
     UserService userService;
+    @Autowired
+    ArticleService articleService;
+    @Autowired
+    CategoryService categoryService;
 
     /**
      * 后台管理页面数据准备接口
@@ -104,7 +114,25 @@ public class BackManageController {
     public String manageArticle(HttpServletRequest request,Map<String,Object> map){
         User user=(User) request.getSession().getAttribute("user");
         map.put("user",user);
+        ArrayList<ArticleAndCategory> arrayList = (ArrayList<ArticleAndCategory>) articleService.getAllPublishArticles();
+        map.put("publishArticles",arrayList);
+        System.out.println(arrayList);
+        ArrayList<ArticleAndCategory> arrayList1 =
+                (ArrayList<ArticleAndCategory>) articleService.getAllUnpublishArticles();
+        map.put("unpublishArticles",arrayList1);
+        ArrayList<ArticleAndCategory> arrayList2 =
+                (ArrayList<ArticleAndCategory>) articleService.getAllDeleteArticles();
+        map.put("deleteArticles",arrayList2);
         return "backmanage/articleManage";
     }
 
+    @GetMapping("/manage/category")
+    public String manageCategory(HttpServletRequest request,Map<String,Object> map){
+        User user=(User) request.getSession().getAttribute("user");
+        map.put("user",user);
+        ArrayList<Category> arrayList = (ArrayList<Category>) categoryService.getAllCategories();
+        map.put("categories",arrayList);
+        System.out.println(arrayList);
+        return "backmanage/categoryManage";
+    }
 }
