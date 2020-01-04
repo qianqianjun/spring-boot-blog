@@ -31,6 +31,8 @@ public class RecommendController {
     public String recommend(Map<String,Object> map){
         ArrayList<Category> categories=(ArrayList<Category>) categoryService.getCategoriesLimits(8);
         map.put("categories",categories);
+        ArrayList<Article> recommandArticleas=(ArrayList<Article>) articleService.getArticleByVisitor(100);
+        map.put("recommandArticleas",recommandArticleas);
         return "recommend";
     }
 }
