@@ -28,7 +28,7 @@
 
     <select id="addArticle">
         insert into article
-        values (null,#{title},#{content},#{type},now(),0,0,0,#{imgurl},#{abstruct})
+        values (null,#{title},#{content},#{type},now(),0,0,#{status},#{imgurl},#{abstruct})
     </select>
     <select id="setArticleTitle">
         update article set title=#{title} where id = #{id}

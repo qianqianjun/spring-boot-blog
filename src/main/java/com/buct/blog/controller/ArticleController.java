@@ -10,9 +10,7 @@ import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -53,6 +51,10 @@ public class ArticleController {
         return "recommend";
     }
 
+
+
+
+
     //给文章添加一条新评论,返回评论的id
     @GetMapping("/addComment")
     public String addComment(@RequestParam("aid") Integer aid,
@@ -79,15 +81,35 @@ public class ArticleController {
         return null;
     }
 
-    //添加文章
-    @GetMapping("/addArticle")
-    public String addArticle(@RequestParam("title") String title,
+    /***
+     * 添加文章接口
+     * write by bingyu
+     * fix by qianqianjun
+     * @param title
+     * @param content
+     * @param type
+     * @param status
+     * @param imgurl
+     * @param abstruct
+     * @return
+     */
+    @PostMapping("/addArticle")
+    @ResponseBody
+    public Article addArticle(@RequestParam("title") String title,
                              @RequestParam("content") String content,
                              @RequestParam("type") Integer type,
+                             @RequestParam("status") Integer status,
                              @RequestParam("imgurl") String imgurl,
                              @RequestParam("abstruct") String abstruct){
-        articleService.addArticle(title,content,type,imgurl,abstruct);
-        return null;
+        articleService.addArticle(title,content,type,status,imgurl,abstruct);
+        Article article=new Article();
+        article.setAbstruct(abstruct);
+        article.setContent(content);
+        article.setImgurl(imgurl);
+        article.setType(type);
+        article.setTitle(title);
+        article.setStatus(status);
+        return article;
     }
     //修改文章标题
     @GetMapping("/setArticleTitle")

@@ -16,7 +16,7 @@
 
 <div class="top">
     <input type="text" class="title" placeholder="输入文章的标题" id="title">
-    <input type="button" value="保存草稿" class="save">
+    <a href="#save-window" data-toggle="modal"><input type="button" value="保存草稿" class="save"></a>
     <a href="#publish-window" data-toggle="modal"><input type="button" value="发布文章" class="publish"></a>
     <img src="/images/backlogin/avtar.png" class="avar">
 </div>
@@ -173,7 +173,7 @@
                         <div class="modal-body">
                             <form id="publish-form">
                                 <label for="cate">选择所属专栏</label>
-                                <select  name="categoryId" class="form-control" id="cate" style="margin-top: 10px">
+                                <select  class="form-control" id="cate" style="margin-top: 10px">
                                     <option th:each="category:${categories}" th:value="${category.id}">[[${category.name}]]</option>
                                 </select>
                                 <input type="submit" value="确认发布" class="btn btn-default" style="margin-top: 10px">
@@ -184,7 +184,7 @@
                                 var abstruct_input=document.getElementById("abstruct");
                                 var md_source_input=document.getElementById("editor");
                                 var title_input=document.getElementById("title");
-
+                                var category_select=document.getElementById("cate");
                                 publish_form.addEventListener("submit",function (event) {
                                     if(abstruct_input.value.length===0){
                                         alert("请您输入摘要信息！");
@@ -192,15 +192,107 @@
                                         alert("请您输入文章内容");
                                     }else if(title_input.value.length===0){
                                         alert("请您输入文章标题");
+                                    }else{
+                                        addArticle();
+                                        event.preventDefault();
                                     }
+
+                                },true);
+                                function addArticle() {
                                     var fromData=new FormData();
+                                    fromData.append("title",title_input.value);
+                                    fromData.append("content",md_source_input.value);
+                                    fromData.append("type",category_select.value);
+                                    fromData.append("abstruct",abstruct_input.value);
+                                    fromData.append("imgurl","");
+                                    fromData.append("status","1");
+
                                     var xhr=new XMLHttpRequest();
-                                    event.preventDefault();
-                                })
+                                    xhr.open("POST","/addArticle");
+                                    xhr.onload=function (ev) {
+                                        if(xhr.status===200){
+                                            alert("发布文章成功");
+                                        }else{
+                                            alert("发布文章失败，请检查服务器状态！");
+                                        }
+                                        document.querySelector("#close-publish-window").click();
+                                    };
+                                    xhr.send(fromData);
+                                }
                             </script>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">确认</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="close-publish-window">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--保存草稿部分-->
+        <div class="col-md-12 column">
+            <div class="modal fade" id="save-window" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">
+                                保存草稿选项
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="save-form">
+                                <label for="save-cate">选择所属专栏</label>
+                                <select  class="form-control" id="save-cate" style="margin-top: 10px">
+                                    <option th:each="category:${categories}" th:value="${category.id}">[[${category.name}]]</option>
+                                </select>
+                                <input type="submit" value="保存草稿" class="btn btn-default" style="margin-top: 10px">
+                            </form>
+
+                            <script type="text/javascript">
+                                var save_form=document.getElementById("save-form");
+                                var abstruct_input=document.getElementById("abstruct");
+                                var md_source_input=document.getElementById("editor");
+                                var title_input=document.getElementById("title");
+                                var category_select=document.getElementById("save-cate");
+                                save_form.addEventListener("submit",function (event) {
+                                    if(abstruct_input.value.length===0){
+                                        alert("请您输入摘要信息！");
+                                    }else if(md_source_input.value.length===0){
+                                        alert("请您输入文章内容");
+                                    }else if(title_input.value.length===0){
+                                        alert("请您输入文章标题");
+                                    }else{
+                                        saveArticle();
+                                        event.preventDefault();
+                                    }
+
+                                },true);
+                                function saveArticle() {
+                                    var fromData=new FormData();
+                                    fromData.append("title",title_input.value);
+                                    fromData.append("content",md_source_input.value);
+                                    fromData.append("type",category_select.value);
+                                    fromData.append("abstruct",abstruct_input.value);
+                                    fromData.append("imgurl","");
+                                    fromData.append("status","0");
+
+                                    var xhr=new XMLHttpRequest();
+                                    xhr.open("POST","/addArticle");
+                                    xhr.onload=function (ev) {
+                                        if(xhr.status===200){
+                                            alert("保存草稿文章成功");
+                                        }else{
+                                            alert("保存草稿文章失败，请检查服务器状态！");
+                                        }
+                                        document.querySelector("#close-save-window").click();
+                                    };
+                                    xhr.send(fromData);
+                                }
+                            </script>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="close-save-window">确认</button>
                         </div>
                     </div>
                 </div>
