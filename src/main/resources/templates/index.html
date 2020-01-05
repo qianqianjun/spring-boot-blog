@@ -11,12 +11,12 @@
 	    	<div id="header">
             	
             	<!--BEGIN logo-->
-            	<h1 id="logo"><a href="index.html">谦谦君的博客</a></h1>
+            	<h1 id="logo"><a href="/">谦谦君的博客</a></h1>
                 <!--END of logo-->
                 
                 <!--BEGIN availabilty--> 
                 <div class="availability">
-                   	<a href="#" class="available">勤奋自律，谦虚谨慎，乐观积极！</a>
+                   	<a href="https://github.com/qianqianjun" class="available">勤奋自律，谦虚谨慎，乐观积极！</a>
                 </div>
                 <!--END of availability-->
                 
@@ -58,9 +58,9 @@
                     	<h2>最新文章</h2>
                         <span class="intro_text">博主最新发布的文章</span>
                         <ul>
-                            <li th:each="article:${newest}"><a href="">[[${article.title}]]</a></li>
+                            <li th:each="article:${newest}"><a th:href="@{'/articles/detail?aid='+${article.id}}">[[${article.title}]]</a></li>
                         </ul>
-                        <div class="readmore" style="text-indent: 0"><a href="#" title="Read More">更多最新文章</a></div>
+                        <div class="readmore" style="text-indent: 0"><a href="/newest" title="Read More">更多最新文章</a></div>
                     </div>
                     <!--END of 1st column-->
                     <!--BEGIN 2nd column-->
@@ -70,7 +70,7 @@
                         <ul>
                         	<li th:each="category:${categories}"><a href="">[[${category.name}]]</a></li>
                         </ul>
-                        <div class="readmore" style="text-indent: 0"><a href="#" title="Read More">更多专栏</a></div>
+                        <div class="readmore" style="text-indent: 0"><a href="/category" title="Read More">更多专栏</a></div>
                     </div>
                     <!--END of 2nd column-->
                     <!--BEGIN 3rd column-->
@@ -78,35 +78,24 @@
                     	<h2>推荐文章</h2>
                         <span class="intro_text">访问次数最多的文章</span>
                         <ul>
-                            <li th:each="recommend:${popular}"><a href="#">[[${recommend.title}]]</a></li>
+                            <li th:each="recommend:${popular}"><a th:href="@{'/articles/detail?aid='+${recommend.id}}">[[${recommend.title}]]</a></li>
                         </ul>
-                        <div class="readmore" style="text-indent: 0"><a href="#" title="Read More">更多推荐文章</a></div>
+                        <div class="readmore" style="text-indent: 0"><a href="/recommend" title="Read More">更多推荐文章</a></div>
                     </div>
                     <!--END of 3rd column-->
-
                 </div>	
                 <!--END of column_3-->
-            
             <!--BEGIN push - makes our footer stick at the bottom of the page. -->
             <div class="push"></div>    
             <!--END of push -->
-            
             </div>
             <!--END of main_conten-->
-            
-            
             <!--BEGIN of footer-->
-            <div id="footer">
-            	<div class="copyright">
-	            	<small>&copy; 2009 More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>. All rights reserved</small>
-                </div>
-            </div>
-        	<!--END of wrap-->    
-            
+            <div id="footer" th:replace="compoment/footer::footer"></div>
+        	<!--END of wrap-->
         </div>
         <!--END of wrap-->
     </div>
     <!--END of page-->
-    
 </body>
 </html>

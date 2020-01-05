@@ -13,19 +13,18 @@
     <div id="wrap">
         <!--BEGIN header-->
         <div id="header">
-
             <!--BEGIN logo-->
-            <h1 id="logo"><a href="index.html">The Freelancer</a></h1>
+            <h1 id="logo"><a href="/">谦谦君的博客</a></h1>
             <!--END of logo-->
 
             <!--BEGIN availabilty-->
             <div class="availability">
-                <a href="#" class="available">I'm available for freelance work</a>
+                <a href="https://github.com/qianqianjun" class="available">勤奋自律，谦虚谨慎，乐观积极！</a>
             </div>
             <!--END of availability-->
 
             <!--BEGIN menu_wrap-->
-            <div th:replace="compoment/navigatior::commonMenu(0)"></div>
+            <div th:replace="compoment/navigatior::commonMenu(-1)"></div>
             <!--END of menu_wrap-->
 
         </div>
@@ -65,11 +64,7 @@
 
 
         <!--BEGIN of footer-->
-        <div id="footer">
-            <div class="copyright">
-                <small>&copy; 2009 More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>. All rights reserved</small>
-            </div>
-        </div>
+        <div id="footer" th:replace="compoment/footer::footer"></div>
         <!--END of wrap-->
 
     </div>

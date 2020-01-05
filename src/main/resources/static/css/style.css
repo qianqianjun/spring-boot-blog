@@ -2,10 +2,11 @@ html, body{
 	height:100%;
 }
 body{
-	/* background:#000 url(../images/body_bg.gif) no-repeat top center; */
+	background:#000 url(../images/body_bg.gif) no-repeat top center;
 	font:13px/22px Arial, Helvetica, sans-serif;
 	color:#868379;
 	background-color: black;
+	background-position-x: 80px;
 }
 
 h1, h2, h3, h4, h5, h6, p, blockquote{
@@ -237,6 +238,7 @@ a:hover{
 	width:156px;
 	height:35px;
 	text-indent:-999999px;
+	margin-top: 25px;
 }
 .view_project a{
 	background:url(../images/view_project.gif) no-repeat;
@@ -287,7 +289,7 @@ a:hover{
 	color:#ebaf0d;
 	font:28px/26px Georgia, "Times New Roman", Times, serif;
 	background:url(../images/grunge_line.gif) repeat-x bottom center;
-	margin-bottom:30px;
+	margin-bottom: 10px;
 	padding-bottom:10px;
 }
 #main_content h3{
@@ -530,12 +532,15 @@ blockquote p cite{
 	background:url(../images/footer_bg.gif) no-repeat;
 	background-size: cover;
 	background-position: center center;
+	height: 80px;
 }
 #footer .copyright{
-	padding-top:4px;
+	padding-top: 20px;
+	padding-right: 20px;
 	background:url(../images/grunge_line.gif) repeat-x top left;
 	color:#4b4a47;
 	text-align:right;
+	font-size: 18px;
 }
 #footer .copyright small{
 	font-size:11px;
@@ -626,7 +631,8 @@ p#controls{
 /*common styles*/
 
 p,pre,ol,ul,dl{
-	padding-bottom:20px;
+	padding-bottom: 0px;
+	font-size: 16px;
 }
 ul li{
 	list-style:outside;
