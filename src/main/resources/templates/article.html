@@ -1,40 +1,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="compoment/static::static"></head>
-
 <body>
 <!--高谦 文章展示页面-->
-<!--BEGIN page-->
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="/js/backmanage/showdown.min.js"></script>
+<script src="/js/backmanage/jquery.min.js"></script>
 
 <div id="page">
     <!--BEGIN wrap-->
     <div id="wrap">
         <!--BEGIN header-->
         <div id="header">
-            <!--BEGIN logo-->
             <h1 id="logo"><a href="/">谦谦君的博客</a></h1>
-            <!--END of logo-->
-
-            <!--BEGIN availabilty-->
             <div class="availability">
                 <a href="https://github.com/qianqianjun" class="available">勤奋自律，谦虚谨慎，乐观积极！</a>
             </div>
-            <!--END of availability-->
-
-            <!--BEGIN menu_wrap-->
             <div th:replace="compoment/navigatior::commonMenu(-1)"></div>
-            <!--END of menu_wrap-->
-
+            <div id="title_page">
+                <h2>文章详情页</h2>
+            </div>
         </div>
         <!--END of header-->
-
-        <!--BEGIN main_conten-->
-        <div id="main_content" style="padding-top: 250px;">
-
-            <!--BEGIN content-->
-            <div id="content">
+        <div id="main_content" style="padding-right: 0px">
+            <div id="content" style="width: 100%">
                 <h2>[[${article.title}]]</h2>
                 <h5>[[${article.publishDate}]]</h5>
                 <h5>[[${article.visitorNum}]]</h5>
@@ -43,34 +32,13 @@
             <script type="text/javascript" th:inline="javascript">
                 $('#content_text').html(marked([[${article.content}]]));
             </script>
-            <!--END of content-->
-
-            <!--BEGIN sidebar-->
-            <div id="sidebar">
-                <div class="block">
-                    <ul class="side_links" th:each="category:${categories}">
-                        <li><a href="">[[${category.name}]]</a></li>
-                    </ul>
-                </div>
-            </div>
-            <!--END of sidebar-->
-
-            <!--BEGIN push - makes our footer stick at the bottom of the page. -->
             <div class="push"></div>
-            <!--END of push -->
-
         </div>
-        <!--END of main_conten-->
-
 
         <!--BEGIN of footer-->
         <div id="footer" th:replace="compoment/footer::footer"></div>
         <!--END of wrap-->
-
     </div>
-    <!--END of wrap-->
 </div>
-<!--END of page-->
-
 </body>
 </html>
