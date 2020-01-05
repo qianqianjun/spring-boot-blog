@@ -1,7 +1,8 @@
 package com.buct.blog.domain;
 
 import lombok.Data;
-import java.util.Date;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author 高谦
@@ -20,6 +21,36 @@ public class Article {
     private Integer status; // 当前文章的状态 1： 发布 0 编辑中
 
     private String abstruct; // 当前文章的摘要，数据库没有这一项。
+
+    /**
+     * 用于读取数据库中二进制文件。
+     */
+    private byte[] blob;
+
+    public void setBlob(byte[] blob){
+        this.blob=blob;
+    }
+
+    /**
+     * 用于设置数据库二进制数据存储文件
+     * @param content 要转换为二进制数据的 string
+     */
+    public void setBlob(String content){
+        try {
+            this.blob=content.getBytes("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 用于获取 blob 二进制文件
+     * @return 返回blob 二进制数据
+     */
+    public byte[] getBlob(){
+        return this.blob;
+    }
+
     public Article(){
 
     }
@@ -62,6 +93,19 @@ public class Article {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    /***
+     * 将二进制数据转换为 string
+     * @param blob 从数据库中读取的二进制文件
+     */
+
+    public void setContent(byte[] blob){
+        try {
+            this.content = new String(blob, "utf-8");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void setId(Integer id) {

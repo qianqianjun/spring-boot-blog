@@ -7,7 +7,7 @@
     <resultMap id="ArticlesInOrderMapper" type="com.buct.blog.domain.Article">
         <id column="id" javaType="Integer" jdbcType="INTEGER" property="id"></id>
         <result column="title" javaType="String" jdbcType="VARCHAR" property="title"></result>
-        <result column="content" javaType="String" jdbcType="BLOB" property="content"></result>
+        <result column="blob" javaType="Object" jdbcType="BLOB" property="blob"></result>
         <result column="type" javaType="Integer" jdbcType="INTEGER" property="type"></result>
         <result column="publishdate" javaType="String" jdbcType="VARCHAR" property="publishDate"></result>
         <result column="visitornum" javaType="Integer" jdbcType="INTEGER" property="visitorNum"></result>
@@ -26,28 +26,15 @@
         select * from article where id=#{aid}
     </select>
 
-    <select id="addArticle">
+    <!--高谦修改，使用 blob 属性代替 content ，数据库乱码-->
+    <insert id="addArticle">
         insert into article
-        values (null,#{title},#{content},#{type},now(),0,0,#{status},#{imgurl},#{abstruct})
-    </select>
-    <select id="setArticleTitle">
-        update article set title=#{title} where id = #{id}
-    </select>
-    <select id="setArticleContent">
-        update article set content=#{content} where id=#{id}
-    </select>
-    <select id="setArticleAbstruct">
-        update article set abstruct=#{abstruct} where id=#{id}
-    </select>
-    <select id="setArticleImgurl">
-        update article set imgurl=#{imgurl} where id=#{id}
-    </select>
-    <select id="setArticleOutstanding">
-        update article set outstanding=#{outstanding} where id=#{id}
-    </select>
-    <select id="deleteArticle">
+        values (null,#{title},#{blob},#{type},now(),0,0,#{status},'',#{abstruct})
+    </insert>
+
+    <delete id="deleteArticle">
         delete from article where id=#{id}
-    </select>
+    </delete>
     <select id="getArticleByTitle" resultType="com.buct.blog.domain.Article">
         select * from article where title like concat('%',#{title},'%')
     </select>
@@ -57,13 +44,20 @@
     <select id="getVisitorNum" resultType="Integer">
         select visitornum from article where id = #{id}
     </select>
-    <select id="setVisitorNum">
+    <update id="setVisitorNum">
         update article set visitornum=#{visitorNum} where id=#{id}
-    </select>
-    <select id="setArticleStatus">
+    </update>
+    <update id="setArticleStatus">
         update article set status=#{status} where id=#{id}
-    </select>
-    <select id="setArticleType">
+    </update>
+    <update id="setArticleType">
         update article set type=#{type} where id=#{id}
-    </select>
+    </update>
+
+    <!--高谦添加 修改文章功能-->
+    <update id="fixArticle" parameterType="com.buct.blog.domain.Article">
+        update article set article.content=#{blob},article.title=#{title},article.abstruct=#{abstruct},
+          article.type=#{type}
+          where article.id=#{id}
+    </update>
 </mapper>

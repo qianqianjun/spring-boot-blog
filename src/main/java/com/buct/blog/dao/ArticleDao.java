@@ -13,25 +13,34 @@ public interface ArticleDao {
     public List<Article> getArticlesByVisitor(int k);
 
     /**
+     * write by 高谦
      * 按照文章id 获取文章
-     * @param aid
-     * @return
+     * @param aid 文章 id
+     * @return 返回查找的文章
      */
     Article getArticleById(Integer aid);
 
-    //添加文章 fix by qianqianjun 增加 status 字段
-    public void addArticle(String title,String content,Integer type,Integer status,
-                           String imgurl,String abstruct);
-    //修改文章标题
-    public void setArticleTitle(Integer id,String title);
-    //修改文章内容
-    public void setArticleContent(Integer id,String content);
-    //修改文章摘要
-    public void setArticleAbstruct(Integer id,String abstruct);
-    //修改文章图片
-    public void setArticleImgurl(Integer id,String imgurl);
-    //修改文章轮播
-    public void setArticleOutstanding(Integer id,Integer outstanding);
+    /**
+     * 添加文章
+     * write by 刘权达
+     * fix by 高谦 增加 status 字段
+     * @param title
+     * @param blob  这里原来是string 类型的content ，为了防止乱码，改为字节数组
+     * @param type
+     * @param status
+     * @param abstruct
+     */
+    public void addArticle(String title,byte[] blob,Integer type,Integer status,String abstruct);
+
+    /**
+     * write by 高谦
+     * 删除掉了之前 单个修改文章某一字段的功能，一并修改
+     * @param article 文章信息
+     */
+    public int fixArticle(Article article);
+
+
+
     //删除文章
     public void deleteArticle(Integer id);
     //按文章名模糊搜索文章

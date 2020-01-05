@@ -42,14 +42,6 @@ public class ArticleController {
         return "article";
     }
 
-    @GetMapping("/articles/list")
-    public String articlesByCategory(@RequestParam("type") Integer type,Map<String,Object> map){
-        ArrayList<Article> articlesByCategory=(ArrayList<Article>)
-                categoryService.getArticlesByCategory(type);
-        map.put("acticleList",articlesByCategory);
-
-        return "recommend";
-    }
 
 
 
@@ -89,7 +81,6 @@ public class ArticleController {
      * @param content
      * @param type
      * @param status
-     * @param imgurl
      * @param abstruct
      * @return
      */
@@ -99,53 +90,19 @@ public class ArticleController {
                              @RequestParam("content") String content,
                              @RequestParam("type") Integer type,
                              @RequestParam("status") Integer status,
-                             @RequestParam("imgurl") String imgurl,
                              @RequestParam("abstruct") String abstruct){
-        articleService.addArticle(title,content,type,status,imgurl,abstruct);
+        articleService.addArticle(title,content,type,status,abstruct);
         Article article=new Article();
         article.setAbstruct(abstruct);
         article.setContent(content);
-        article.setImgurl(imgurl);
         article.setType(type);
         article.setTitle(title);
         article.setStatus(status);
         return article;
     }
-    //修改文章标题
-    @GetMapping("/setArticleTitle")
-    public String setArticleTitle(@RequestParam("id") Integer id,
-                                  @RequestParam("title") String title){
-        articleService.setArticleTitle(id,title);
-        return null;
-    }
-    //修改文章内容
-    @GetMapping("/setArticleContent")
-    public String setArticleContent(@RequestParam("id") Integer id,
-                                    @RequestParam("content") String content){
-        articleService.setArticleContent(id,content);
-        return  null;
-    }
-    //修改文章摘要
-    @GetMapping("/setArticleAbstruct")
-    public String setArticleAbstruct(@RequestParam("id") Integer id,
-                                     @RequestParam("abstruct") String abstruct){
-        articleService.setArticleAbstruct(id,abstruct);
-        return null;
-    }
-    //修改文章图片
-    @GetMapping("/setArticleImgurl")
-    public String setArticleImgurl(@RequestParam("id") Integer id,
-                                     @RequestParam("imgurl") String imgurl){
-        articleService.setArticleImgurl(id,imgurl);
-        return null;
-    }
-    //修改文章轮播
-    @GetMapping("/setArticleOutstanding")
-    public String setArticleOutstanding(@RequestParam("id") Integer id,
-                                   @RequestParam("outstanding") Integer outstanding){
-        articleService.setArticleOutstanding(id,outstanding);
-        return null;
-    }
+
+
+
     //删除文章
     @GetMapping("/deleteArticle")
     public String deleteArticle(@RequestParam("id") Integer id){
