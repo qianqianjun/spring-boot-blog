@@ -60,4 +60,9 @@
           article.type=#{type}
           where article.id=#{id}
     </update>
+
+    <!--高谦添加 用于根据type 查找文章-->
+    <select id="getArticlesByType" resultMap="ArticlesInOrderMapper">
+        select * from article where article.status=1 and article.type=#{type}
+    </select>
 </mapper>

@@ -16,4 +16,14 @@ public class CategoryService {
     public List<Category> getCategoriesLimits(int k){return categoryDao.getCategoriesLimits(k);}
     //获取某一栏目所有已发布文章
     public List<Article> getArticlesByCategory(int type){return categoryDao.getArticlesByCategory(type);}
+
+    /**
+     * write by 高谦
+     * 根据id 来获取专栏
+     * @param id 专栏 id
+     * @return 专栏对象
+     */
+    public Category getCategoryById(Integer id){
+        return categoryDao.getCategoryById(id);
+    }
 }

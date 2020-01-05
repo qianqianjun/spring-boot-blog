@@ -171,20 +171,22 @@ a:hover{
 }
 #work .row .work_desc{
 	float:right;
-	width:530px;
+	width: 550px;
+	margin-top: 15px;
 }
 #work .row .work_desc h3{
 	font-size:28px;
 }
 #work .row .work_desc .role{
 	color:#766f51;
+	margin-top: 30px;
 }
 #work .row .work_desc .role span{
 	color:#aa9b59;
 }
 
 #work .row .work_desc h3{
-	padding-bottom:10px;
+	padding-bottom: 20px;
 }
 
 
@@ -257,6 +259,7 @@ a:hover{
 .view_livesite{
 	width:156px;
 	height:35px;
+	margin-top: 10px;
 	text-indent:-999999px;
 }
 .view_livesite a{
@@ -730,3 +733,47 @@ img.alignleft {
 .clear{
 	clear:both;
 }
+
+.btn{
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.btn-info{
+	color: #fff;
+	background-color: #5bc0de;
+	border-color: #46b8da;
+	float: right;
+	margin-top: 10px;
+	margin-right: 12px;
+}
+
+.publish-date{
+	font-size: 14px;
+	float: right;
+	margin-right: 12px;
+	margin-top: 8px;
+}
+.visitor-num{
+	display: block;
+	margin-top: 10px;
+}
+
+

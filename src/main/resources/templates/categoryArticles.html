@@ -1,8 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="compoment/static::static"></head>
-<!--高谦 最新文章页面-->
+<!--高谦 专栏文章页面-->
 <body>
+
 	<!--BEGIN page-->
 	<div id="page">
     	<!--BEGIN wrap-->
@@ -18,21 +19,25 @@
                     <a href="https://github.com/qianqianjun" class="available">勤奋自律，谦虚谨慎，乐观积极！</a>
                 </div>
                 <!--END of availability-->
+                
                  <!--BEGIN menu_wrap-->
-                <div th:replace="compoment/navigatior::commonMenu(4)"></div>
+                <div th:replace="compoment/navigatior::commonMenu(-1)"></div>
                 <!--END of menu_wrap-->
+                
              	<!--BEGIN feature_project-->
                 <div id="title_page">
-                	<h2>最新文章页</h2>
+                    <h2><span style="color: #ffca0e">[[${category.name}]]</span>专栏文章</h2>
 	            </div>   
                 <!--END of feature_project-->
             </div>
            	<!--END of header-->
+            
             <!--BEGIN main_conten-->
             <div id="main_content">
+            	
                 <!--BEGIN content-->
-            	<div id="content">
-                    <a th:each="article:${newestArticles}">
+            	<div id="content" >
+                    <a th:each="article:${articles}">
                         <h2>[[${article.title}]] <span class="publish-date">[[${article.publishDate}]] 发布</span></h2>
 
                         <p><strong>[[${article.abstruct}]]</strong></p>
@@ -44,9 +49,11 @@
                     </a>
                 </div>
                  <!--END of content-->
+                
                  <!--BEGIN sidebar-->	
                 <div id="sidebar" th:replace="compoment/right::right"></div>
                  <!--END of sidebar-->
+            
             <!--BEGIN push - makes our footer stick at the bottom of the page. -->
             <div class="push"></div>    
             <!--END of push -->
@@ -54,10 +61,12 @@
             <!--END of main_conten-->
             <!--BEGIN of footer-->
             <div id="footer" th:replace="compoment/footer::footer"></div>
-        	<!--END of wrap-->
+        	<!--END of wrap-->    
+            
         </div>
         <!--END of wrap-->
     </div>
     <!--END of page-->
+    
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head th:replace="compoment/static::static"></head>
 <!--高谦 推荐文章页面-->
 <body>
+
 	<!--BEGIN page-->
 	<div id="page">
     	<!--BEGIN wrap-->
@@ -25,10 +26,9 @@
                 
              	<!--BEGIN feature_project-->
                 <div id="title_page">
-                	<h2>What I can do for you</h2>
+                	<h2>推荐文章页</h2>
 	            </div>   
                 <!--END of feature_project-->
-                
             </div>
            	<!--END of header-->
             
@@ -37,9 +37,14 @@
             	
                 <!--BEGIN content-->
             	<div id="content" >
-                    <a th:href="@{'/articles/detail?aid='+${article.id}}" th:each="article:${recommandArticleas}">
-                        <h2>[[${article.title}]]</h2>
+                    <a th:each="article:${recommandArticleas}">
+                        <h2>[[${article.title}]] <span class="publish-date">[[${article.publishDate}]] 发布</span></h2>
+
                         <p><strong>[[${article.abstruct}]]</strong></p>
+                        <span class="visitor-num">[[${article.visitorNum}]]&nbsp;&nbsp; 次浏览</span>
+                        <a th:href="@{'/articles/detail?aid='+${article.id}}">
+                            <input type="button" class="btn btn-info" value="查看详情"/>
+                        </a>
                         <div class="clear">&nbsp;</div>
                     </a>
                 </div>

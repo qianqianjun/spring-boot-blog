@@ -55,4 +55,11 @@ public interface ArticleDao {
     public void setArticleStatus(Integer id,Integer status);
     //修改文章专栏
     public void setArticleType(Integer id,Integer type);
+
+    /**
+     * write by 高谦
+     * @param type 文章的type
+     * @return 文章列表
+     */
+    List<Article> getArticlesByType(Integer type);
 }

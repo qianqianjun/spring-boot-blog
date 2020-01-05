@@ -25,4 +25,11 @@ public interface CategoryDao {
     //修改专栏图片
     public void setCategoryImgurl(Integer id,String imgurl);
 
+    /**
+     * write by 高谦
+     * 根据专栏标号获取专栏
+     * @param id 专栏id
+     * @return 专栏对象
+     */
+    Category getCategoryById(Integer id);
 }

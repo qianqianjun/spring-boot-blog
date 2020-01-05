@@ -42,6 +42,22 @@ public class ArticleController {
         return "article";
     }
 
+    /**
+     * 根据专栏标号返回专栏内的所有文章
+     * @param type 专栏的标号，文章的type
+     * @param map 前台数据传递
+     * @return 返回专栏文章页面
+     */
+    @GetMapping("/articles/list")
+    public String getArticlesByType(@RequestParam("type") Integer type,Map<String,Object> map){
+        Category category=categoryService.getCategoryById(type);
+        map.put("category",category);
+        ArrayList<Article> articles=(ArrayList<Article> ) articleService.getArticlesByType(type);
+        map.put("articles",articles);
+        ArrayList<Category> categories=(ArrayList<Category>) categoryService.getCategoriesLimits(100);
+        map.put("categories",categories);
+        return "categoryArticles";
+    }
 
 
 

@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="compoment/static::static"></head>
-
 <body>
 	<!--BEGIN page-->
 	<div id="page">
@@ -18,15 +17,13 @@
                     <a href="https://github.com/qianqianjun" class="available">勤奋自律，谦虚谨慎，乐观积极！</a>
                 </div>
                 <!--END of availability-->
-                
                  <!--BEGIN menu_wrap-->
                 <div th:replace="compoment/navigatior::commonMenu(3)"></div>
                 <!--END of menu_wrap-->
-                
              	<!--BEGIN feature_project-->
                 <div id="title_page">
-                	<h2>A showcase of recent projects</h2>
-	            </div>   
+                	<h2>文章专栏页</h2>
+	            </div>
                 <!--END of feature_project-->
                 
             </div>
@@ -36,48 +33,35 @@
             <div id="main_content">
             	
                 <!--BEGIN work-->
-            	<div id="work">	
-                	
-                    
+            	<div id="work">
                     <div class="work_categ_wrap last">
-                    <h2>Web Design</h2>
-                    <ul th:each="item:${categories}">
-                	<!--BEGIN row-->
-                	<div class="row">
-                      <div class="work_image">
-                    	<a href="#"><img th:src="${item.imgurl}" alt="Sample Image"/></a>                   	 </div>
-                   	  <div class="work_desc">
-                    	<h3>[[${item.name}]]</h3>
-                        <p>[[${item.description}]]</p>
-                        <p class="role"><span>Date: </span>[[${item.publishdate}]]</p>
-                        <div class="view_livesite"><a href="#" title="View Livesite">View Livesite</a></div>
-                    	</div>
-                 	</div>
-                    <!--END of row-->
-                    </ul>
-
+                        <ul>
+                            <div class="row" th:each="item:${categories}">
+                                <div class="work_image">
+                                    <a href="">
+                                        <img th:src="${item.imgurl}" alt="Sample Image"/>
+                                    </a>
+                                </div>
+                                <div class="work_desc">
+                                    <h3>[[${item.name}]]</h3>
+                                    <p>[[${item.description}]]</p>
+                                    <p class="role"><span>创建日期: </span>[[${item.publishdate}]]</p>
+                                    <div class="view_livesite" style="margin-top: 20px">
+                                        <a th:href="@{'/articles/list?type='+${item.id}}" title="查看详情">查看详情</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
                     </div>
                     <!--END of work_categ_wrap -->
-                    
-                    
-                    
-                    
                 </div>
                  <!--END of work-->
-                
-                 <!--BEGIN sidebar-->	
-                <div id="sidebar">
-                	
-                </div>
-                 <!--END of sidebar-->
             
             <!--BEGIN push - makes our footer stick at the bottom of the page. -->
             <div class="push"></div>    
             <!--END of push -->
-            
             </div>
             <!--END of main_conten-->
-            
             
             <!--BEGIN of footer-->
             <div id="footer" th:replace="compoment/footer::footer"></div>

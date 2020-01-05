@@ -129,4 +129,12 @@ public class ArticleService {
         articleDao.setArticleStatus(id,status);
     }
 
+    /**
+     * write by 高谦
+     * @param type 根据专栏的id （文章的type 来获取一系列文章）
+     * @return 返回一系列文章
+     */
+    public List<Article> getArticlesByType(Integer type) {
+        return articleDao.getArticlesByType(type);
+    }
 }

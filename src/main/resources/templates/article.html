@@ -3,9 +3,9 @@
 <head th:replace="compoment/static::static"></head>
 <body>
 <!--高谦 文章展示页面-->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="/js/backmanage/showdown.min.js"></script>
+<script src="/js/marked.min.js"></script>
 <script src="/js/backmanage/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/article.css">
 
 <div id="page">
     <!--BEGIN wrap-->
@@ -22,11 +22,11 @@
             </div>
         </div>
         <!--END of header-->
-        <div id="main_content" style="padding-right: 0px">
-            <div id="content" style="width: 100%">
-                <h2>[[${article.title}]]</h2>
-                <h5>[[${article.publishDate}]]</h5>
-                <h5>[[${article.visitorNum}]]</h5>
+        <div id="main_content" style="padding-right: 0px;padding-left: 0px;">
+            <div id="content" style="width: 100%;">
+                <h2 style="font-size: 32px;padding-bottom: 30px;">[[${article.title}]]</h2>
+                <h4>发布日期： [[${article.publishDate}]] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    总浏览量：[[${article.visitorNum}]]</h4>
                 <div id="content_text"></div>
             </div>
             <script type="text/javascript" th:inline="javascript">

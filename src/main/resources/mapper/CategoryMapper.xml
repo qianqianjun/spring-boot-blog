@@ -31,23 +31,28 @@
     <select id="getArticlesByCategory" resultMap="ArticlesMapper">
         select * from article where type = #{type} and status = 1
     </select>
-    <select id="addCategory">
+    <insert id="addCategory">
         insert into category
         values (null,#{name},#{description},#{imgurl},now())
-    </select>
-    <select id="setCategoryName">
+    </insert>
+    <update id="setCategoryName">
         update category set name=#{name} where id=#{id}
-    </select>
-    <select id="deleteCategory">
+    </update>
+    <delete id="deleteCategory">
         delete from category where id=#{id}
-    </select>
+    </delete>
     <select id="getAllCategories" resultType="com.buct.blog.domain.Category">
         select * from category
     </select>
-    <select id="setCategoryDescription">
+    <update id="setCategoryDescription">
         update category set description=#{description} where id=#{id}
-    </select>
-    <select id="setCategoryImgurl">
+    </update>
+    <update id="setCategoryImgurl">
         update category set imgurl=#{imgurl} where id=#{id}
+    </update>
+
+    <!--高谦添加 用于根据id 来获取专栏-->
+    <select id="getCategoryById" resultType="com.buct.blog.domain.Category">
+        select * from category where category.id=#{id}
     </select>
 </mapper>

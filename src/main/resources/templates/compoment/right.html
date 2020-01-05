@@ -3,8 +3,10 @@
 <div id="sidebar" th:fragment="right" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="block">
         <h3>文章专栏</h3>
-        <ul class="side_links" th:each="category:${categories}">
-            <li><a href="">[[${category.name}]]</a></li>
+        <ul class="side_links">
+            <li th:each="category:${categories}">
+                <a th:href="@{'/articles/list?type='+${category.id}}">[[${category.name}]]</a>
+            </li>
         </ul>
     </div>
 
