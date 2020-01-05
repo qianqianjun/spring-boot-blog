@@ -137,4 +137,39 @@ public class ArticleService {
     public List<Article> getArticlesByType(Integer type) {
         return articleDao.getArticlesByType(type);
     }
+
+    /**
+     * write by 高谦
+     * 获取所有已经发布的文章
+     * @return 已经发布的文章列表
+     */
+    public List<Article> getAllPublishArticles(){
+        return articleDao.getAllPublishArticles();
+    }
+
+    /**
+     * write by 高谦
+     * 获取有 category name 的article view
+     * @return article view list
+     */
+    public List<Article> getArticlesWithCategory(){
+        return articleDao.getArticleAndCategory();
+    }
+
+    /**
+     * write by 高谦
+     * @param article 参数
+     */
+    public void setBanner(Article article) {
+        articleDao.setBanner(article);
+    }
+
+    /**
+     * write by 高谦
+     * 取消文章的轮播
+     * @param id 文章id
+     */
+    public void cancleBanner(Integer id) {
+        articleDao.cancleBanner(id);
+    }
 }

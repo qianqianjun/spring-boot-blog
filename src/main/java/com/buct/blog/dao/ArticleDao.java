@@ -39,6 +39,13 @@ public interface ArticleDao {
      */
     public int fixArticle(Article article);
 
+    /**
+     * write by 高谦
+     * 获取所有已经发布的文章
+     * @return 已经发布的文章列表
+     */
+    List<Article> getAllPublishArticles();
+
 
 
     //删除文章
@@ -62,4 +69,24 @@ public interface ArticleDao {
      * @return 文章列表
      */
     List<Article> getArticlesByType(Integer type);
+
+    /**
+     * write by 高谦
+     * @return 文章 view 列表
+     */
+    List<Article> getArticleAndCategory();
+
+    /**
+     * write by 高谦
+     * 设置轮播文章
+     * @param article 参数
+     */
+    void setBanner(Article article);
+
+    /**
+     * write by 高谦
+     * 取消文章的轮播
+     * @param id 文章id
+     */
+    void cancleBanner(Integer id);
 }

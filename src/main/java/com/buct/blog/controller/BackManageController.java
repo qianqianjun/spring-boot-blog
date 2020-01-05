@@ -1,6 +1,8 @@
 package com.buct.blog.controller;
+import com.buct.blog.domain.Article;
 import com.buct.blog.domain.Category;
 import com.buct.blog.domain.User;
+import com.buct.blog.service.ArticleService;
 import com.buct.blog.service.CategoryService;
 import com.buct.blog.service.FileService;
 import com.buct.blog.service.UserService;
@@ -30,6 +32,8 @@ public class BackManageController {
     CategoryService categoryService;
     @Autowired
     FileService fileService;
+    @Autowired
+    ArticleService articleService;
 
     /**
      * 后台管理页面数据准备接口
@@ -156,5 +160,50 @@ public class BackManageController {
         user.setCsdn(csdn);
         userService.updateOther(user);
         return user;
+    }
+
+    /**
+     * 设置轮播界面的接口
+     * @param map 前台数据传送器
+     * @return 设置轮播的界面
+     */
+    @GetMapping("/manage/banner")
+    public String banner(Map<String,Object> map){
+        ArrayList<Article> articles=(ArrayList<Article>) articleService.getArticlesWithCategory();
+        map.put("articles",articles);
+        User user=userService.getDefaultUser();
+        map.put("user",user);
+        return "backmanage/banner";
+    }
+
+    /**
+     * 用于将文章设置为轮播文章
+     * @param imgurl 轮播的图片
+     * @param id 文章的id
+     * @return 返回 article 相关信息
+     */
+    @PostMapping("/manage/setBanner")
+    @ResponseBody
+    public Article setBanner(@RequestParam("imgurl") String imgurl,
+                             @RequestParam("id") Integer id){
+        Article article=new Article();
+        article.setImgurl(imgurl);
+        article.setId(id);
+        articleService.setBanner(article);
+        return article;
+    }
+
+    /**
+     * 取消文章的轮播
+     * @param id 文章id
+     * @return 文章相关信息
+     */
+    @PostMapping("/manage/cancleBanner")
+    @ResponseBody
+    public Article cancleBanner(@RequestParam("id") Integer id){
+        articleService.cancleBanner(id);
+        Article article=new Article();
+        article.setId(id);
+        return article;
     }
 }

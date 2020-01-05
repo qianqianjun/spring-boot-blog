@@ -20,7 +20,9 @@ public class Article {
     private String imgurl; // 文章图片地址。
     private Integer status; // 当前文章的状态 1： 发布 0 编辑中
 
-    private String abstruct; // 当前文章的摘要，数据库没有这一项。
+    private String abstruct;
+
+    private String categoryName; // view 属性，数据库中没有这个字段
 
     /**
      * 用于读取数据库中二进制文件。

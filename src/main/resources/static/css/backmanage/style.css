@@ -59,6 +59,11 @@ body { font-family: "Helvetica Neue",\5FAE\8F6F\96C5\9ED1,Tohoma;background: #f1
 .stats-panel{position: relative;color: #fff;padding-top:8px;height: 120px;}
 .stats-panel a{color: #fff;}
 .stats-txt{text-align: center;font-size: 20px;line-height: 30px;}
+.stats-txt p{
+    font-size: 30px;
+    margin-top: 30px;
+    text-align: center;
+}
 .stats-num{font-size: 26px;}
 .more{position: absolute;width: 100%;bottom: 0;left:0;line-height: 12px;padding:9px 10px;}
 .more:hover{color: #fff;opacity: 1}

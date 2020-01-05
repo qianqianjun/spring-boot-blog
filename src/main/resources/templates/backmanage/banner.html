@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="/compoment/common::backstatic"></head>
+<body>
+<!-- HTML start-->
+<!--side start-->
+<div class="side" th:replace="/compoment/common::left"></div>
+<!--side end -->
+<!--header start-->
+<div class="header clear" th:replace="/compoment/common::top"></div>
+<!--header end -->
+
+<!--main start-->
+<div class="main">
+	<div class="pad20">
+		<!--title start-->
+		<div class="postion ">
+			<div class="pos-txt"><span class="fz24 padr5">轮播设置</span></div>
+		</div>
+		<!--title end-->
+		<!--文章管理 start-->
+		<div class="sales-list row mart20">
+			<div class="col-sm-9">
+				<div class="pad20 bgf">
+					<div class="tit1 clear">
+						<span class="left txt-left txt-blue"><i class="ico i-rank"></i>文章列表</span>
+					</div>
+					<div class="tab">
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="tab1">
+								<div class="table-responsive mart20 sale-table">
+									<table class="table table-bordered table-striped">
+										<tr>
+											<td width="10%">文章ID</td>
+											<td width="30%">文章标题</td>
+											<td width="15%">所属专栏</td>
+											<td width="15%">发布日期</td>
+											<td width="20%">文章摘要</td>
+											<td>操作</td>
+										</tr>
+										<tr th:each="article:${articles}">
+											<td>[[${article.id}]]</td>
+											<td>[[${article.title}]]</td>
+											<td>[[${article.categoryName}]]</td>
+											<td>[[${article.publishDate}]]</td>
+											<td>[[${article.abstruct}]]</td>
+											<td th:if="${article.outstanding}==1">
+												<input type="button" class="btn btn-default"
+													   value="取消轮播"
+													   th:onclick="@{'cancleBanner('+${article.id}+')'}"
+													   th:id="@{'btn-'+${article.id}}" />
+											</td>
+											<td th:if="${article.outstanding}==0">
+												<input type="button" class="btn-info btn"
+													   value="设置轮播"
+													   th:onclick="@{'setBanner('+${article.id}+')'}"
+													   th:id="@{'Btn'+${article.id}}"
+												>
+											</td>
+											<input type="hidden"
+												   th:value="${article.imgurl}"
+												   th:id="@{'imgurl-'+${article.id}}">
+										</tr>
+									</table>
+									<script type="text/javascript">
+										function cancleBanner(id){
+											var fromData=new FormData();
+											fromData.append("id",id);
+											var xhr=new XMLHttpRequest();
+											xhr.open("POST","/manage/cancleBanner");
+											xhr.onload=function (ev) {
+												if(xhr.status===200){
+													var button=document.querySelector("#btn-"+id);
+													button.value="设置轮播";
+													button.setAttribute("class","btn btn-info");
+													button.setAttribute("onclick","setBanner("+id+")");
+													alert("取消轮播成功!");
+												}else{
+													alert("取消轮播失败！请查看后台日志输出！");
+												}
+											};
+											xhr.send(fromData);
+										}
+
+										function setBanner(id) {
+											var oldImg=document.querySelector("#imgurl-"+id);
+											var articleId=document.querySelector("#article-id");
+											var previewImg=document.querySelector("#preview");
+											var imgurl_input=document.querySelector("#imgurl");
+											articleId.innerHTML=id;
+											imgurl_input.value=oldImg;
+											previewImg.setAttribute("src",oldImg);
+										}
+
+										function setBannerSubmit() {
+											var id=document.querySelector("#article-id").innerHTML;
+											var imgurl_input=document.querySelector("#imgurl");
+											if(imgurl_input.value!==""){
+												var fromData=new FormData();
+												fromData.append("id",id);
+												fromData.append("imgurl",imgurl_input.value);
+												var xhr=new XMLHttpRequest();
+												xhr.open("POST","/manage/setBanner");
+												xhr.onload=function (ev) {
+													if(xhr.status===200){
+														alert("设置成功");
+														var button=document.querySelector("#Btn-"+id);
+														button.value="取消轮播";
+														button.setAttribute("class","btn btn-default");
+														button.setAttribute("onclick","cancleBanner("+id+")");
+													}else{
+														alert("修改失败，请检查服务器日志！");
+													}
+												};
+												xhr.send(fromData);
+											}else{
+												alert("请您先上传一张图片!");
+											}
+										}
+									</script>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="pad20 bgf">
+					<div class="tit1 clear">
+						<span class="left txt-left txt-blue"><i class="ico i-rank"></i>图片上传</span>
+					</div>
+					<div class="report-list ">
+						<p>当前操作文章ID： <span id="article-id"></span></p>
+						<img src="" style="width:200px;height: 120px;" id="preview">
+						<input type="file" class="form-control" style="width: 200px;" id="file">
+						<input type="hidden" id="imgurl">
+						<input type="button" class="btn btn-info" value="上传图片" onclick="uploadImg()">
+						<input type="button" class="btn btn-info" value="提交轮播设置" onclick="setBannerSubmit()">
+					</div>
+
+					<script type="text/javascript">
+						function uploadImg() {
+							var files=document.querySelector("#file").files;
+							if(files.length===0){
+								alert("请您先选择一张图片");
+							}else{
+								var formData=new FormData();
+								formData.append("file",files[0]);
+								var xhr=new XMLHttpRequest();
+								xhr.open("POST","/upload");
+								xhr.onload=function (ev) {
+									if(xhr.status===200){
+										var previewImg=document.querySelector("#preview");
+										var imgurl_input=document.querySelector("#imgurl");
+										previewImg.setAttribute("src","/upload/"+xhr.responseText);
+										imgurl_input.value="/upload/"+xhr.responseText;
+										alert("图片上传成功");
+									}else{
+										alert("图片上传失败！请检查服务器日志！");
+									}
+								};
+								xhr.send(formData);
+							}
+						}
+					</script>
+				</div>
+			</div>
+		</div>
+		<!--文章管理 end-->
+	</div>
+	<div class="copy">2016-2020 © qianqianjun 版权所有 .</div>
+</div>
+<!--main end-->
+<script src="/js/backmanage/jquery-1.9.1.min.js"></script>
+<script src="/js/backmanage/bootstrap.min.js"></script>
+</body>
+</html>
