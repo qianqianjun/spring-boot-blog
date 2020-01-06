@@ -42,6 +42,8 @@
                                     fix_imgurl.value = null;
                                     var fix_id = document.querySelector("#id");
                                     fix_id.value = -1;
+                                    var preview_upload=document.querySelector("#preview-upload");
+                                    preview_upload.setAttribute("src","");
                                 },true)
                             </script>
                         </ul>
@@ -65,8 +67,10 @@
                                         <td th:id="@{'description'+${category.id}}">[[${category.description}]]</td>
                                         <td th:id="@{'imgurl'+${category.id}}"><a th:onclick="show_pic([[${category.imgurl}]])">预览</a></td>
                                         <td>[[${category.publishdate}]]</td>
-                                        <td><input type="submit" value="修改" th:onclick="fun([[${category.id}]],[[${category.imgurl}]])"></td>
-                                        <td><a th:href="@{'/deleteCategory?id='+${category.id}}">删除</a></td>
+                                        <td><input type="submit"
+                                                   value="修改"  class="btn btn-info"
+                                                   th:onclick="fun([[${category.id}]],[[${category.imgurl}]])"></td>
+                                        <td><a th:href="@{'/deleteCategory?id='+${category.id}}" class="btn btn-danger">删除</a></td>
                                         <script type="text/javascript">
                                             function show_pic(imgurl) {
                                                 var temp = document.querySelector("#modal-361665");
@@ -74,6 +78,7 @@
                                                 var temp_img = document.querySelector("#preview-img");
                                                 temp_img.src = imgurl;
                                             }
+                                            // 用于修改专栏的属性
                                             function fun(id,imgurl) {
 
                                                 var button_tab2=document.querySelector("#button_tab2");
@@ -88,6 +93,8 @@
                                                 fix_imgurl.value = imgurl;
                                                 var fix_id = document.querySelector("#id");
                                                 fix_id.value = id;
+                                                var preview_img=document.getElementById("preview-upload");
+                                                preview_img.setAttribute("src",imgurl);
                                             }
                                         </script>
                                         </tr>
@@ -119,13 +126,13 @@
                                             var formData=new FormData();
                                             formData.append("file",files[0]);
                                             var xhr=new XMLHttpRequest();
-                                            xhr.open("POST","/manage/chanagePic");
+                                            xhr.open("POST","/upload");
                                             xhr.onload=function (ev) {
                                                 if(xhr.responseText!=null){
                                                     alert("修改成功");
-                                                    document.querySelector("#preview-upload").setAttribute("src",xhr.responseText);
+                                                    document.querySelector("#preview-upload").setAttribute("src",'/upload/'+xhr.responseText);
                                                     var temp = document.querySelector("#imgurl");
-                                                    temp.value = "这里高谦一定要改";
+                                                    temp.value = '/upload/'+xhr.responseText;
                                                 }else{
                                                     alert("修改失败！请查看服务器日志！");
                                                 }
