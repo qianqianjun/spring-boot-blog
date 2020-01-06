@@ -146,6 +146,7 @@ public class BackManageController {
      * @param phone 电话
      * @param company 公司
      * @param position 位置
+     * @param resume 简历文章的 id
      * @return 返回修改后的信息
      */
     @PostMapping("/manage/updateBasic")
@@ -153,12 +154,14 @@ public class BackManageController {
     public User updateBasic(@RequestParam("mail") String mail,
                               @RequestParam("phone") String phone,
                               @RequestParam("company") String company,
+                              @RequestParam("resume") Integer resume,
                               @RequestParam("position") String position){
         User user=new User();
         user.setCompany(company);
         user.setEmail(mail);
         user.setPhone(phone);
         user.setPosition(position);
+        user.setResume(resume);
         userService.updateBasic(user);
         return user;
     }

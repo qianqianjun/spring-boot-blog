@@ -27,7 +27,7 @@
     </select>
 
     <update id="updateBasic" parameterType="com.buct.blog.domain.User">
-        update user set user.position=#{position },user.email=#{email},user.phone=#{phone},user.company=#{company}
+        update user set user.position=#{position },user.email=#{email},user.phone=#{phone},user.company=#{company},user.resume=#{resume}
     </update>
 
     <update id="updateOther" parameterType="com.buct.blog.domain.User">

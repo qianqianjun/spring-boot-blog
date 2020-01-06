@@ -58,6 +58,9 @@ public class ArticleService {
      */
     public Article getArticleById(Integer aid){
         Article article= articleDao.getArticleById(aid);
+        if(article==null){
+            return null;
+        }
         article.setContent(article.getBlob());
         return article;
     }

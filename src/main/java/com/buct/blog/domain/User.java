@@ -21,4 +21,6 @@ public class User {
     private String csdn;
     private String github;
     private String usualmail;
+
+    private Integer resume;
 }

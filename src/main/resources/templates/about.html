@@ -1,84 +1,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="compoment/static::static"></head>
-
 <body>
-	<!--BEGIN page-->
-	<div id="page">
-    	<!--BEGIN wrap-->
-    	<div id="wrap">
-        	<!--BEGIN header-->
-	    	<div id="header">
-                <!--BEGIN logo-->
-                <h1 id="logo"><a href="/">谦谦君的博客</a></h1>
-                <!--END of logo-->
+<!--高谦 文章展示页面-->
+<script src="/js/marked.min.js"></script>
+<script src="/js/backmanage/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/article.css">
 
-                <!--BEGIN availabilty-->
-                <div class="availability">
-                    <a href="https://github.com/qianqianjun" class="available">勤奋自律，谦虚谨慎，乐观积极！</a>
-                </div>
-                <!--END of availability-->
-                
-                 <!--BEGIN menu_wrap-->
-                <div th:replace="compoment/navigatior::commonMenu(1)"></div>
-                <!--END of menu_wrap-->
-                
-             	<!--BEGIN feature_project-->
-                <div id="title_page">
-                	<h2>作者信息页</h2>
-	            </div>   
-                <!--END of feature_project-->
-                
+<div id="page">
+    <!--BEGIN wrap-->
+    <div id="wrap">
+        <!--BEGIN header-->
+        <div id="header">
+            <h1 id="logo"><a href="/">谦谦君的博客</a></h1>
+            <div class="availability">
+                <a href="https://github.com/qianqianjun" class="available">勤奋自律，谦虚谨慎，乐观积极！</a>
             </div>
-           	<!--END of header-->
-            
-            <!--BEGIN main_conten-->
-            <div id="main_content">
-            	
-                <!--BEGIN content-->
-            	<div id="content">	
-                	<h2>A little bit about me</h2>
-                    
-                    <h3>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</h3>
-                            <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
-                            
-                    <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p>
-                    <p><cite><strong>John Doe</strong>, President, <a href="#">XYZ Company</a></cite></p>
-                    </blockquote>
-        
-                </div>
-                 <!--END of content-->
-                
-                 <!--BEGIN sidebar-->	
-                <div id="sidebar">
-                	<img src="images/author.jpg" alt="Author" class="myphoto" />
-                    <h3>Lets Connect!</h3>
-                    <ul class="lets_connect">
-                    	<li><a href="#"><img src="images/email_16.png" alt="Email me" />your.emailadd@domain.com</a></li>
-                        <li><a href="#"><img src="images/twitter_16.png" alt="Follow me on twitter" />@usertwitter</a></li>
-                        <li><a href="#"><img src="images/flickr_16.png" alt="View my photos at flickr" />Flickr</a></li>
-                        <li><a href="#"><img src="images/facebook_16.png" alt="Add me in facebook" />Facebook</a></li>
-                        <li><a href="#"><img src="images/vcard.png" alt="Download my vCard" />Download my vCard</a></li>
-                    </ul>
-                </div>
-                 <!--END of sidebar-->
-            
-            <!--BEGIN push - makes our footer stick at the bottom of the page. -->
-            <div class="push"></div>    
-            <!--END of push -->
-            
+            <div th:replace="compoment/navigatior::commonMenu(1)"></div>
+            <div id="title_page">
+                <h2>作者简介页</h2>
             </div>
-            <!--END of main_conten-->
-            
-            
-            <!--BEGIN of footer-->
-            <div id="footer" th:replace="compoment/footer::footer"></div>
-        	<!--END of wrap-->    
-            
         </div>
+        <!--END of header-->
+        <div id="main_content" style="padding-right: 0px;padding-left: 0px;">
+            <div id="content" style="width: 100%;">
+                <div id="content_text"></div>
+            </div>
+            <script type="text/javascript" th:inline="javascript">
+                $('#content_text').html(marked([[${article.content}]]));
+            </script>
+            <div class="push"></div>
+        </div>
+        <!--BEGIN of footer-->
+        <div id="footer" th:replace="compoment/footer::footer"></div>
         <!--END of wrap-->
     </div>
-    <!--END of page-->
-    
+</div>
 </body>
 </html>

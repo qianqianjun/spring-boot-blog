@@ -87,6 +87,10 @@
 										<label for="position">所在地区</label>
 										<input type="text" class="form-control" id="position" th:value="${user.position}" required="required">
 									</div>
+									<div class="form-group">
+										<label for="position">简历文章ID</label>
+										<input type="text" class="form-control" id="resume" th:value="${user.resume}" required="required">
+									</div>
 									<input type="submit" class="btn btn-info" value="提交修改">
 								</form>
 
@@ -95,6 +99,7 @@
 									var phone_input=document.querySelector("#phone");
 									var company_input=document.querySelector("#company");
 									var position_input=document.querySelector("#position");
+									var resume_input=document.querySelector("#resume");
 									var basic_form=document.querySelector("#basic-form");
 									basic_form.addEventListener("submit",function (evt) {
 										var fromData=new FormData();
@@ -102,6 +107,7 @@
 										fromData.append("phone",phone_input.value);
 										fromData.append("company",company_input.value);
 										fromData.append("position",position_input.value);
+										fromData.append("resume",resume_input.value);
 
 										var xhr=new XMLHttpRequest();
 										xhr.open("POST","/manage/updateBasic");
@@ -112,6 +118,7 @@
 												company_input.value = obj.company;
 												mail_input.value = obj.email;
 												phone_input.value = obj.phone;
+												resume_input.value=obj.resume;
 												alert("修改成功！");
 											}else{
 												alert("修改失败！请查看后台日志");

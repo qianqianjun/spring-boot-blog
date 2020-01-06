@@ -38,30 +38,28 @@
 
 						<div class="tab-content">
 							<div role="tabpanel" class="tab-pane active" id="tab1">
-
 								<div class="panel-group">
 
 									<div th:each="comment:${all}">
 										<div class="panel panel-info">
-											<div class="panel-heading" style="height: 53px;line-height: 35px;font-size: 17px;">
-												<span style="margin-right: 35px">[[${comment.publishDate}]]</span>
-												<span style="margin-right: 35px">[[${comment.email}]]</span>
+											<div class="panel-heading panel-head">
+												<span class="panel-item-span">[[${comment.publishDate}]]</span>
+												<span class="panel-item-span">[[${comment.email}]]</span>
 
 												<a class="panel-title collapsed btn btn-info"
 												   data-toggle="collapse"
 												   style="float: right;"
-												   th:href="@{'#panel-element-'+${comment.id}}">查看详情</a>
-												<a class="panel-title collapsed btn btn-info"
-												   style="float: right;margin-right: 20px;"
+												   th:href="@{'#all-'+${comment.id}}">查看详情</a>
+												<a class="panel-title collapsed btn btn-info panel-head-op"
 												   th:href="@{'/manage/delComment?id='+${comment.id}}">删除留言</a>
 
 											</div>
-											<div th:id="@{'panel-element-'+${comment.id}}" class="panel-collapse collapse">
+											<div th:id="@{'all-'+${comment.id}}" class="panel-collapse collapse">
 												<div class="panel-body">
-												<p style="line-height: 20px;"> [[${comment.content}]]</p>
+												<p class="comment-content"> [[${comment.content}]]</p>
 													<form method="post" action="/manage/fixComment">
-														<textarea class="form-control" rows="4" style="margin-top: 20px;
-														margin-bottom: 20px;" required="required" name="reply">[[${comment.reply}]]</textarea>
+														<textarea class="form-control reply-textarea" rows="4"
+																  required="required" name="reply">[[${comment.reply}]]</textarea>
 														<input type="hidden" th:value="${comment.id}" name="id">
 														<input class="btn btn-info" value="修改" type="submit">
 													</form>
@@ -71,17 +69,74 @@
 									</div>
 
 								</div>
-
-
-
 							</div>
 							<!--tab2-->
 							<div role="tabpanel" class="tab-pane" id="tab2">
-								22222222
+								<div class="panel-group">
+
+									<div th:each="comment:${unfinish}">
+										<div class="panel panel-info">
+											<div class="panel-heading panel-head" >
+												<span class="panel-item-span">[[${comment.publishDate}]]</span>
+												<span class="panel-item-span">[[${comment.email}]]</span>
+
+												<a class="panel-title collapsed btn btn-info"
+												   data-toggle="collapse"
+												   style="float: right;"
+												   th:href="@{'#unfinish-'+${comment.id}}">查看详情</a>
+												<a class="panel-title collapsed btn btn-info panel-head-op"
+												   th:href="@{'/manage/delComment?id='+${comment.id}}">删除留言</a>
+
+											</div>
+											<div th:id="@{'unfinish-'+${comment.id}}" class="panel-collapse collapse">
+												<div class="panel-body">
+													<p class="comment-content"> [[${comment.content}]]</p>
+													<form method="post" action="/manage/fixComment">
+														<textarea class="form-control reply-textarea" rows="4"
+																  required="required" name="reply">[[${comment.reply}]]</textarea>
+														<input type="hidden" th:value="${comment.id}" name="id">
+														<input class="btn btn-info" value="修改" type="submit">
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
 							</div>
 							<!--tab3-->
 							<div role="tabpanel" class="tab-pane" id="tab3">
-								333333333
+								<div class="panel-group">
+
+									<div th:each="comment:${finish}">
+										<div class="panel panel-info">
+											<div class="panel-heading panel-head" >
+												<span class="panel-item-span">[[${comment.publishDate}]]</span>
+												<span class="panel-item-span">[[${comment.email}]]</span>
+
+												<a class="panel-title collapsed btn btn-info"
+												   data-toggle="collapse"
+												   style="float: right;"
+												   th:href="@{'#finish-'+${comment.id}}">查看详情</a>
+												<a class="panel-title collapsed btn btn-info panel-head-op"
+												   th:href="@{'/manage/delComment?id='+${comment.id}}">删除留言</a>
+
+											</div>
+											<div th:id="@{'finish-'+${comment.id}}" class="panel-collapse collapse">
+												<div class="panel-body">
+													<p class="comment-content"> [[${comment.content}]]</p>
+													<form method="post" action="/manage/fixComment">
+														<textarea class="form-control reply-textarea" rows="4"
+																  required="required" name="reply">[[${comment.reply}]]</textarea>
+														<input type="hidden" th:value="${comment.id}" name="id">
+														<input class="btn btn-info" value="修改" type="submit">
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
 							</div>
 						</div>
 

@@ -505,3 +505,24 @@ a.color9:hover{color:#717171}
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.panel-head{
+    height: 53px;line-height: 35px;font-size: 17px;
+}
+
+.panel-item-span{
+    margin-right: 35px
+}
+
+.panel-head-op{
+    float: right;margin-right: 20px;
+}
+
+.comment-content{
+    line-height: 20px;
+}
+
+.reply-textarea{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
