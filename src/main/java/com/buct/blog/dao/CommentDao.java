@@ -22,4 +22,11 @@ public interface CommentDao {
     void replyComment(Integer id,String reply);
     //查看某一文章所有评论
     List<Comment> commentsByArticle(Integer aid);
+
+    /**
+     * write by 高谦
+     * 获取所有评论信息，包括文章信息才可以。
+     * @return 返回 评论和文章的view
+     */
+    List<Comment> getAllComments();
 }

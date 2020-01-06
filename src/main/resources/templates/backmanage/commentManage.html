@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="/compoment/common::backstatic"></head>
+<body>
+<!--评论管理界面 高谦-->
+<!-- HTML start-->
+<!--side start-->
+<div class="side" th:replace="/compoment/common::left"></div>
+<!--side end -->
+<!--header start-->
+<div class="header clear" th:replace="/compoment/common::top"></div>
+<!--header end -->
+<script type="text/javascript" th:inline="javascript">
+	COMMENT_LIST=[[${comments}]];
+	console.log(COMMENT_LIST);
+</script>
+<!--main start-->
+<div class="main">
+	<div class="pad20">
+		<!--title start-->
+		<div class="postion ">
+			<div class="pos-txt"><span class="fz24 padr5">留言管理</span></div>
+		</div>
+		<!--title end-->
+		<!--文章管理 start-->
+		<div class="sales-list row mart20">
+			<div class="col-sm-9">
+				<div class="pad20 bgf">
+					<div class="tit1 clear">
+						<span class="left txt-left txt-blue">
+							<i class="ico i-rank"></i>留言列表
+						</span>
+					</div>
+					<div class="tab">
+
+					</div>
+				</div>
+			</div>
+			<!--右侧导航栏目-->
+			<div class="col-sm-3">
+				<div class="pad20 bgf">
+					<div class="tit1 clear">
+						<span class="left txt-left txt-blue">
+							<i class="ico i-rank"></i>功能导航
+						</span>
+					</div>
+					<div class="report-list ">
+						<ul>
+							<li class="bg-green">
+								<a href="/manage/banner">
+									<p class="report-txt1">轮播管理</p>
+									<p class="report-txt2"><span class="fz22fix">设置和取消文章的首页轮播</span>共2项</p>
+								</a>
+							</li>
+							<li class="bg-red">
+								<a href="/manage/article">
+									<p class="report-txt1">文章草稿箱</p>
+									<p class="report-txt2"><span class="fz22fix">查看草稿箱中的文章，进行修改等操作</span>共3项</p>
+								</a>
+							</li>
+							<li class="bg-blue">
+								<a onclick="alert('功能开发中，敬请期待！')">
+									<p class="report-txt1">访客统计</p>
+									<p class="report-txt2"><span class="fz22fix">文章访问量统计</span>开发中……</p>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--文章管理 end-->
+	</div>
+	<div class="copy">2016-2020 © qianqianjun 版权所有 .</div>
+</div>
+<!--main end-->
+<script src="/js/backmanage/jquery-1.9.1.min.js"></script>
+<script src="/js/backmanage/bootstrap.min.js"></script>
+</body>
+</html>
