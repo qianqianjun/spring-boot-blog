@@ -1,11 +1,9 @@
 package com.buct.blog.controller;
 import com.buct.blog.domain.Article;
 import com.buct.blog.domain.Category;
+import com.buct.blog.domain.Comment;
 import com.buct.blog.domain.User;
-import com.buct.blog.service.ArticleService;
-import com.buct.blog.service.CategoryService;
-import com.buct.blog.service.FileService;
-import com.buct.blog.service.UserService;
+import com.buct.blog.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.processor.comment.ICommentStructureHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,6 +33,8 @@ public class BackManageController {
     FileService fileService;
     @Autowired
     ArticleService articleService;
+    @Autowired
+    CommentService commentService;
 
     /**
      * 后台管理页面数据准备接口
@@ -205,5 +206,20 @@ public class BackManageController {
         Article article=new Article();
         article.setId(id);
         return article;
+    }
+
+    /**
+     * 评论管理界面
+     * @param map 前台参数传递器
+     * @return 返回所有的评论
+     */
+    @GetMapping("/manage/comment")
+    public String CommentManage(Map<String,Object> map){
+        User user=userService.getDefaultUser();
+        map.put("user",user);
+        ArrayList<Comment> comments=(ArrayList<Comment>)
+                commentService.getAllComment();
+        map.put("comments",comments);
+        return "backmanage/commentManage";
     }
 }

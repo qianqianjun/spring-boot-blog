@@ -32,4 +32,12 @@ public class CommentService {
     public List<Comment> commentsByArticle(Integer aid){
         return commentDao.commentsByArticle(aid);
     }
+
+    /**
+     * 获取所有的评论信息
+     * @return 返回评论信息列表
+     */
+    public List<Comment> getAllComment() {
+        return commentDao.getAllComments();
+    }
 }

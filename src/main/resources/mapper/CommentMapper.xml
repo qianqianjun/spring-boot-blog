@@ -22,7 +22,23 @@
         update message set reply = #{reply} where id = #{id}
     </select>
     <select id="commentsByArticle" resultMap="commentMap">
-        select * from message where aid = #{aid}
+        select * from message where aid = #{aid} order by message.publishdate desc
+    </select>
+
+    <!--高谦添加  用于获取所有的评论-->
+    <resultMap id="commentWithArticle" type="com.buct.blog.domain.Comment">
+        <result column="id" javaType="Integer" jdbcType="INTEGER" property="id"></result>
+        <result column="aid" javaType="Integer" jdbcType="INTEGER" property="aid"></result>
+        <result column="publishdate" javaType="String" jdbcType="VARCHAR" property="publishDate"></result>
+        <result column="content" javaType="String" jdbcType="VARCHAR" property="content"></result>
+        <result column="reply" javaType="String" jdbcType="VARCHAR" property="reply"></result>
+        <result column="email" javaType="String" jdbcType="VARCHAR" property="email"></result>
+        <result column="ignore" javaType="Integer" jdbcType="INTEGER" property="ignore"></result>
+        <result column="title" javaType="String" jdbcType="VARCHAR" property="title"></result>
+    </resultMap>
+    <select id="getAllComments" resultMap="commentWithArticle">
+        select message.*,article.title from article,message where message.aid=article.id and article.status=1
+        order by message.publishdate desc
     </select>
 </mapper>
 
