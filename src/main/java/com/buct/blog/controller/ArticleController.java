@@ -29,16 +29,25 @@ public class ArticleController {
     CommentService commentService;
 
     /**
+     * write by 高谦
      * 根据文章的id 获取文章的所有信息。
+     * 注意，每一次获取文章都要使得浏览量加一
+     * 获取文章的时候需要同时获取评论信息。
      * @param aid 文章的 id
      * @return 文章的所有信息。
      */
     @GetMapping("/articles/detail")
     public String articles(@RequestParam("aid") Integer aid,Map<String,Object> map){
+        // 获取文章
         Article article=articleService.getArticleById(aid);
+        // 文章浏览量加一
+        articleService.setVisitorNum(article.getId(),article.getVisitorNum()+1);
+        article.setVisitorNum(article.getVisitorNum()+1);
         map.put("article",article);
-        ArrayList<Category> categories= (ArrayList<Category>)categoryService.getCategoriesLimits(8);
-        map.put("categories",categories);
+        // 获取评论
+        ArrayList<Comment> comments=(ArrayList<Comment>)
+                commentService.commentsByArticle(article.getId());
+        map.put("comments",comments);
         return "article";
     }
 
@@ -57,36 +66,6 @@ public class ArticleController {
         ArrayList<Category> categories=(ArrayList<Category>) categoryService.getCategoriesLimits(100);
         map.put("categories",categories);
         return "categoryArticles";
-    }
-
-
-
-
-
-    //给文章添加一条新评论,返回评论的id
-    @GetMapping("/addComment")
-    public String addComment(@RequestParam("aid") Integer aid,
-                            @RequestParam("content") String content,
-                             @RequestParam("email") String email,
-                             @RequestParam("nickName") String nickName){
-        Integer id = commentService.addComment(aid,content,email,nickName);
-        System.out.println(id);
-        return null;
-    }
-    //回复某条评论
-    @GetMapping("/replyComment")
-    public String replyComment(@RequestParam("id") Integer id,
-                               @RequestParam("reply") String reply){
-        commentService.replyComment(id,reply);
-
-        return null;
-    }
-    //查看某篇文章的所有评论
-    @GetMapping("/commentsByArticle")
-    public String commentsByArticle(@RequestParam("aid") Integer aid){
-        ArrayList<Comment> list = (ArrayList<Comment>)commentService.commentsByArticle(aid);
-        System.out.println(list);
-        return null;
     }
 
     /***
@@ -117,44 +96,24 @@ public class ArticleController {
         return article;
     }
 
+    /**
+     * 添加评论接口
+     * @param aid 评论对应的文章的 id
+     * @param content 评论的内容
+     * @param email 评论人的 email 地址
+     * @return 返回添加的评论内容
+     */
+    @PostMapping("/addComment")
+    @ResponseBody
+    public Comment addComment(@RequestParam("aid") Integer aid,
+                              @RequestParam("content") String content,
+                              @RequestParam("email") String email){
+        commentService.addComment(aid,content,email);
+        Comment comment=new Comment();
+        comment.setAid(aid);
+        comment.setContent(content);
+        comment.setEmail(email);
+        return comment;
+    }
 
-
-    //删除文章
-    @GetMapping("/deleteArticle")
-    public String deleteArticle(@RequestParam("id") Integer id){
-        articleService.deleteArticle(id);
-        return null;
-    }
-    //按文章名模糊搜索文章
-    @GetMapping("/getArticleByTitle")
-    public String getArticleByTitle(@RequestParam("title") String title){
-        articleService.getArticleByTitle(title);
-        return null;
-    }
-    //获取所有文章，包括未发布
-    @GetMapping("/getAllArticles")
-    public String getAllArticles(){
-        articleService.getAllArticles();
-        return null;
-    }
-    //获取某一文章访问量
-    @GetMapping("/getVisitorNum")
-    public String getVisitorNum(@RequestParam("id") Integer id){
-        articleService.getVisitorNum(id);
-        return null;
-    }
-    //修改某一文章访问量
-    @GetMapping("/setVisitorNum")
-    public String setVisitorNum(@RequestParam("id") Integer id,
-                                @RequestParam("visitorNum") Integer visitorNum){
-        articleService.setVisitorNum(id,visitorNum);
-        return null;
-    }
-    //修改文章状态
-    @GetMapping("/setArticleStatus")
-    public String setArticleStatus(@RequestParam("id") Integer id,
-                                @RequestParam("status") Integer status){
-        articleService.setArticleStatus(id,status);
-        return null;
-    }
 }

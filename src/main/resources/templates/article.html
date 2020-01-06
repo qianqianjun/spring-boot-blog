@@ -32,6 +32,67 @@
             <script type="text/javascript" th:inline="javascript">
                 $('#content_text').html(marked([[${article.content}]]));
             </script>
+
+            <!--添加评论的内容-->
+            <div style="clear: both;"></div>
+            <form id="comment-form">
+                <h2 style="font-size: 32px;padding-bottom: 30px;margin-top: 50px">添加评论</h2>
+                <div class="form-group">
+                    <h3>您的邮箱:</h3>
+                    <input type="text"
+                           required="required"
+                           class="form-control"
+                           placeholder="留下您的邮箱方便联系！"
+                           id="usermail"
+                           style="width: 700px;font-size: 20px;">
+                </div>
+                <div class="form-group">
+                    <h3>发表见解：</h3>
+                    <textarea type="text"
+                              required="required"
+                              id="mess"
+                              placeholder="留下您的见解"></textarea>
+                </div>
+                <input type="submit" class="btn btn-info" style="float: none;">
+            </form>
+            <script type="text/javascript" th:inline="javascript">
+                var comment_form=document.querySelector("#comment-form");
+                comment_form.addEventListener("submit",function (evt) {
+                    alert("操你妈");
+                    var usermail=document.querySelector("#usermail").value;
+                    var comment=document.querySelector("#mess").value;
+
+                    var formData=new FormData();
+                    formData.append("aid",[[${article.id}]]);
+                    formData.append("content",comment);
+                    formData.append("email",usermail);
+                    alert("你是傻逼");
+                    var xhr=new XMLHttpRequest();
+                    xhr.open("POST","/addComment");
+                    xhr.onload=function (ev) {
+                        if(xhr.status===200){
+                            alert("留言添加成功！");
+                        }else {
+                            alert("留言添加失败，请查看服务器日志输出！");
+                        }
+                    };
+                    xhr.send(formData);
+                    evt.preventDefault();
+                },true);
+            </script>
+            <!--下面是评论列表-->
+            <div class="comment-box" id="comment-box">
+                <h2 style="font-size: 32px;padding-bottom: 30px;margin-top: 50px">评论列表</h2>
+                <ul>
+                    <li th:each="comment:${comments}">
+                        <p>[[${comment.email}]]</p>
+                        <p>[[${comment.content}]]</p>
+                        <p>[[${comment.publishDate}]]</p>
+                        <p>[[${comment.reply}]]</p>
+                    </li>
+                </ul>
+            </div>
+            <!--清除浮动属性-->
             <div class="push"></div>
         </div>
 

@@ -32,7 +32,7 @@
                                     <a href="#"><img th:src="${item.imgurl}" alt="Sample Image"/></a>
                                 </div>
                                 <div class="featured_desc">
-                                    <h2>[[${item.title}]]</h2>
+                                    <h2 style="line-height: 45px;">[[${item.title}]]</h2>
                                     <p> [[${item.abstruct}]] </p>
                                     <div class="view_project">
                                         <a th:href="@{'/articles/detail?aid='+${item.id}}">查看详情</a>

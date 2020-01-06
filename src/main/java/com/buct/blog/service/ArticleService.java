@@ -3,7 +3,6 @@ package com.buct.blog.service;
 import com.buct.blog.dao.ArticleDao;
 import com.buct.blog.dao.CarouselDao;
 import com.buct.blog.domain.Article;
-import com.buct.blog.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -101,7 +100,6 @@ public class ArticleService {
         article.setType(type);
         articleDao.fixArticle(article);
     }
-
 
 
     //删除文章

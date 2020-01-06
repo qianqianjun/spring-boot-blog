@@ -10,5 +10,5 @@ public class Comment {
     private String content;
     private String reply;
     private String email;
-    private String nickName;
+    private Integer ignore;
 }

@@ -12,8 +12,17 @@ public class CommentService {
     @Autowired
     CommentDao commentDao;
     //插入一条新评论，返回该记录的id
-    public Integer addComment(Integer aid,String content,String email,String nickName){
-        return commentDao.addComment(aid,content,email,nickName);
+
+    /**
+     * write by 刘权达
+     * fix by 高谦
+     * 删除了没有的 nickname
+     * @param aid 文章 id
+     * @param content 留言内容
+     * @param email 留言人的email
+     */
+    public void addComment(Integer aid,String content,String email){
+        commentDao.addComment(aid,content,email);
     }
     //回复一条评论
     public void replyComment(Integer id,String reply){

@@ -8,7 +8,16 @@ import java.util.List;
 @Repository
 public interface CommentDao {
     //添加评论,返回评论id
-    Integer addComment(Integer aid,String content,String email,String nickName);
+
+    /**
+     * write by 刘权达
+     * fix by 高谦
+     * 加你妹的nickname 啊，有毛用？ 我删了。
+     * @param aid 对应文章的id
+     * @param content 留言内容
+     * @param email 留言人的 邮箱
+     */
+    void addComment(Integer aid,String content,String email);
     //回复评论
     void replyComment(Integer id,String reply);
     //查看某一文章所有评论
