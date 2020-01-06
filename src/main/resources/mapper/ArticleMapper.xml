@@ -71,7 +71,7 @@
 
     <!--高谦添加 修改文章功能-->
     <update id="fixArticle" parameterType="com.buct.blog.domain.Article">
-        update article set article.content=#{blob},article.title=#{title},article.abstruct=#{abstruct},
+        update article set article.blob=#{blob},article.title=#{title},article.abstruct=#{abstruct},
           article.type=#{type}
           where article.id=#{id}
     </update>

@@ -140,4 +140,23 @@ public class ArticleController {
 
     }
 
+    //修改文章
+    @PostMapping("/fixArticle")
+    @ResponseBody
+    public Article fixArticle(@RequestParam("id") Integer id,
+                                 @RequestParam("title") String title,
+                                 @RequestParam("content") String content,
+                                 @RequestParam("type") Integer type,
+                                 @RequestParam("status") Integer status,
+                                 @RequestParam("abstruct") String abstruct){
+        articleService.fixArticle(id,title,content,type,status,abstruct);
+        Article article=new Article();
+        article.setId(id);
+        article.setAbstruct(abstruct);
+        article.setContent(content);
+        article.setType(type);
+        article.setTitle(title);
+        article.setStatus(status);
+        return article;
+    }
 }

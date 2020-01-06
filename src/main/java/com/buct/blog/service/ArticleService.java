@@ -91,9 +91,10 @@ public class ArticleService {
      * @param status 文章当前状态
      * @param abstruct 文章摘要
      */
-    public void fixArticle(String title,String content,Integer type,
+    public void fixArticle(Integer id,String title,String content,Integer type,
                            Integer status,String abstruct){
         Article article=new Article();
+        article.setId(id);
         article.setBlob(content);
         article.setTitle(title);
         article.setStatus(status);
