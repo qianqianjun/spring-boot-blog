@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head th:replace="/compoment/common::backstatic"></head>
+
 <body>
+<script type="text/javascript">
+	COMMENT_LIST=[[${comments}]];
+	console.log(COMMENT_LIST);
+</script>
 <!--评论管理界面 高谦-->
 <!-- HTML start-->
 <!--side start-->
@@ -10,10 +15,6 @@
 <!--header start-->
 <div class="header clear" th:replace="/compoment/common::top"></div>
 <!--header end -->
-<script type="text/javascript" th:inline="javascript">
-	COMMENT_LIST=[[${comments}]];
-	console.log(COMMENT_LIST);
-</script>
 <!--main start-->
 <div class="main">
 	<div class="pad20">
@@ -25,14 +26,51 @@
 		<!--文章管理 start-->
 		<div class="sales-list row mart20">
 			<div class="col-sm-9">
-				<div class="pad20 bgf">
+				<div class="pad20 bgf" id="comment_list_container">
 					<div class="tit1 clear">
 						<span class="left txt-left txt-blue">
 							<i class="ico i-rank"></i>留言列表
 						</span>
 					</div>
-					<div class="tab">
 
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs sale-tabs" role="tablist">
+						<li class="active"><a onclick="alert('切换到全部留言')">全部留言</a></li>
+						<li><a onclick="alert('切换到未回复留言')">未回复留言</a></li>
+						<li><a onclick="alert('切换到已回复留言')">已回复留言</a></li>
+					</ul>
+
+					<script type="text/javascript">
+
+					</script>
+					<div class="tab">
+						<div class="panel-group">
+							<div class="panel panel-info">
+								<div class="panel-heading" style="height: 53px;line-height: 35px;font-size: 17px;">
+									<span style="margin-right: 35px">2020-01-12 12:23:45</span>
+									<span style="margin-right: 35px">qianqianjun@gmail.com</span>
+
+									<a class="panel-title collapsed btn btn-info"
+									   data-toggle="collapse"
+									   style="float: right;"
+									   href="#panel-element-1">查看详情</a>
+									<a class="panel-title collapsed btn btn-info"
+									   data-toggle="collapse"
+									   style="float: right;margin-right: 20px;"
+									   onclick="delComment()">删除留言</a>
+
+								</div>
+								<div id="panel-element-1" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p style="line-height: 20px;"> 这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，
+											这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容
+											这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容</p>
+										<textarea class="form-control" rows="4" style="margin-top: 20px;margin-bottom: 20px;">这里是留言回复</textarea>
+										<input class="btn btn-info" value="修改" >
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

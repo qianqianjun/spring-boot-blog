@@ -58,7 +58,6 @@
             <script type="text/javascript" th:inline="javascript">
                 var comment_form=document.querySelector("#comment-form");
                 comment_form.addEventListener("submit",function (evt) {
-                    alert("操你妈");
                     var usermail=document.querySelector("#usermail").value;
                     var comment=document.querySelector("#mess").value;
 
@@ -66,7 +65,6 @@
                     formData.append("aid",[[${article.id}]]);
                     formData.append("content",comment);
                     formData.append("email",usermail);
-                    alert("你是傻逼");
                     var xhr=new XMLHttpRequest();
                     xhr.open("POST","/addComment");
                     xhr.onload=function (ev) {
