@@ -1,7 +1,6 @@
 package com.buct.blog.domain;
 
 import lombok.Data;
-import java.util.Date;
 
 /**
  * @author 高谦

@@ -19,6 +19,7 @@
         </div>
         <!--title end-->
         <!--栏目管理 start-->
+
         <div class="sales-list row mart20">
             <div class="col-sm-9">
                 <div class="pad20 bgf">
@@ -28,33 +29,170 @@
                     <div class="tab">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs sale-tabs" role="tablist">
-                            <li class="active"><a href="#tab1"  role="tab" data-toggle="tab">所有栏目</a></li>
-                            <li><a href="#"  role="tab" data-toggle="tab">添加栏目</a></li>
+                            <li class="active"><a href="#tab1" id="button_tab1" role="tab" data-toggle="tab">所有栏目</a></li>
+                            <li><a href="#tab2" id="button_tab2" role="tab" data-toggle="tab" >添加栏目</a></li>
+                            <script type="text/javascript">
+                                var temp = document.querySelector("#button_tab2");
+                                temp.addEventListener("click",function (evt) {
+                                    var fix_name = document.querySelector("#name");
+                                    fix_name.value = null;
+                                    var fix_description = document.querySelector("#description");
+                                    fix_description.value = null;
+                                    var fix_imgurl = document.querySelector("#imgurl");
+                                    fix_imgurl.value = null;
+                                    var fix_id = document.querySelector("#id");
+                                    fix_id.value = -1;
+                                },true)
+                            </script>
                         </ul>
-
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="tab1">
                                 <div class="table-responsive mart20 sale-table">
                                     <table class="table table-bordered table-striped">
                                         <tr>
-                                            <td width="10%">id</td>
-                                            <td width="30%">名字</td>
+                                            <td width="20%">id</td>
+                                            <td width="20%">名字</td>
                                             <td width="15%">描述</td>
                                             <td width="15%">图片</td>
                                             <td width="20%">发布日期</td>
-                                            <td>操作</td>
+                                            <td>操作1</td>
+                                            <td>操作2</td>
                                         </tr>
                                         <tr class="side_links" th:each="category:${categories}">
-                                            <td><a><span class="txt-red" href="#">[[${category.id}]]</span></a></td>
-                                            <td>[[${category.name}]]</td>
-                                            <td>[[${category.description}]]</td>
-                                            <td>[[${category.imgurl}]]</td>
-                                            <td>[[${category.publishdate}]]</td>
-                                            <td><a href="#">修改</a></td>
+                                        <td>[[${category.id}]]</td>
+                                        <td th:id="@{'name'+${category.id}}">[[${category.name}]]</td>
+                                        <td th:id="@{'description'+${category.id}}">[[${category.description}]]</td>
+                                        <td th:id="@{'imgurl'+${category.id}}"><a th:onclick="show_pic([[${category.imgurl}]])">预览</a></td>
+                                        <td>[[${category.publishdate}]]</td>
+                                        <td><input type="submit" value="修改" th:onclick="fun([[${category.id}]],[[${category.imgurl}]])"></td>
+                                        <td><a th:href="@{'/deleteCategory?id='+${category.id}}">删除</a></td>
+                                        <script type="text/javascript">
+                                            function show_pic(imgurl) {
+                                                var temp = document.querySelector("#modal-361665");
+                                                temp.click();
+                                                var temp_img = document.querySelector("#preview-img");
+                                                temp_img.src = imgurl;
+                                            }
+                                            function fun(id,imgurl) {
+
+                                                var button_tab2=document.querySelector("#button_tab2");
+                                                button_tab2.click();
+                                                var name = document.querySelector("#name"+id);
+                                                var description = document.querySelector("#description"+id);
+                                                var fix_name =document.querySelector("#name");
+                                                fix_name.value = name.innerHTML;
+                                                var fix_description = document.querySelector("#description");
+                                                fix_description.value = description.innerHTML;
+                                                var fix_imgurl = document.querySelector("#imgurl");
+                                                fix_imgurl.value = imgurl;
+                                                var fix_id = document.querySelector("#id");
+                                                fix_id.value = id;
+                                            }
+                                        </script>
                                         </tr>
                                     </table>
                                 </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab2">
+                                <div class="second-title">
+                                    图片
+                                </div>
+                                <div class="picture-preview">
+                                    <img src="" class="img-circle"
+                                         width="200" height="200" id="preview-upload">
+                                </div>
+                                <form role="form" id="picture-form">
+                                    <input type="file" id="picture-file" class="form-control"
+                                           style="width: 300px;margin-bottom: 20px;margin-top: 10px;">
+                                    <input type="submit" value="上传图像" class="btn btn-info">
+                                </form>
+                                <script type="text/javascript">
+                                    var picture_form=document.querySelector("#picture-form");
+                                    picture_form.addEventListener("submit",function (evt) {
+                                        var file_inputs=document.querySelector("#picture-file");
+                                        var imgurl_input=document.querySelector("#imgurl");
+                                        var files=file_inputs.files;
+                                        if(files.length===0&&imgurl_input.value==null){
+                                            alert("请您添加图像文件！");
+                                        }else{
+                                            var formData=new FormData();
+                                            formData.append("file",files[0]);
+                                            var xhr=new XMLHttpRequest();
+                                            xhr.open("POST","/manage/chanagePic");
+                                            xhr.onload=function (ev) {
+                                                if(xhr.responseText!=null){
+                                                    alert("修改成功");
+                                                    document.querySelector("#preview-upload").setAttribute("src",xhr.responseText);
+                                                    var temp = document.querySelector("#imgurl");
+                                                    temp.value = "这里高谦一定要改";
+                                                }else{
+                                                    alert("修改失败！请查看服务器日志！");
+                                                }
+                                            };
+                                            xhr.send(formData);
+                                        }
+                                        evt.preventDefault();
+                                    },true);
+                                </script>
+                                <form role="form" id="basic-form">
+                                    <div class="form-group">
+                                        <label for="id">ID</label>
+                                        <input type="text" class="form-control" id="id" disabled="disabled" required="required"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">名字</label>
+                                        <input type="text" class="form-control" id="name" required="required"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">描述</label>
+                                        <input type="text" class="form-control" id="description" required="required"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="imgurl">图片地址</label>
+                                        <input type="text" class="form-control" id="imgurl" required="required" disabled="true"/>
+                                    </div>
+
+                                    <input type="submit" class="btn btn-info" value="提交">
+                                </form>
+                                <script type="text/javascript">
+                                    var basic_form=document.querySelector("#basic-form");
+                                    basic_form.addEventListener("submit",function (evt) {
+                                        var name_input=document.querySelector("#name");
+                                        var description_input=document.querySelector("#description");
+                                        var imgurl_input=document.querySelector("#imgurl");
+                                        var id_input=document.querySelector("#id");
+                                        var fromData=new FormData();
+                                        fromData.append("name",name_input.value);
+                                        fromData.append("description",description_input.value);
+                                        fromData.append("imgurl",imgurl_input.value);
+                                        var xhr=new XMLHttpRequest();
+                                        if(id_input.value==-1){
+                                            xhr.open("POST","/addCategory");
+                                            xhr.onload=function (ev) {
+                                                if(xhr.status===200) {
+                                                    alert("添加成功！");
+                                                    location.reload();
+                                                }else{
+                                                    alert("添加失败！请查看后台日志");
+                                                }
+                                            };
+                                        }else{
+                                            fromData.append("id",id_input.value);
+                                            xhr.open("POST","/changeCategory");
+                                            xhr.onload=function (ev) {
+                                                if(xhr.status===200) {
+                                                    alert("修改成功！");
+                                                    location.reload();
+                                                }else{
+                                                    alert("修改失败！请查看后台日志");
+                                                }
+                                            };
+                                        }
+                                        xhr.send(fromData);
+                                        evt.preventDefault();
+                                    },true);
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -97,6 +235,35 @@
     </div>
     <div class="copy">2016-2020 © qianqianjun 版权所有 .</div>
 </div>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <a id="modal-361665" href="#modal-container-361665" role="button" class="btn" data-toggle="modal"></a>
+            <div class="modal fade" id="modal-container-361665" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                图片预览
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <img id="preview-img" src="" style="width: 300px;height: 300px;">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!--main end-->
 <script src="/js/backmanage/jquery-1.9.1.min.js"></script>
 <script src="/js/backmanage/bootstrap.min.js"></script>

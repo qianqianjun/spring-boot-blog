@@ -57,4 +57,6 @@ public interface ArticleDao {
     public void softDeleteArticle(Integer id);
     //修改文章发布日期
     public void setArticlePublishDate(Integer id);
+    //获取某一专栏所有文章
+    public List<Article> getArticlesByType(Integer type);
 }

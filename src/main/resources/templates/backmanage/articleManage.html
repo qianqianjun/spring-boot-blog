@@ -39,12 +39,13 @@
 								<div class="table-responsive mart20 sale-table">
 									<table class="table table-bordered table-striped">
 										<tr>
-											<td width="10%">标题</td>
-											<td width="30%">专栏</td>
+											<td width="20%">标题</td>
+											<td width="20%">专栏</td>
 											<td width="15%">发布日期</td>
 											<td width="15%">访问量</td>
 											<td width="20%">轮播</td>
-											<td>操作</td>
+											<td>操作1</td>
+											<td>操作2</td>
 										</tr>
 										<tr class="side_links" th:each="article:${publishArticles}">
 											<td><a><span class="txt-red" href="#">[[${article.title}]]</span></a></td>
@@ -52,7 +53,8 @@
 											<td>[[${article.articlePublishDate}]]</td>
 											<td>[[${article.visitorNum}]]</td>
 											<td>[[${article.outstanding}]]</td>
-											<td><a href="#">修改</a></td>
+											<td><a th:href="@{'/cancelArticle?id='+${article.articleId}}">撤销</a></td>
+											<td><a th:href="@{'/manage/changeArticle?id='+${article.articleId}}" target="_blank">修改</a></td>
 										</tr>
 									</table>
 								</div>
@@ -62,12 +64,14 @@
 								<div class="table-responsive mart20 sale-table">
 									<table class="table table-bordered table-striped">
                                         <tr>
-                                            <td width="10%">标题</td>
-                                            <td width="30%">专栏</td>
+                                            <td width="20%">标题</td>
+                                            <td width="20%">专栏</td>
                                             <td width="15%">发布日期</td>
                                             <td width="15%">访问量</td>
                                             <td width="20%">轮播</td>
-                                            <td>操作</td>
+                                            <td>操作1</td>
+											<td>操作2</td>
+											<td>操作3</td>
                                         </tr>
                                         <tr class="side_links" th:each="article:${unpublishArticles}">
                                             <td><a><span class="txt-red" href="#">[[${article.title}]]</span></a></td>
@@ -75,9 +79,10 @@
                                             <td>[[${article.articlePublishDate}]]</td>
                                             <td>[[${article.visitorNum}]]</td>
                                             <td>[[${article.outstanding}]]</td>
-                                            <td><a href="#">修改</a></td>
+											<td><a th:href="@{'/publishArticle?id='+${article.articleId}}">发布</a></td>
+											<td><a th:href="@{'/deleteArticle?id='+${article.articleId}}">删除</a></td>
+											<td><a th:href="@{'/manage/changeArticle?id='+${article.articleId}}" target="_blank">修改</a></td>
                                         </tr>
-
 									</table>
 								</div>
 							</div>
@@ -86,12 +91,13 @@
 								<div class="table-responsive mart20 sale-table">
 									<table class="table table-bordered table-striped">
                                         <tr>
-                                            <td width="10%">标题</td>
-                                            <td width="30%">专栏</td>
+                                            <td width="20%">标题</td>
+                                            <td width="20%">专栏</td>
                                             <td width="15%">发布日期</td>
                                             <td width="15%">访问量</td>
                                             <td width="20%">轮播</td>
-                                            <td>操作</td>
+                                            <td>操作1</td>
+											<td>操作2</td>
                                         </tr>
                                         <tr class="side_links" th:each="article:${deleteArticles}">
                                             <td><a><span class="txt-red" href="#">[[${article.title}]]</span></a></td>
@@ -99,7 +105,8 @@
                                             <td>[[${article.articlePublishDate}]]</td>
                                             <td>[[${article.visitorNum}]]</td>
                                             <td>[[${article.outstanding}]]</td>
-                                            <td><a href="#">修改</a></td>
+											<td><a th:href="@{'/cancelArticle?id='+${article.articleId}}">撤销</a></td>
+											<td><a th:href="@{'/manage/changeArticle?id='+${article.articleId}}" target="_blank">修改</a></td>
                                         </tr>
 									</table>
 								</div>

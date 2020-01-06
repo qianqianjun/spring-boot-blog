@@ -16,7 +16,7 @@
         <result column="status" javaType="Integer" jdbcType="INTEGER" property="status"></result>
     </resultMap>
     <resultMap id="ArticleAndCategoryMapper" type="com.buct.blog.domain.ArticleAndCategory">
-        <result column="article.id" javaType="Integer" jdbcType="INTEGER" property="articleId"></result>
+        <result column="articleid" javaType="Integer" jdbcType="INTEGER" property="articleId"></result>
         <result column="title" javaType="String" jdbcType="VARCHAR" property="title"></result>
         <result column="content" javaType="String" jdbcType="VARCHAR" property="content"></result>
         <result column="type" javaType="Integer" jdbcType="INTEGER" property="type"></result>
@@ -88,7 +88,8 @@
          visitornum,outstanding,article.imgurl as articleimgurl,status,
           article.abstruct as articleabstruct,name,description,
           category.imgurl as categoryimgurl,
-           category.publishdate as categorypublishdate from article,category  where status=1 and article.type=category.id
+           category.publishdate as categorypublishdate
+           from article left outer join category on article.type=category.id where status=1
     </select>
     <select id="getAllUnpublishArticles" resultMap="ArticleAndCategoryMapper">
        select article.id as articleid,title,content,type,
@@ -97,7 +98,7 @@
           article.abstruct as articleabstruct,name,description,
           category.imgurl as categoryimgurl,
            category.publishdate as categorypublishdate
-           from article,category where status=0 and article.type=category.id
+           from article left outer join category on article.type=category.id where status=0
     </select>
     <select id="getAllDeleteArticles" resultMap="ArticleAndCategoryMapper">
         select article.id as articleid,title,content,type,
@@ -106,12 +107,15 @@
           article.abstruct as articleabstruct,name,description,
           category.imgurl as categoryimgurl,
            category.publishdate as categorypublishdate
-           from article,category where status=2 and article.type=category.id
+           from article left outer join category on article.type=category.id where status=2
     </select>
     <select id="softDeleteArticle">
         delete from article where id=#{id}
     </select>
     <select id="setArticlePublishDate">
         update article set publishdate=now() where id=#{id};
+    </select>
+    <select id="getArticlesByType" resultType="com.buct.blog.domain.Article">
+        select * from article where type=#{type}
     </select>
 </mapper>

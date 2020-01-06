@@ -1,4 +1,5 @@
 package com.buct.blog.controller;
+import com.buct.blog.domain.Article;
 import com.buct.blog.domain.ArticleAndCategory;
 import com.buct.blog.domain.Category;
 import com.buct.blog.domain.User;
@@ -8,10 +9,7 @@ import com.buct.blog.service.FileService;
 import com.buct.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -178,5 +176,20 @@ public class BackManageController {
         user.setCsdn(csdn);
         userService.updateOther(user);
         return user;
+    }
+    /**
+     * 修改文章
+     */
+    @GetMapping("/manage/changeArticle")
+    public String changeArticle(HttpServletRequest request,
+                                @RequestParam("id") Integer id,
+                                Map<String,Object>map) {
+        User user = userService.getDefaultUser();
+        map.put("user", user);
+        Article article = articleService.getArticleById(id);
+        map.put("article",article);
+        ArrayList<Category> categories=(ArrayList<Category>) categoryService.getCategoriesLimits(1000);
+        map.put("categories",categories);
+        return "backmanage/fix";
     }
 }
