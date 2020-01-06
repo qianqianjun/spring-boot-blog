@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<!--写文章页面  高谦-->
+<!--修改文章页面  刘权达-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -179,7 +179,7 @@
                                 <input type="submit" value="确认保存" class="btn btn-default" style="margin-top: 10px">
                             </form>
 
-                            <script type="text/javascript">
+                            <script th:inline="javascript" type="text/javascript">
                                 var publish_form=document.getElementById("publish-form");
                                 var abstruct_input=document.getElementById("abstruct");
                                 var md_source_input=document.getElementById("editor");
@@ -193,27 +193,30 @@
                                     }else if(title_input.value.length===0){
                                         alert("请您输入文章标题");
                                     }else{
-                                        changeArticle();
+                                        fixArticle();
                                     }
                                     event.preventDefault();
 
                                 },true);
-                                function changeArticle() {
+                                function fixArticle() {
                                     var fromData=new FormData();
+                                    var article = [[${article}]];
+                                    fromData.append("id",article.id);
                                     fromData.append("title",title_input.value);
                                     fromData.append("content",md_source_input.value);
                                     fromData.append("type",category_select.value);
                                     fromData.append("abstruct",abstruct_input.value);
                                     fromData.append("imgurl","");
-                                    fromData.append("status","1");
+                                    fromData.append("status",article.status);
+
 
                                     var xhr=new XMLHttpRequest();
-                                    xhr.open("POST","/addArticle");
+                                    xhr.open("POST","/fixArticle");
                                     xhr.onload=function (ev) {
                                         if(xhr.status===200){
-                                            alert("发布文章成功");
+                                            alert("保存文章成功");
                                         }else{
-                                            alert("发布文章失败，请检查服务器状态！");
+                                            alert("保存文章失败，请检查服务器状态！");
                                         }
                                         document.querySelector("#close-publish-window").click();
                                     };
