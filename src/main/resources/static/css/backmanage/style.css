@@ -498,3 +498,10 @@ a.color9:hover{color:#717171}
 #other-form{
     margin-top: 30px;
 }
+
+.preview-img{
+    width: 360px;
+    height: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

@@ -54,7 +54,7 @@
 												<input type="button" class="btn-info btn"
 													   value="设置轮播"
 													   th:onclick="@{'setBanner('+${article.id}+')'}"
-													   th:id="@{'Btn'+${article.id}}"
+													   th:id="@{'btn-'+${article.id}}"
 												>
 											</td>
 											<input type="hidden"
@@ -88,8 +88,8 @@
 											var previewImg=document.querySelector("#preview");
 											var imgurl_input=document.querySelector("#imgurl");
 											articleId.innerHTML=id;
-											imgurl_input.value=oldImg;
-											previewImg.setAttribute("src",oldImg);
+											imgurl_input.value=oldImg.value;
+											previewImg.setAttribute("src",oldImg.value);
 										}
 
 										function setBannerSubmit() {
@@ -104,10 +104,11 @@
 												xhr.onload=function (ev) {
 													if(xhr.status===200){
 														alert("设置成功");
-														var button=document.querySelector("#Btn-"+id);
+														var button=document.querySelector("#btn-"+id);
 														button.value="取消轮播";
 														button.setAttribute("class","btn btn-default");
 														button.setAttribute("onclick","cancleBanner("+id+")");
+
 													}else{
 														alert("修改失败，请检查服务器日志！");
 													}
@@ -130,9 +131,10 @@
 						<span class="left txt-left txt-blue"><i class="ico i-rank"></i>图片上传</span>
 					</div>
 					<div class="report-list ">
-						<p>当前操作文章ID： <span id="article-id"></span></p>
-						<img src="" style="width:200px;height: 120px;" id="preview">
-						<input type="file" class="form-control" style="width: 200px;" id="file">
+						<h2>当前操作文章ID： <span id="article-id"></span></h2>
+						<img src="#"  id="preview" class="preview-img">
+						<input type="file" class="form-control"
+							   style="width: 200px;margin: 0 0 15px 0;" id="file">
 						<input type="hidden" id="imgurl">
 						<input type="button" class="btn btn-info" value="上传图片" onclick="uploadImg()">
 						<input type="button" class="btn btn-info" value="提交轮播设置" onclick="setBannerSubmit()">
