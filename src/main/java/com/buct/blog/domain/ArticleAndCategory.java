@@ -7,6 +7,7 @@ public class ArticleAndCategory {
     private Integer articleId; // 文章标号（主键）
     private String title; // 标题
     private String content; // 内容
+    private Object blob;
     private Integer type; // 专栏标号
     private String articlePublishDate; // 发布日期
     private Integer visitorNum; // 访问人数
@@ -19,5 +20,13 @@ public class ArticleAndCategory {
     private String description;
     private String categoryImgurl;
     private String categoryPublishDate;
+
+    public void setContent(byte[] bytes){
+        try{
+            this.content=new String(bytes,"utf-8");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }

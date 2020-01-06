@@ -7,7 +7,7 @@
     <resultMap id="ArticlesInOrderMapper" type="com.buct.blog.domain.Article">
         <result column="id" javaType="Integer" jdbcType="INTEGER" property="id"></result>
         <result column="title" javaType="String" jdbcType="VARCHAR" property="title"></result>
-        <result column="content" javaType="String" jdbcType="BLOB" property="content"></result>
+        <result column="blob" javaType="Object" jdbcType="BLOB" property="blob"></result>
         <result column="type" javaType="Integer" jdbcType="INTEGER" property="type"></result>
         <result column="publishdate" javaType="String" jdbcType="VARCHAR" property="publishDate"></result>
         <result column="visitornum" javaType="Integer" jdbcType="INTEGER" property="visitorNum"></result>
@@ -18,7 +18,6 @@
     <resultMap id="ArticleAndCategoryMapper" type="com.buct.blog.domain.ArticleAndCategory">
         <result column="articleid" javaType="Integer" jdbcType="INTEGER" property="articleId"></result>
         <result column="title" javaType="String" jdbcType="VARCHAR" property="title"></result>
-        <result column="content" javaType="String" jdbcType="VARCHAR" property="content"></result>
         <result column="type" javaType="Integer" jdbcType="INTEGER" property="type"></result>
         <result column="articlepublishdate" javaType="String" jdbcType="VARCHAR" property="articlePublishDate"></result>
         <result column="visitornum" javaType="Integer" jdbcType="INTEGER" property="visitorNum"></result>
@@ -42,28 +41,15 @@
         select * from article where id=#{aid}
     </select>
 
-    <select id="addArticle">
+    <!--高谦修改，使用 blob 属性代替 content ，数据库乱码-->
+    <insert id="addArticle">
         insert into article
-        values (null,#{title},#{content},#{type},now(),0,0,#{status},#{imgurl},#{abstruct})
-    </select>
-    <select id="setArticleTitle">
-        update article set title=#{title} where id = #{id}
-    </select>
-    <select id="setArticleContent">
-        update article set content=#{content} where id=#{id}
-    </select>
-    <select id="setArticleAbstruct">
-        update article set abstruct=#{abstruct} where id=#{id}
-    </select>
-    <select id="setArticleImgurl">
-        update article set imgurl=#{imgurl} where id=#{id}
-    </select>
-    <select id="setArticleOutstanding">
-        update article set outstanding=#{outstanding} where id=#{id}
-    </select>
-    <select id="deleteArticle">
+        values (null,#{title},#{blob},#{type},now(),0,0,#{status},'',#{abstruct})
+    </insert>
+
+    <delete id="deleteArticle">
         delete from article where id=#{id}
-    </select>
+    </delete>
     <select id="getArticleByTitle" resultType="com.buct.blog.domain.Article">
         select * from article where title like concat('%',#{title},'%')
     </select>
@@ -73,17 +59,34 @@
     <select id="getVisitorNum" resultType="Integer">
         select visitornum from article where id = #{id}
     </select>
-    <select id="setVisitorNum">
+    <update id="setVisitorNum">
         update article set visitornum=#{visitorNum} where id=#{id}
-    </select>
-    <select id="setArticleStatus">
+    </update>
+    <update id="setArticleStatus">
         update article set status=#{status} where id=#{id}
-    </select>
-    <select id="setArticleType">
+    </update>
+    <update id="setArticleType">
         update article set type=#{type} where id=#{id}
+    </update>
+
+    <!--高谦添加 修改文章功能-->
+    <update id="fixArticle" parameterType="com.buct.blog.domain.Article">
+        update article set article.content=#{blob},article.title=#{title},article.abstruct=#{abstruct},
+          article.type=#{type}
+          where article.id=#{id}
+    </update>
+
+    <!--高谦添加 用于根据type 查找文章-->
+    <select id="getArticlesByType" resultMap="ArticlesInOrderMapper">
+        select * from article where article.status=1 and article.type=#{type}
     </select>
-    <select id="getAllPublishArticles" resultMap="ArticleAndCategoryMapper">
-        select article.id as articleid,title,content,type,
+    <!--高谦添加 用于查询所有已经发布的文章-->
+    <select id="getAllPublishArticles" resultMap="ArticlesInOrderMapper">
+        select * from article where article.status=1
+    </select>
+
+    <select id="getAllPublishArticlesAndCategory" resultMap="ArticleAndCategoryMapper">
+        select article.id as articleid,title,type,
         article.publishdate as articlepublishdate,
          visitornum,outstanding,article.imgurl as articleimgurl,status,
           article.abstruct as articleabstruct,name,description,
@@ -92,7 +95,7 @@
            from article left outer join category on article.type=category.id where status=1
     </select>
     <select id="getAllUnpublishArticles" resultMap="ArticleAndCategoryMapper">
-       select article.id as articleid,title,content,type,
+       select article.id as articleid,title,type,
         article.publishdate as articlepublishdate,
          visitornum,outstanding,article.imgurl as articleimgurl,status,
           article.abstruct as articleabstruct,name,description,
@@ -101,7 +104,7 @@
            from article left outer join category on article.type=category.id where status=0
     </select>
     <select id="getAllDeleteArticles" resultMap="ArticleAndCategoryMapper">
-        select article.id as articleid,title,content,type,
+        select article.id as articleid,title,type,
         article.publishdate as articlepublishdate,
          visitornum,outstanding,article.imgurl as articleimgurl,status,
           article.abstruct as articleabstruct,name,description,
@@ -115,7 +118,30 @@
     <select id="setArticlePublishDate">
         update article set publishdate=now() where id=#{id};
     </select>
-    <select id="getArticlesByType" resultType="com.buct.blog.domain.Article">
-        select * from article where type=#{type}
+
+    <!--高谦添加 用于查询 Article， 返回带有专栏名称的view -->
+    <resultMap id="articleView" type="com.buct.blog.domain.Article">
+        <id column="id" javaType="Integer" jdbcType="INTEGER" property="id"></id>
+        <result column="title" javaType="String" jdbcType="VARCHAR" property="title"></result>
+        <result column="type" javaType="Integer" jdbcType="INTEGER" property="type"></result>
+        <result column="publishdate" javaType="String" jdbcType="VARCHAR" property="publishDate"></result>
+        <result column="visitornum" javaType="Integer" jdbcType="INTEGER" property="visitorNum"></result>
+        <result column="outstanding" javaType="Integer" jdbcType="INTEGER" property="outstanding"></result>
+        <result column="imgurl" javaType="String" jdbcType="VARCHAR" property="imgurl"></result>
+        <result column="status" javaType="Integer" jdbcType="INTEGER" property="status"></result>
+        <result column="name" javaType="String" jdbcType="VARCHAR" property="categoryName"></result>
+    </resultMap>
+    <select id="getArticleAndCategory" resultMap="articleView">
+        select article.* , category.name from article,category where category.id=article.type and article.status=1
     </select>
+
+    <!--高谦添加 用于设置 article 为轮播文章-->
+    <update id="setBanner" parameterType="com.buct.blog.domain.Article">
+        update article set article.outstanding=1 ,article.imgurl=#{imgurl} where article.id=#{id}
+    </update>
+    <!--高谦添加 用于取消article 为轮播文章-->
+    <update id="cancleBanner">
+        update article set article.outstanding=0 where article.id=#{id}
+    </update>
+
 </mapper>

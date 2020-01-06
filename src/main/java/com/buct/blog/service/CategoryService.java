@@ -20,6 +20,7 @@ public class CategoryService {
     public List<Category> getCategoriesLimits(int k){return categoryDao.getCategoriesLimits(k);}
     //获取某一栏目所有已发布文章
     public List<Article> getArticlesByCategory(int type){return categoryDao.getArticlesByCategory(type);}
+
     //获取所有专栏
     public List<Category> getAllCategories(){return  categoryDao.getAllCategories();}
     //删除专栏
@@ -36,9 +37,19 @@ public class CategoryService {
         categoryDao.addCategory(name,description,imgurl);
     }
     //修改专栏
-    public void changeCategory(Integer id,String name,String description,String imgurl){
-        categoryDao.setCategoryDescription(id,description);
-        categoryDao.setCategoryName(id,name);
-        categoryDao.setCategoryImgurl(id,imgurl);
+    public void changeCategory(Integer id,String name,String description,String imgurl) {
+        categoryDao.setCategoryDescription(id, description);
+        categoryDao.setCategoryName(id, name);
+        categoryDao.setCategoryImgurl(id, imgurl);
+    }
+
+    /**
+     * write by 高谦
+     * 根据id 来获取专栏
+     * @param id 专栏 id
+     * @return 专栏对象
+     */
+    public Category getCategoryById(Integer id){
+        return categoryDao.getCategoryById(id);
     }
 }

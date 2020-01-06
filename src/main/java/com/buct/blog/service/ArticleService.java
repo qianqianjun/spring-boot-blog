@@ -22,15 +22,34 @@ public class ArticleService {
     @Autowired
     ArticleDao articleDao;
 
-    /**查找图片轮播文章。
-     * @return
+    /**
+     * 查找图片轮播文章。
+     * @return 返回文章数组
      */
     public List<Article> getAllCarouselArticles(){
         ArrayList<Article> articles=(ArrayList<Article>) carouselDao.getAllCarousel();
         return articles;
     }
-    public List<Article> getArticlesByDate(int k){return articleDao.getArticlesByDate(k);}
-    public List<Article> getArticleByVisitor(int k){return articleDao.getArticlesByVisitor(k);}
+
+    /**
+     * write by 刘权达
+     * 根据发布日期显示最新的 k 个文章
+     * @param k 文章条数限制
+     * @return 文章数组
+     */
+    public List<Article> getArticlesByDate(int k){
+        return articleDao.getArticlesByDate(k);
+    }
+
+    /**
+     * write by 刘权达
+     * 显示浏览量最大的 前 k 个文章
+     * @param k 文章条数限制
+     * @return 文章数组
+     */
+    public List<Article> getArticleByVisitor(int k){
+        return articleDao.getArticlesByVisitor(k);
+    }
 
     /**
      * 根据文章的id 返回对应文章对象
@@ -38,34 +57,52 @@ public class ArticleService {
      * @return 返回文章
      */
     public Article getArticleById(Integer aid){
-        return articleDao.getArticleById(aid);
+        Article article= articleDao.getArticleById(aid);
+        article.setContent(article.getBlob());
+        return article;
     }
 
-    //添加文章
+    /**
+     * 添加文章页面
+     * write by 刘权达
+     * fix by 高谦
+     * 为了防止数据库乱码，将content 换为 blob
+     * @param title 文章标题
+     * @param content 文章内容
+     * @param type 文章专栏标号
+     * @param status 文章当前状态
+     * @param abstruct 文章摘要
+     */
     public void addArticle(String title,String content,Integer type,
-                           Integer status,String imgurl,String abstruct){
-        articleDao.addArticle(title,content,type,status,imgurl,abstruct);
+                           Integer status,String abstruct){
+        try{
+            byte[] blob=content.getBytes("utf-8");
+            articleDao.addArticle(title,blob,type,status,abstruct);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
-    //修改文章标题
-    public void setArticleTitle(Integer id,String title){
-        articleDao.setArticleTitle(id,title);
+
+    /**
+     * 修改文章
+     * @param title 文章标题
+     * @param content 文章内容
+     * @param type 文章专栏标号
+     * @param status 文章当前状态
+     * @param abstruct 文章摘要
+     */
+    public void fixArticle(String title,String content,Integer type,
+                           Integer status,String abstruct){
+        Article article=new Article();
+        article.setBlob(content);
+        article.setTitle(title);
+        article.setStatus(status);
+        article.setAbstruct(abstruct);
+        article.setType(type);
+        articleDao.fixArticle(article);
     }
-    //修改文章内容
-    public void setArticleContent(Integer id,String content){
-        articleDao.setArticleContent(id,content);
-    }
-    //修改文章摘要
-    public void setArticleAbstruct(Integer id,String abstruct){
-        articleDao.setArticleAbstruct(id,abstruct);
-    }
-    //修改文章图片
-    public void setArticleImgurl(Integer id,String imgurl){
-        articleDao.setArticleImgurl(id,imgurl);
-    }
-    //修改文章轮播
-    public void setArticleOutstanding(Integer id,Integer outstanding){
-        articleDao.setArticleOutstanding(id,outstanding);
-    }
+
+
     //删除文章
     public void deleteArticle(Integer id){
         articleDao.deleteArticle(id);
@@ -91,9 +128,55 @@ public class ArticleService {
         articleDao.setArticleStatus(id,status);
     }
     //获取所有已发布文章
-    public List<ArticleAndCategory> getAllPublishArticles(){return articleDao.getAllPublishArticles();}
+    public List<ArticleAndCategory> getAllPublishArticlesAndCategory(){
+        return articleDao.getAllPublishArticlesAndCategory();}
     //获取所有未发布文章
     public List<ArticleAndCategory> getAllUnpublishArticles(){return articleDao.getAllUnpublishArticles();}
     //获取所有已删除文章
     public List<ArticleAndCategory> getAllDeleteArticles(){return articleDao.getAllDeleteArticles();}
+
+    /**
+     * write by 高谦
+     * @param type 根据专栏的id （文章的type 来获取一系列文章）
+     * @return 返回一系列文章
+     */
+    public List<Article> getArticlesByType(Integer type) {
+        return articleDao.getArticlesByType(type);
+    }
+
+    /**
+     * write by 高谦
+     * 获取所有已经发布的文章
+     * @return 已经发布的文章列表
+     */
+    public List<Article> getAllPublishArticles(){
+        return articleDao.getAllPublishArticles();
+    }
+
+    /**
+     * write by 高谦
+     * 获取有 category name 的article view
+     * @return article view list
+     */
+    public List<Article> getArticlesWithCategory(){
+        return articleDao.getArticleAndCategory();
+    }
+
+    /**
+     * write by 高谦
+     * @param article 参数
+     */
+    public void setBanner(Article article) {
+        articleDao.setBanner(article);
+    }
+
+    /**
+     * write by 高谦
+     * 取消文章的轮播
+     * @param id 文章id
+     */
+    public void cancleBanner(Integer id) {
+        articleDao.cancleBanner(id);
+    }
+
 }

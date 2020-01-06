@@ -1,81 +1,105 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="compoment/static::static"></head>
-
 <body>
 <!--高谦 文章展示页面-->
-<!--BEGIN page-->
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="/js/marked.min.js"></script>
+<script src="/js/backmanage/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/article.css">
 
 <div id="page">
     <!--BEGIN wrap-->
     <div id="wrap">
         <!--BEGIN header-->
         <div id="header">
-
-            <!--BEGIN logo-->
-            <h1 id="logo"><a href="index.html">The Freelancer</a></h1>
-            <!--END of logo-->
-
-            <!--BEGIN availabilty-->
+            <h1 id="logo"><a href="/">谦谦君的博客</a></h1>
             <div class="availability">
-                <a href="#" class="available">I'm available for freelance work</a>
+                <a href="https://github.com/qianqianjun" class="available">勤奋自律，谦虚谨慎，乐观积极！</a>
             </div>
-            <!--END of availability-->
-
-            <!--BEGIN menu_wrap-->
-            <div th:replace="compoment/navigatior::commonMenu(0)"></div>
-            <!--END of menu_wrap-->
-
+            <div th:replace="compoment/navigatior::commonMenu(-1)"></div>
+            <div id="title_page">
+                <h2>文章详情页</h2>
+            </div>
         </div>
         <!--END of header-->
-
-        <!--BEGIN main_conten-->
-        <div id="main_content" style="padding-top: 250px;">
-
-            <!--BEGIN content-->
-            <div id="content">
-                <h2>[[${article.title}]]</h2>
-                <h5>[[${article.publishDate}]]</h5>
-                <h5>[[${article.visitorNum}]]</h5>
+        <div id="main_content" style="padding-right: 0px;padding-left: 0px;">
+            <div id="content" style="width: 100%;">
+                <h2 style="font-size: 32px;padding-bottom: 30px;">[[${article.title}]]</h2>
+                <h4>发布日期： [[${article.publishDate}]] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    总浏览量：[[${article.visitorNum}]]</h4>
                 <div id="content_text"></div>
             </div>
             <script type="text/javascript" th:inline="javascript">
                 $('#content_text').html(marked([[${article.content}]]));
             </script>
-            <!--END of content-->
 
-            <!--BEGIN sidebar-->
-            <div id="sidebar">
-                <div class="block">
-                    <ul class="side_links" th:each="category:${categories}">
-                        <li><a href="">[[${category.name}]]</a></li>
-                    </ul>
+            <!--添加评论的内容-->
+            <div style="clear: both;"></div>
+            <form id="comment-form">
+                <h2 style="font-size: 32px;padding-bottom: 30px;margin-top: 50px">添加评论</h2>
+                <div class="form-group">
+                    <h3>您的邮箱:</h3>
+                    <input type="text"
+                           required="required"
+                           class="form-control"
+                           placeholder="留下您的邮箱方便联系！"
+                           id="usermail"
+                           style="width: 700px;font-size: 20px;">
                 </div>
+                <div class="form-group">
+                    <h3>发表见解：</h3>
+                    <textarea type="text"
+                              required="required"
+                              id="mess"
+                              placeholder="留下您的见解"></textarea>
+                </div>
+                <input type="submit" class="btn btn-info" style="float: none;">
+            </form>
+            <script type="text/javascript" th:inline="javascript">
+                var comment_form=document.querySelector("#comment-form");
+                comment_form.addEventListener("submit",function (evt) {
+                    alert("操你妈");
+                    var usermail=document.querySelector("#usermail").value;
+                    var comment=document.querySelector("#mess").value;
+
+                    var formData=new FormData();
+                    formData.append("aid",[[${article.id}]]);
+                    formData.append("content",comment);
+                    formData.append("email",usermail);
+                    alert("你是傻逼");
+                    var xhr=new XMLHttpRequest();
+                    xhr.open("POST","/addComment");
+                    xhr.onload=function (ev) {
+                        if(xhr.status===200){
+                            alert("留言添加成功！");
+                        }else {
+                            alert("留言添加失败，请查看服务器日志输出！");
+                        }
+                    };
+                    xhr.send(formData);
+                    evt.preventDefault();
+                },true);
+            </script>
+            <!--下面是评论列表-->
+            <div class="comment-box" id="comment-box">
+                <h2 style="font-size: 32px;padding-bottom: 30px;margin-top: 50px">评论列表</h2>
+                <ul>
+                    <li th:each="comment:${comments}">
+                        <p>[[${comment.email}]]</p>
+                        <p>[[${comment.content}]]</p>
+                        <p>[[${comment.publishDate}]]</p>
+                        <p>[[${comment.reply}]]</p>
+                    </li>
+                </ul>
             </div>
-            <!--END of sidebar-->
-
-            <!--BEGIN push - makes our footer stick at the bottom of the page. -->
+            <!--清除浮动属性-->
             <div class="push"></div>
-            <!--END of push -->
-
         </div>
-        <!--END of main_conten-->
-
 
         <!--BEGIN of footer-->
-        <div id="footer">
-            <div class="copyright">
-                <small>&copy; 2009 More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>. All rights reserved</small>
-            </div>
-        </div>
+        <div id="footer" th:replace="compoment/footer::footer"></div>
         <!--END of wrap-->
-
     </div>
-    <!--END of wrap-->
 </div>
-<!--END of page-->
-
 </body>
 </html>

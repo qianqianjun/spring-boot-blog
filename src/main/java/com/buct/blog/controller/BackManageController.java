@@ -70,7 +70,7 @@ public class BackManageController {
     public String manageArticle(HttpServletRequest request,Map<String,Object> map){
         User user=userService.getDefaultUser();
         map.put("user",user);
-        ArrayList<ArticleAndCategory> arrayList = (ArrayList<ArticleAndCategory>) articleService.getAllPublishArticles();
+        ArrayList<ArticleAndCategory> arrayList = (ArrayList<ArticleAndCategory>) articleService.getAllPublishArticlesAndCategory();
         map.put("publishArticles",arrayList);
         System.out.println(arrayList);
         ArrayList<ArticleAndCategory> arrayList1 =
@@ -177,6 +177,53 @@ public class BackManageController {
         userService.updateOther(user);
         return user;
     }
+
+
+    /**
+     * 设置轮播界面的接口
+     * @param map 前台数据传送器
+     * @return 设置轮播的界面
+     */
+    @GetMapping("/manage/banner")
+    public String banner(Map<String,Object> map){
+        ArrayList<Article> articles=(ArrayList<Article>) articleService.getArticlesWithCategory();
+        map.put("articles",articles);
+        User user=userService.getDefaultUser();
+        map.put("user",user);
+        return "backmanage/banner";
+    }
+
+    /**
+     * 用于将文章设置为轮播文章
+     * @param imgurl 轮播的图片
+     * @param id 文章的id
+     * @return 返回 article 相关信息
+     */
+    @PostMapping("/manage/setBanner")
+    @ResponseBody
+    public Article setBanner(@RequestParam("imgurl") String imgurl,
+                             @RequestParam("id") Integer id){
+        Article article=new Article();
+        article.setImgurl(imgurl);
+        article.setId(id);
+        articleService.setBanner(article);
+        return article;
+    }
+
+    /**
+     * 取消文章的轮播
+     * @param id 文章id
+     * @return 文章相关信息
+     */
+    @PostMapping("/manage/cancleBanner")
+    @ResponseBody
+    public Article cancleBanner(@RequestParam("id") Integer id){
+        articleService.cancleBanner(id);
+        Article article=new Article();
+        article.setId(id);
+        return article;
+    }
+
     /**
      * 修改文章
      */
@@ -187,9 +234,9 @@ public class BackManageController {
         User user = userService.getDefaultUser();
         map.put("user", user);
         Article article = articleService.getArticleById(id);
-        map.put("article",article);
-        ArrayList<Category> categories=(ArrayList<Category>) categoryService.getCategoriesLimits(1000);
-        map.put("categories",categories);
+        map.put("article", article);
+        ArrayList<Category> categories = (ArrayList<Category>) categoryService.getCategoriesLimits(1000);
+        map.put("categories", categories);
         return "backmanage/fix";
     }
 }

@@ -27,4 +27,11 @@ public interface CategoryDao {
     //获取专栏名称
     public String getCategoryName(Integer id);
 
+    /**
+     * write by 高谦
+     * 根据专栏标号获取专栏
+     * @param id 专栏id
+     * @return 专栏对象
+     */
+    Category getCategoryById(Integer id);
 }

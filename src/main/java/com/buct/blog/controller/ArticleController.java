@@ -30,56 +30,43 @@ public class ArticleController {
     CommentService commentService;
 
     /**
+     * write by 高谦
      * 根据文章的id 获取文章的所有信息。
+     * 注意，每一次获取文章都要使得浏览量加一
+     * 获取文章的时候需要同时获取评论信息。
      * @param aid 文章的 id
      * @return 文章的所有信息。
      */
     @GetMapping("/articles/detail")
     public String articles(@RequestParam("aid") Integer aid,Map<String,Object> map){
+        // 获取文章
         Article article=articleService.getArticleById(aid);
+        // 文章浏览量加一
+        articleService.setVisitorNum(article.getId(),article.getVisitorNum()+1);
+        article.setVisitorNum(article.getVisitorNum()+1);
         map.put("article",article);
-        ArrayList<Category> categories= (ArrayList<Category>)categoryService.getCategoriesLimits(8);
-        map.put("categories",categories);
+        // 获取评论
+        ArrayList<Comment> comments=(ArrayList<Comment>)
+                commentService.commentsByArticle(article.getId());
+        map.put("comments",comments);
         return "article";
     }
 
+    /**
+     * 根据专栏标号返回专栏内的所有文章
+     * @param type 专栏的标号，文章的type
+     * @param map 前台数据传递
+     * @return 返回专栏文章页面
+     */
     @GetMapping("/articles/list")
-    public String articlesByCategory(@RequestParam("type") Integer type,Map<String,Object> map){
-        ArrayList<Article> articlesByCategory=(ArrayList<Article>)
-                categoryService.getArticlesByCategory(type);
-        map.put("acticleList",articlesByCategory);
-
-        return "recommend";
-    }
-
-
-
-
-
-    //给文章添加一条新评论,返回评论的id
-    @GetMapping("/addComment")
-    public String addComment(@RequestParam("aid") Integer aid,
-                            @RequestParam("content") String content,
-                             @RequestParam("email") String email,
-                             @RequestParam("nickName") String nickName){
-        Integer id = commentService.addComment(aid,content,email,nickName);
-        System.out.println(id);
-        return null;
-    }
-    //回复某条评论
-    @GetMapping("/replyComment")
-    public String replyComment(@RequestParam("id") Integer id,
-                               @RequestParam("reply") String reply){
-        commentService.replyComment(id,reply);
-
-        return null;
-    }
-    //查看某篇文章的所有评论
-    @GetMapping("/commentsByArticle")
-    public String commentsByArticle(@RequestParam("aid") Integer aid){
-        ArrayList<Comment> list = (ArrayList<Comment>)commentService.commentsByArticle(aid);
-        System.out.println(list);
-        return null;
+    public String getArticlesByType(@RequestParam("type") Integer type,Map<String,Object> map){
+        Category category=categoryService.getCategoryById(type);
+        map.put("category",category);
+        ArrayList<Article> articles=(ArrayList<Article> ) articleService.getArticlesByType(type);
+        map.put("articles",articles);
+        ArrayList<Category> categories=(ArrayList<Category>) categoryService.getCategoriesLimits(100);
+        map.put("categories",categories);
+        return "categoryArticles";
     }
 
     /***
@@ -90,7 +77,6 @@ public class ArticleController {
      * @param content
      * @param type
      * @param status
-     * @param imgurl
      * @param abstruct
      * @return
      */
@@ -100,78 +86,19 @@ public class ArticleController {
                              @RequestParam("content") String content,
                              @RequestParam("type") Integer type,
                              @RequestParam("status") Integer status,
-                             @RequestParam("imgurl") String imgurl,
                              @RequestParam("abstruct") String abstruct){
-        articleService.addArticle(title,content,type,status,imgurl,abstruct);
+        articleService.addArticle(title,content,type,status,abstruct);
         Article article=new Article();
         article.setAbstruct(abstruct);
         article.setContent(content);
-        article.setImgurl(imgurl);
         article.setType(type);
         article.setTitle(title);
         article.setStatus(status);
         return article;
     }
-    //修改文章标题
-    @GetMapping("/setArticleTitle")
-    public String setArticleTitle(@RequestParam("id") Integer id,
-                                  @RequestParam("title") String title){
-        articleService.setArticleTitle(id,title);
-        return null;
-    }
-    //修改文章内容
-    @GetMapping("/setArticleContent")
-    public String setArticleContent(@RequestParam("id") Integer id,
-                                    @RequestParam("content") String content){
-        articleService.setArticleContent(id,content);
-        return  null;
-    }
-    //修改文章摘要
-    @GetMapping("/setArticleAbstruct")
-    public String setArticleAbstruct(@RequestParam("id") Integer id,
-                                     @RequestParam("abstruct") String abstruct){
-        articleService.setArticleAbstruct(id,abstruct);
-        return null;
-    }
-    //修改文章图片
-    @GetMapping("/setArticleImgurl")
-    public String setArticleImgurl(@RequestParam("id") Integer id,
-                                     @RequestParam("imgurl") String imgurl){
-        articleService.setArticleImgurl(id,imgurl);
-        return null;
-    }
-    //修改文章轮播
-    @GetMapping("/setArticleOutstanding")
-    public String setArticleOutstanding(@RequestParam("id") Integer id,
-                                   @RequestParam("outstanding") Integer outstanding){
-        articleService.setArticleOutstanding(id,outstanding);
-        return null;
-    }
-    //按文章名模糊搜索文章
-    @GetMapping("/getArticleByTitle")
-    public String getArticleByTitle(@RequestParam("title") String title){
-        articleService.getArticleByTitle(title);
-        return null;
-    }
-    //获取所有文章，包括未发布
-    @GetMapping("/getAllArticles")
-    public String getAllArticles(){
-        articleService.getAllArticles();
-        return null;
-    }
-    //获取某一文章访问量
-    @GetMapping("/getVisitorNum")
-    public String getVisitorNum(@RequestParam("id") Integer id){
-        articleService.getVisitorNum(id);
-        return null;
-    }
-    //修改某一文章访问量
-    @GetMapping("/setVisitorNum")
-    public String setVisitorNum(@RequestParam("id") Integer id,
-                                @RequestParam("visitorNum") Integer visitorNum){
-        articleService.setVisitorNum(id,visitorNum);
-        return null;
-    }
+
+
+
     //发布文章，status=1
     @GetMapping("/publishArticle")
     public String publishArticle(@RequestParam("id") Integer id){
@@ -187,8 +114,30 @@ public class ArticleController {
     }
     //删除文章
     @GetMapping("/deleteArticle")
-    public String deleteArticle(@RequestParam("id") Integer id){
-        articleService.setArticleStatus(id,2);
+    public String deleteArticle(@RequestParam("id") Integer id) {
+        articleService.setArticleStatus(id, 2);
         return "redirect:/manage/article";
     }
+
+    /**
+     * 添加评论接口
+     * @param aid 评论对应的文章的 id
+     * @param content 评论的内容
+     * @param email 评论人的 email 地址
+     * @return 返回添加的评论内容
+     */
+    @PostMapping("/addComment")
+    @ResponseBody
+    public Comment addComment(@RequestParam("aid") Integer aid,
+                              @RequestParam("content") String content,
+                              @RequestParam("email") String email){
+        commentService.addComment(aid,content,email);
+        Comment comment=new Comment();
+        comment.setAid(aid);
+        comment.setContent(content);
+        comment.setEmail(email);
+        return comment;
+
+    }
+
 }

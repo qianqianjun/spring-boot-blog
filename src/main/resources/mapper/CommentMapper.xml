@@ -11,13 +11,13 @@
         <result column="content" javaType="String" jdbcType="VARCHAR" property="content"></result>
         <result column="reply" javaType="String" jdbcType="VARCHAR" property="reply"></result>
         <result column="email" javaType="String" jdbcType="VARCHAR" property="email"></result>
-        <result column="nickname" javaType="String" jdbcType="VARCHAR" property="nickName"></result>
+        <result column="ignore" javaType="Integer" jdbcType="INTEGER" property="ignore"></result>
     </resultMap>
-    <select id="addComment" resultType="Integer">
+    <!--fix by 高谦 select你妹啊？-->
+    <insert id="addComment">
         insert into message
-        values (null,#{aid},now(),#{content},null,#{email},#{nickName});
-        select last_insert_id();
-    </select>
+        values (null,#{aid},now(),#{content},null,#{email},0);
+    </insert>
     <select id="replyComment" >
         update message set reply = #{reply} where id = #{id}
     </select>
