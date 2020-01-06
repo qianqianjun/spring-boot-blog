@@ -82,11 +82,10 @@
             <div class="comment-box" id="comment-box">
                 <h2 style="font-size: 32px;padding-bottom: 30px;margin-top: 50px">评论列表</h2>
                 <ul>
-                    <li th:each="comment:${comments}">
-                        <p>[[${comment.email}]]</p>
-                        <p>[[${comment.content}]]</p>
-                        <p>[[${comment.publishDate}]]</p>
-                        <p>[[${comment.reply}]]</p>
+                    <li th:each="comment:${comments}" class="comment-li">
+                        <p>用户：[[${comment.email}]]<span class="date-span">[[${comment.publishDate}]]</span></p>
+                        <p class="message-p">[[${comment.content}]]</p>
+                        <p class="reply-p"><span>回复：</span> [[${comment.reply}]]</p>
                     </li>
                 </ul>
             </div>

@@ -29,4 +29,17 @@ public interface CommentDao {
      * @return 返回 评论和文章的view
      */
     List<Comment> getAllComments();
+
+    /**
+     * write by 高谦
+     * @param id
+     * @param reply
+     */
+    void fixComment(Integer id, String reply);
+
+    /**
+     * write by 高谦
+     * @param id
+     */
+    void delComment(Integer id);
 }

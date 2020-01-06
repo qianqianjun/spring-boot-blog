@@ -3,10 +3,6 @@
 <head th:replace="/compoment/common::backstatic"></head>
 
 <body>
-<script type="text/javascript">
-	COMMENT_LIST=[[${comments}]];
-	console.log(COMMENT_LIST);
-</script>
 <!--评论管理界面 高谦-->
 <!-- HTML start-->
 <!--side start-->
@@ -32,45 +28,63 @@
 							<i class="ico i-rank"></i>留言列表
 						</span>
 					</div>
-
-					<!-- Nav tabs -->
-					<ul class="nav nav-tabs sale-tabs" role="tablist">
-						<li class="active"><a onclick="alert('切换到全部留言')">全部留言</a></li>
-						<li><a onclick="alert('切换到未回复留言')">未回复留言</a></li>
-						<li><a onclick="alert('切换到已回复留言')">已回复留言</a></li>
-					</ul>
-
-					<script type="text/javascript">
-
-					</script>
 					<div class="tab">
-						<div class="panel-group">
-							<div class="panel panel-info">
-								<div class="panel-heading" style="height: 53px;line-height: 35px;font-size: 17px;">
-									<span style="margin-right: 35px">2020-01-12 12:23:45</span>
-									<span style="margin-right: 35px">qianqianjun@gmail.com</span>
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs sale-tabs" role="tablist">
+							<li class="active"><a href="#tab1"  role="tab" data-toggle="tab">全部留言</a></li>
+							<li><a href="#tab2"  role="tab" data-toggle="tab">未回复留言</a></li>
+							<li><a href="#tab3"  role="tab" data-toggle="tab">已回复留言</a></li>
+						</ul>
 
-									<a class="panel-title collapsed btn btn-info"
-									   data-toggle="collapse"
-									   style="float: right;"
-									   href="#panel-element-1">查看详情</a>
-									<a class="panel-title collapsed btn btn-info"
-									   data-toggle="collapse"
-									   style="float: right;margin-right: 20px;"
-									   onclick="delComment()">删除留言</a>
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="tab1">
 
-								</div>
-								<div id="panel-element-1" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p style="line-height: 20px;"> 这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，
-											这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容
-											这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容，这里是留言内容</p>
-										<textarea class="form-control" rows="4" style="margin-top: 20px;margin-bottom: 20px;">这里是留言回复</textarea>
-										<input class="btn btn-info" value="修改" >
+								<div class="panel-group">
+
+									<div th:each="comment:${all}">
+										<div class="panel panel-info">
+											<div class="panel-heading" style="height: 53px;line-height: 35px;font-size: 17px;">
+												<span style="margin-right: 35px">[[${comment.publishDate}]]</span>
+												<span style="margin-right: 35px">[[${comment.email}]]</span>
+
+												<a class="panel-title collapsed btn btn-info"
+												   data-toggle="collapse"
+												   style="float: right;"
+												   th:href="@{'#panel-element-'+${comment.id}}">查看详情</a>
+												<a class="panel-title collapsed btn btn-info"
+												   style="float: right;margin-right: 20px;"
+												   th:href="@{'/manage/delComment?id='+${comment.id}}">删除留言</a>
+
+											</div>
+											<div th:id="@{'panel-element-'+${comment.id}}" class="panel-collapse collapse">
+												<div class="panel-body">
+												<p style="line-height: 20px;"> [[${comment.content}]]</p>
+													<form method="post" action="/manage/fixComment">
+														<textarea class="form-control" rows="4" style="margin-top: 20px;
+														margin-bottom: 20px;" required="required" name="reply">[[${comment.reply}]]</textarea>
+														<input type="hidden" th:value="${comment.id}" name="id">
+														<input class="btn btn-info" value="修改" type="submit">
+													</form>
+												</div>
+											</div>
+										</div>
 									</div>
+
 								</div>
+
+
+
+							</div>
+							<!--tab2-->
+							<div role="tabpanel" class="tab-pane" id="tab2">
+								22222222
+							</div>
+							<!--tab3-->
+							<div role="tabpanel" class="tab-pane" id="tab3">
+								333333333
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>

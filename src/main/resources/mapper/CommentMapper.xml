@@ -40,5 +40,15 @@
         select message.*,article.title from article,message where message.aid=article.id and article.status=1
         order by message.publishdate desc
     </select>
+
+    <!--write by 高谦 -->
+    <update id="fixComment">
+        update message set message.reply=#{reply} where message.id=#{id}
+    </update>
+
+    <!--write by 高谦 -->
+    <delete id="delComment">
+        delete from message where message.id=#{id}
+    </delete>
 </mapper>
 

@@ -235,9 +235,22 @@ public class BackManageController {
     public String CommentManage(Map<String,Object> map) {
         User user = userService.getDefaultUser();
         map.put("user", user);
-        ArrayList<Comment> comments = (ArrayList<Comment>)
+        ArrayList<Comment> all = (ArrayList<Comment>)
                 commentService.getAllComment();
-        map.put("comments", comments);
+
+        ArrayList<Comment> finish=new ArrayList<>();
+        ArrayList<Comment> unfinish=new ArrayList<>();
+        for(int i=0;i<all.size();i++){
+            if(all.get(i).getReply()==null){
+                unfinish.add(all.get(i));
+            }else{
+                finish.add(all.get(i));
+            }
+        }
+        System.out.println(all.size());
+        map.put("all", all);
+        map.put("finish",finish);
+        map.put("unfinish",unfinish);
         return "backmanage/commentManage";
     }
 
@@ -254,4 +267,29 @@ public class BackManageController {
         map.put("categories", categories);
         return "backmanage/fix";
     }
+
+    /**
+     * write by 高谦
+     * @param id
+     * @param reply
+     * @return
+     */
+    @PostMapping("/manage/fixComment")
+    public String fixComment(@RequestParam("id") Integer id,
+                             @RequestParam("reply") String reply){
+        commentService.fixComment(id,reply);
+        return "redirect:/manage/comment";
+    }
+
+    /**
+     * write by 高谦
+     * @param id
+     * @return
+     */
+    @GetMapping("/manage/delComment")
+    public String delComment(@RequestParam("id") Integer id){
+        commentService.delComment(id);
+        return "redirect:/manage/comment";
+    }
+
 }

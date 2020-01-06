@@ -68,7 +68,7 @@
                     	<h2>分类专栏</h2>
                         <span class="intro_text">博客分类专栏，方便浏览</span>
                         <ul>
-                        	<li th:each="category:${categories}"><a href="">[[${category.name}]]</a></li>
+                        	<li th:each="category:${categories}"><a th:href="@{'/articles/list?type='+${category.id}}">[[${category.name}]]</a></li>
                         </ul>
                         <div class="readmore" style="text-indent: 0"><a href="/category" title="Read More">更多专栏</a></div>
                     </div>

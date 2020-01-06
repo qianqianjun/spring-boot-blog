@@ -40,4 +40,21 @@ public class CommentService {
     public List<Comment> getAllComment() {
         return commentDao.getAllComments();
     }
+
+    /**
+     *write by 高谦
+     * @param id
+     * @param reply
+     */
+    public void fixComment(Integer id, String reply) {
+        commentDao.fixComment(id,reply);
+    }
+
+    /**
+     *write by 高谦
+     * @param id
+     */
+    public void delComment(Integer id) {
+        commentDao.delComment(id);
+    }
 }

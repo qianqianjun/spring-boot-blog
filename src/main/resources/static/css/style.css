@@ -826,3 +826,25 @@ img.alignleft {
 	border: 1px solid #ccc;
 	border-radius: 4px;
 }
+
+.comment-li{
+	border-bottom: 1px solid red;
+	padding-bottom: 10px;
+	width: 700px;
+	padding-right: 20px;
+}
+
+.date-span{
+	margin-left: 100px;
+	color: #efb9b9;
+}
+
+.message-p{
+	padding-left: 24px;
+	color: white;
+}
+
+.reply-p{
+	padding-left: 24px;
+	color: #00feff;
+}
