@@ -5,7 +5,7 @@
 <!--author 刘权达 文章相关数据库操作-->
 <mapper namespace="com.buct.blog.dao.ArticleDao">
     <resultMap id="ArticlesInOrderMapper" type="com.buct.blog.domain.Article">
-        <id column="id" javaType="Integer" jdbcType="INTEGER" property="id"></id>
+        <result column="id" javaType="Integer" jdbcType="INTEGER" property="id"></result>
         <result column="title" javaType="String" jdbcType="VARCHAR" property="title"></result>
         <result column="blob" javaType="Object" jdbcType="BLOB" property="blob"></result>
         <result column="type" javaType="Integer" jdbcType="INTEGER" property="type"></result>
@@ -14,6 +14,21 @@
         <result column="outstanding" javaType="Integer" jdbcType="INTEGER" property="outstanding"></result>
         <result column="imgurl" javaType="String" jdbcType="VARCHAR" property="imgurl"></result>
         <result column="status" javaType="Integer" jdbcType="INTEGER" property="status"></result>
+    </resultMap>
+    <resultMap id="ArticleAndCategoryMapper" type="com.buct.blog.domain.ArticleAndCategory">
+        <result column="articleid" javaType="Integer" jdbcType="INTEGER" property="articleId"></result>
+        <result column="title" javaType="String" jdbcType="VARCHAR" property="title"></result>
+        <result column="type" javaType="Integer" jdbcType="INTEGER" property="type"></result>
+        <result column="articlepublishdate" javaType="String" jdbcType="VARCHAR" property="articlePublishDate"></result>
+        <result column="visitornum" javaType="Integer" jdbcType="INTEGER" property="visitorNum"></result>
+        <result column="outstanding" javaType="Integer" jdbcType="INTEGER" property="outstanding"></result>
+        <result column="articleimgurl" javaType="String" jdbcType="VARCHAR" property="articleImgurl"></result>
+        <result column="status" javaType="Integer" jdbcType="INTEGER" property="status"></result>
+        <result column="articleabstruct" javaType="String" jdbcType="VARCHAR" property="articleAbstruct"></result>
+        <result column="name" javaType="String" jdbcType="VARCHAR" property="name"></result>
+        <result column="description" javaType="String" jdbcType="VARCHAR" property="description"></result>
+        <result column="categoryimgurl" javaType="String" jdbcType="VARCHAR" property="categoryImgurl"></result>
+        <result column="categorypublishdate" javaType="String" jdbcType="VARCHAR" property="categoryPublishDate"></result>
     </resultMap>
     <select id="getArticlesByDate" resultMap="ArticlesInOrderMapper">
         select * from article where status = 1 order by publishDate desc limit #{k};
@@ -70,6 +85,40 @@
         select * from article where article.status=1
     </select>
 
+    <select id="getAllPublishArticlesAndCategory" resultMap="ArticleAndCategoryMapper">
+        select article.id as articleid,title,type,
+        article.publishdate as articlepublishdate,
+         visitornum,outstanding,article.imgurl as articleimgurl,status,
+          article.abstruct as articleabstruct,name,description,
+          category.imgurl as categoryimgurl,
+           category.publishdate as categorypublishdate
+           from article left outer join category on article.type=category.id where status=1
+    </select>
+    <select id="getAllUnpublishArticles" resultMap="ArticleAndCategoryMapper">
+       select article.id as articleid,title,type,
+        article.publishdate as articlepublishdate,
+         visitornum,outstanding,article.imgurl as articleimgurl,status,
+          article.abstruct as articleabstruct,name,description,
+          category.imgurl as categoryimgurl,
+           category.publishdate as categorypublishdate
+           from article left outer join category on article.type=category.id where status=0
+    </select>
+    <select id="getAllDeleteArticles" resultMap="ArticleAndCategoryMapper">
+        select article.id as articleid,title,type,
+        article.publishdate as articlepublishdate,
+         visitornum,outstanding,article.imgurl as articleimgurl,status,
+          article.abstruct as articleabstruct,name,description,
+          category.imgurl as categoryimgurl,
+           category.publishdate as categorypublishdate
+           from article left outer join category on article.type=category.id where status=2
+    </select>
+    <select id="softDeleteArticle">
+        delete from article where id=#{id}
+    </select>
+    <select id="setArticlePublishDate">
+        update article set publishdate=now() where id=#{id};
+    </select>
+
     <!--高谦添加 用于查询 Article， 返回带有专栏名称的view -->
     <resultMap id="articleView" type="com.buct.blog.domain.Article">
         <id column="id" javaType="Integer" jdbcType="INTEGER" property="id"></id>
@@ -94,4 +143,5 @@
     <update id="cancleBanner">
         update article set article.outstanding=0 where article.id=#{id}
     </update>
+
 </mapper>

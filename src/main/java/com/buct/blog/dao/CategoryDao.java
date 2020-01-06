@@ -24,6 +24,8 @@ public interface CategoryDao {
     public void setCategoryDescription(Integer id,String description);
     //修改专栏图片
     public void setCategoryImgurl(Integer id,String imgurl);
+    //获取专栏名称
+    public String getCategoryName(Integer id);
 
     /**
      * write by 高谦

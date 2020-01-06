@@ -1,15 +1,13 @@
 package com.buct.blog.controller;
 import com.buct.blog.domain.Article;
+import com.buct.blog.domain.ArticleAndCategory;
 import com.buct.blog.domain.Category;
 import com.buct.blog.domain.Comment;
 import com.buct.blog.domain.User;
 import com.buct.blog.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.processor.comment.ICommentStructureHandler;
 
@@ -28,11 +26,11 @@ public class BackManageController {
     @Autowired
     UserService userService;
     @Autowired
+    ArticleService articleService;
+    @Autowired
     CategoryService categoryService;
     @Autowired
     FileService fileService;
-    @Autowired
-    ArticleService articleService;
     @Autowired
     CommentService commentService;
 
@@ -74,9 +72,28 @@ public class BackManageController {
     public String manageArticle(HttpServletRequest request,Map<String,Object> map){
         User user=userService.getDefaultUser();
         map.put("user",user);
+        ArrayList<ArticleAndCategory> arrayList = (ArrayList<ArticleAndCategory>) articleService.getAllPublishArticlesAndCategory();
+        map.put("publishArticles",arrayList);
+        System.out.println(arrayList);
+        ArrayList<ArticleAndCategory> arrayList1 =
+                (ArrayList<ArticleAndCategory>) articleService.getAllUnpublishArticles();
+        map.put("unpublishArticles",arrayList1);
+        ArrayList<ArticleAndCategory> arrayList2 =
+                (ArrayList<ArticleAndCategory>) articleService.getAllDeleteArticles();
+        map.put("deleteArticles",arrayList2);
         return "backmanage/articleManage";
     }
 
+
+    @GetMapping("/manage/category")
+    public String manageCategory(HttpServletRequest request,Map<String,Object> map){
+        User user=(User) request.getSession().getAttribute("user");
+        map.put("user",user);
+        ArrayList<Category> arrayList = (ArrayList<Category>) categoryService.getAllCategories();
+        map.put("categories",arrayList);
+        System.out.println(arrayList);
+        return "backmanage/categoryManage";
+    }
     /**
      * 写文章索引页面
      * @param request 获取session
@@ -163,6 +180,7 @@ public class BackManageController {
         return user;
     }
 
+
     /**
      * 设置轮播界面的接口
      * @param map 前台数据传送器
@@ -214,12 +232,26 @@ public class BackManageController {
      * @return 返回所有的评论
      */
     @GetMapping("/manage/comment")
-    public String CommentManage(Map<String,Object> map){
-        User user=userService.getDefaultUser();
-        map.put("user",user);
-        ArrayList<Comment> comments=(ArrayList<Comment>)
+    public String CommentManage(Map<String,Object> map) {
+        User user = userService.getDefaultUser();
+        map.put("user", user);
+        ArrayList<Comment> comments = (ArrayList<Comment>)
                 commentService.getAllComment();
-        map.put("comments",comments);
+        map.put("comments", comments);
         return "backmanage/commentManage";
+    }
+
+
+    @GetMapping("/manage/changeArticle")
+    public String changeArticle(HttpServletRequest request,
+                                @RequestParam("id") Integer id,
+                                Map<String,Object>map) {
+        User user = userService.getDefaultUser();
+        map.put("user", user);
+        Article article = articleService.getArticleById(id);
+        map.put("article", article);
+        ArrayList<Category> categories = (ArrayList<Category>) categoryService.getCategoriesLimits(1000);
+        map.put("categories", categories);
+        return "backmanage/fix";
     }
 }

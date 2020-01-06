@@ -3,6 +3,7 @@ package com.buct.blog.service;
 import com.buct.blog.dao.ArticleDao;
 import com.buct.blog.dao.CarouselDao;
 import com.buct.blog.domain.Article;
+import com.buct.blog.domain.ArticleAndCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -126,6 +127,13 @@ public class ArticleService {
     public void setArticleStatus(Integer id,Integer status){
         articleDao.setArticleStatus(id,status);
     }
+    //获取所有已发布文章
+    public List<ArticleAndCategory> getAllPublishArticlesAndCategory(){
+        return articleDao.getAllPublishArticlesAndCategory();}
+    //获取所有未发布文章
+    public List<ArticleAndCategory> getAllUnpublishArticles(){return articleDao.getAllUnpublishArticles();}
+    //获取所有已删除文章
+    public List<ArticleAndCategory> getAllDeleteArticles(){return articleDao.getAllDeleteArticles();}
 
     /**
      * write by 高谦
@@ -170,4 +178,5 @@ public class ArticleService {
     public void cancleBanner(Integer id) {
         articleDao.cancleBanner(id);
     }
+
 }

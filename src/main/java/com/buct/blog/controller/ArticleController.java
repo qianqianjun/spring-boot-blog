@@ -6,11 +6,12 @@ import com.buct.blog.domain.Comment;
 import com.buct.blog.service.ArticleService;
 import com.buct.blog.service.CategoryService;
 import com.buct.blog.service.CommentService;
-import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -96,6 +97,28 @@ public class ArticleController {
         return article;
     }
 
+
+
+    //发布文章，status=1
+    @GetMapping("/publishArticle")
+    public String publishArticle(@RequestParam("id") Integer id){
+        articleService.setArticleStatus(id,1);
+        return "redirect:/manage/article";
+    }
+    //撤销文章
+    @GetMapping("/cancelArticle")
+    public String cancelArticle(@RequestParam("id") Integer id){
+        System.out.println(id);
+        articleService.setArticleStatus(id,0);
+        return "redirect:/manage/article";
+    }
+    //删除文章
+    @GetMapping("/deleteArticle")
+    public String deleteArticle(@RequestParam("id") Integer id) {
+        articleService.setArticleStatus(id, 2);
+        return "redirect:/manage/article";
+    }
+
     /**
      * 添加评论接口
      * @param aid 评论对应的文章的 id
@@ -114,6 +137,7 @@ public class ArticleController {
         comment.setContent(content);
         comment.setEmail(email);
         return comment;
+
     }
 
 }

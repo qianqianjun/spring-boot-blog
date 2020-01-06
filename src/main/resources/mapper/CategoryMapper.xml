@@ -55,4 +55,7 @@
     <select id="getCategoryById" resultType="com.buct.blog.domain.Category">
         select * from category where category.id=#{id}
     </select>
+    <select id="getCategoryName">
+        select category.name from category where id=#{id};
+    </select>
 </mapper>

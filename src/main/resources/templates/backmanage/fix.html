@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!--写文章页面  高谦-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Markdown Demo</title>
+    <script src="/js/backmanage/showdown.min.js"></script>
+    <script src="/js/backmanage/jquery.min.js"></script>
+    <link href="/css/backmanage/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="/js/backmanage/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="/js/backmanage/bootstrap.min.js" type="text/javascript"></script>
+    <link href="/css/backmanage/write.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+<div class="top">
+    <input type="text" class="title" th:value="${article.title}" id="title">
+    <a href="#publish-window" data-toggle="modal"><input type="button" value="保存文章" class="publish"></a>
+    <img th:src="${user.img}" class="avar img-circle">
+</div>
+<ul class="menu">
+    <li style="margin-left: -8px;"><a href="#add-img-window" data-toggle="modal">上传图片</a></li>
+    <li><a href="#add-link-window" data-toggle="modal">添加链接</a></li>
+    <li><a href="#add-abstruct-window" data-toggle="modal">修改摘要</a></li>
+</ul>
+<div class="editor-box">
+    <textarea class="markdown-editor" id="editor"  oninput="preview()">[[${article.content}]]</textarea>
+</div>
+<div class="preview-box">
+    <div class="markdown-preview" id="preview">
+    </div>
+</div>
+<script type="text/javascript">
+    var converter = new showdown.Converter();
+    $('#preview').html(converter.makeHtml($('#editor').val()))
+    function preview(){
+        $('#preview').html(converter.makeHtml($('#editor').val()))
+    }
+</script>
+
+<div class="container">
+    <div class="row clearfix">
+        <!--上传图片部分-->
+        <div class="col-md-12 column">
+            <div class="modal fade" id="add-img-window" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">
+                                上传图片文件，复制内容到文章
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="upload_img">
+                                <input type="file" class="form-control" style="margin-top: 10px"
+                                       required="required" id="file">
+                                <input type="submit" value="上传文件" class="btn btn-default"
+                                       style="margin-top: 10px;">
+                            </form>
+                            <input type="text" class="form-control"
+                                   style="margin-top: 10px" id="img_url">
+                        </div>
+                        <script type="text/javascript">
+                            var upload_img=document.getElementById("upload_img");
+                            var file_input=document.getElementById("file");
+                            var result_input=document.getElementById("img_url");
+                            upload_img.addEventListener("submit",function (event) {
+                                var files=file_input.files;
+                                result_input.innerText="";
+                                if(files.length===0){
+                                    alert("请您添加文件");
+                                }else{
+                                    uploadFile(files[0]);
+                                }
+                                event.preventDefault();
+                            },true);
+                            function uploadFile(file) {
+                                var formDate=new FormData();
+                                formDate.append("file",file);
+                                var xhr=new XMLHttpRequest();
+                                xhr.open("POST","/upload");
+                                xhr.onload=function (ev) {
+                                    console.log(xhr.responseText);
+                                    if(xhr.responseText===''){
+                                        alert("上传失败！");
+                                    }else{
+                                        result_input.value="![在这里插入图片描述](/upload/"+xhr.responseText+")";
+                                    }
+                                };
+                                xhr.send(formDate);
+                            }
+                        </script>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">确认</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--修改摘要部分-->
+        <div class="col-md-12 column">
+            <div class="modal fade" id="add-abstruct-window" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">
+                                填写文章摘要信息
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class="form-control" style="width: 100%;height: 200px" id="abstruct">[[${article.abstruct}]]</textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">确认</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--上传链接部分-->
+        <div class="col-md-12 column">
+            <div class="modal fade" id="add-link-window" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">
+                                填写链接地址，复制生成的结果到文章
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <input class="form-control" type="text"
+                                   placeholder="输入链接地址"
+                                   oninput="getUrl(this)" style="margin-top: 10px;">
+                            <input class="form-control" type="text" style="margin-top: 10px;" id="res_url">
+                        </div>
+                        <script type="text/javascript">
+                            function getUrl(obj) {
+                                $("#res_url").val("[添加链接描述]("+obj.value+")")
+                            }
+                        </script>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--保存文章部分-->
+        <div class="col-md-12 column">
+            <div class="modal fade" id="publish-window" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">
+                                保存文章
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="publish-form">
+                                <label for="cate">选择所属专栏</label>
+                                <select  class="form-control" id="cate" style="margin-top: 10px">
+                                    <option th:each="category:${categories}" th:value="${category.id}">[[${category.name}]]</option>
+                                </select>
+                                <input type="submit" value="确认保存" class="btn btn-default" style="margin-top: 10px">
+                            </form>
+
+                            <script type="text/javascript">
+                                var publish_form=document.getElementById("publish-form");
+                                var abstruct_input=document.getElementById("abstruct");
+                                var md_source_input=document.getElementById("editor");
+                                var title_input=document.getElementById("title");
+                                var category_select=document.getElementById("cate");
+                                publish_form.addEventListener("submit",function (event) {
+                                    if(abstruct_input.value.length===0){
+                                        alert("请您输入摘要信息！");
+                                    }else if(md_source_input.value.length===0){
+                                        alert("请您输入文章内容");
+                                    }else if(title_input.value.length===0){
+                                        alert("请您输入文章标题");
+                                    }else{
+                                        changeArticle();
+                                    }
+                                    event.preventDefault();
+
+                                },true);
+                                function changeArticle() {
+                                    var fromData=new FormData();
+                                    fromData.append("title",title_input.value);
+                                    fromData.append("content",md_source_input.value);
+                                    fromData.append("type",category_select.value);
+                                    fromData.append("abstruct",abstruct_input.value);
+                                    fromData.append("imgurl","");
+                                    fromData.append("status","1");
+
+                                    var xhr=new XMLHttpRequest();
+                                    xhr.open("POST","/addArticle");
+                                    xhr.onload=function (ev) {
+                                        if(xhr.status===200){
+                                            alert("发布文章成功");
+                                        }else{
+                                            alert("发布文章失败，请检查服务器状态！");
+                                        }
+                                        document.querySelector("#close-publish-window").click();
+                                    };
+                                    xhr.send(fromData);
+                                }
+                            </script>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="close-publish-window">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+</body>
+</html>
