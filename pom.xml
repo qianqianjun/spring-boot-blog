@@ -10,24 +10,18 @@
         <version>2.1.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>buct</groupId>
-    <artifactId>software</artifactId>
+    <groupId>com</groupId>
+    <artifactId>buct</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>software</name>
-    <description>Demo project for Spring Boot</description>
+    <name>blog</name>
+    <description>IT Technology Blog</description>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-        <!--<dependency>-->
-        <!--<groupId>org.apache.poi</groupId>-->
-        <!--<artifactId>poi</artifactId>-->
-        <!--<version>3.17</version>-->
-        <!--</dependency>-->
-        <!--添加大打包依赖-->
+        <!--添加打包依赖-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -44,7 +38,7 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -106,10 +100,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-mvc</artifactId>-->
-        <!--</dependency>-->
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

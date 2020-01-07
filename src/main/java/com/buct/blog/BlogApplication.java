@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * 启动加载类
  */
 @SpringBootApplication
-//@SpringBootApplication
 @MapperScan("com.buct.blog.dao")
 public class BlogApplication {
 
