@@ -34,7 +34,8 @@
 								</div>
 								<form role="form" id="picture-form">
 									<input type="file" id="picture-file" class="form-control"
-									style="width: 300px;margin-bottom: 20px;margin-top: 10px;">
+									style="width: 300px;margin-bottom: 20px;margin-top: 10px;"
+										   required="required">
 									<input type="submit" value="上传图像" class="btn btn-info">
 								</form>
 								<script type="text/javascript">
@@ -50,7 +51,7 @@
 											var xhr=new XMLHttpRequest();
 											xhr.open("POST","/manage/chanagePic");
 											xhr.onload=function (ev) {
-												if(xhr.responseText!=null){
+												if(xhr.status===200 && xhr.responseText!=null){
 													alert("修改成功");
 													document.querySelector("#preview-upload").setAttribute("src",xhr.responseText);
 												}else{
@@ -223,7 +224,7 @@
 		</div>
 
 	</div>
-	<div class="copy">2016-2020 © qianqianjun 版权所有 .</div>
+	<div th:replace="compoment/copy::copy"></div>
 </div>
 <!--main end-->
 

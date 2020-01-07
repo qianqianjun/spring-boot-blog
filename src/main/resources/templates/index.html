@@ -56,7 +56,7 @@
                     <!--BEGIN 1st column-->
                 	<div class="first services">
                     	<h2>最新文章</h2>
-                        <span class="intro_text">博主最新发布的文章</span>
+                        <span class="intro_text">最新发布的文章</span>
                         <ul>
                             <li th:each="article:${newest}"><a th:href="@{'/articles/detail?aid='+${article.id}}">[[${article.title}]]</a></li>
                         </ul>
@@ -66,7 +66,7 @@
                     <!--BEGIN 2nd column-->
                     <div class="services">
                     	<h2>分类专栏</h2>
-                        <span class="intro_text">博客分类专栏，方便浏览</span>
+                        <span class="intro_text">分类专栏，方便浏览</span>
                         <ul>
                         	<li th:each="category:${categories}"><a th:href="@{'/articles/list?type='+${category.id}}">[[${category.name}]]</a></li>
                         </ul>

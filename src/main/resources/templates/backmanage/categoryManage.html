@@ -110,7 +110,7 @@
                                          width="200" height="200" id="preview-upload">
                                 </div>
                                 <form role="form" id="picture-form">
-                                    <input type="file" id="picture-file" class="form-control"
+                                    <input type="file" id="picture-file" class="form-control" required="required"
                                            style="width: 300px;margin-bottom: 20px;margin-top: 10px;">
                                     <input type="submit" value="上传图像" class="btn btn-info">
                                 </form>
@@ -120,7 +120,7 @@
                                         var file_inputs=document.querySelector("#picture-file");
                                         var imgurl_input=document.querySelector("#imgurl");
                                         var files=file_inputs.files;
-                                        if(files.length===0&&imgurl_input.value==null){
+                                        if(files.length===0 && imgurl_input.value==null){
                                             alert("请您添加图像文件！");
                                         }else{
                                             var formData=new FormData();
@@ -128,8 +128,8 @@
                                             var xhr=new XMLHttpRequest();
                                             xhr.open("POST","/upload");
                                             xhr.onload=function (ev) {
-                                                if(xhr.responseText!=null){
-                                                    alert("修改成功");
+                                                if(xhr.status===200){
+                                                    alert("上传成功！");
                                                     document.querySelector("#preview-upload").setAttribute("src",'/upload/'+xhr.responseText);
                                                     var temp = document.querySelector("#imgurl");
                                                     temp.value = '/upload/'+xhr.responseText;
@@ -237,7 +237,7 @@
         </div>
         <!--栏目管理 end-->
     </div>
-    <div class="copy">2016-2020 © qianqianjun 版权所有 .</div>
+    <div th:replace="compoment/copy::copy"></div>
 </div>
 <div class="container">
     <div class="row clearfix">

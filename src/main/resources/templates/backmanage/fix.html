@@ -84,7 +84,7 @@
                                 xhr.open("POST","/upload");
                                 xhr.onload=function (ev) {
                                     console.log(xhr.responseText);
-                                    if(xhr.responseText===''){
+                                    if(xhr.status!==200 || xhr.responseText===''){
                                         alert("上传失败！");
                                     }else{
                                         result_input.value="![在这里插入图片描述](/upload/"+xhr.responseText+")";
