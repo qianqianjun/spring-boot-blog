@@ -1,6 +1,6 @@
-#### 详情浏览
+## 详情浏览，项目部署
 
-[介绍博客](https://blog.csdn.net/qq_38863413/article/details/103792573)
+[参见博客](https://blog.csdn.net/qq_38863413/article/details/103792573)
 
 ## 需求分析
 
